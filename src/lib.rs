@@ -35,5 +35,6 @@ mod archive;
 mod entry;
 mod error;
 mod manifest;
+mod options;
 mod stub;
 mod util;
