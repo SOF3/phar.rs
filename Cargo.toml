@@ -1,0 +1,17 @@
+[package]
+name = "phar"
+version = "0.1.0"
+authors = ["SOFe <sofe2038@gmail.com>"]
+edition = "2018"
+license = "Apache-2.0"
+repository = "https://github.com/SOF3/phar"
+homepage = "https://github.com/SOF3/phar"
+readme = "README.md"
+description = "Rust library for PHP phar format"
+
+[dependencies]
+bitflags = "1.2.1"
+byteorder = "1.3.4"
+itertools = "0.9.0"
+snafu = "0.6.6"
+
