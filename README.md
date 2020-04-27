@@ -1,5 +1,5 @@
 # phar
-[![Travis-CI](https://travis-ci.com/SOF3/phar.svg?branch=master)](https://travis-ci.com/SOF3/phar)
+[![GitHub actions](https://github.com/SOF3/phar.rs/workflows/CI/badge.svg)](https://github.com/SOF3/phar.rs/actions?query=workflow%3ACI)
 [![crates.io](https://img.shields.io/crates/v/phar.svg)](https://crates.io/crates/phar)
 [![crates.io](https://img.shields.io/crates/d/phar.svg)](https://crates.io/crates/phar)
 [![docs.rs](https://docs.rs/phar/badge.svg)](https://docs.rs/phar)
