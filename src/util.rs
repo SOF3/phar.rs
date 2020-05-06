@@ -53,7 +53,7 @@ pub fn read_bstr(file: &mut impl Read) -> Result<Vec<u8>> {
     let len = file
         .read_u32::<LittleEndian>()?
         .try_into()
-        .expect("At least 32-bit architecture is required");
+        .expect("usize is smaller than 32 bits");
     let mut vec = vec![0u8; len];
     file.read_exact(&mut vec[..])?;
     Ok(vec)

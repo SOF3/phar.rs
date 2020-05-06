@@ -31,11 +31,13 @@
 
 //! A library for manipulating PHP phar format.
 
+mod abstract_entry;
 mod entry;
 mod error;
 mod manifest;
 mod options;
 mod phar;
+mod signature;
 mod stub;
 mod util;
 
@@ -43,3 +45,5 @@ pub use entry::FileEntry;
 pub use error::*;
 pub use options::*;
 pub use phar::Phar;
+
+use abstract_entry::AbstractEntry;

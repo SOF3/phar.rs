@@ -14,10 +14,19 @@ bitflags = "1.2.1"
 byteorder = "1.3.4"
 cfg-if = "0.1.10"
 derive_builder = "0.9.0"
+digest = {version = "0.8.1", optional = true}
+getset = "0.1.0"
 itertools = "0.9.0"
+md5 = {version = "0.7.0", optional = true}
+reaves = "0.1.1"
+sha-1 = {version = "0.8.2", optional = true}
+sha2 = {version = "0.8.1", optional = true}
 snafu = "0.6.6"
 tempfile = {version = "3.1.0", optional = true}
 
 [features]
-default = ["temp-buffer"]
+default = ["temp-buffer", "sig-md5", "sig-sha1", "sig-sha2"]
 temp-buffer = ["tempfile"]
+sig-md5 = ["md5"]
+sig-sha1 = ["sha-1", "digest"]
+sig-sha2 = ["sha2", "digest"]
