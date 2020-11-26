@@ -1,151 +1,121 @@
-use std::io::{sink, Sink, Write};
+use std::io::{Result, Write};
 
-use cfg_if::cfg_if;
+use digest::Digest;
+use smallvec::SmallVec;
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum SignatureType {
-    Md5,
-    Sha1,
-    Sha256,
-    Sha512,
-    // TODO: support openssl signatures
+/// A possible phar signature
+pub enum Signature {
+    #[cfg(feature = "sig-md5")]
+    #[cfg_attr(feature = "docsrs", doc(cfg(feature = "sig-md5")))]
+    Md5(md5::Md5),
+    #[cfg(feature = "sig-sha1")]
+    #[cfg_attr(feature = "docsrs", doc(cfg(feature = "sig-sha1")))]
+    Sha1(sha1::Sha1),
+    #[cfg(feature = "sig-sha2")]
+    #[cfg_attr(feature = "docsrs", doc(cfg(feature = "sig-sha2")))]
+    Sha256(sha2::Sha256),
+    #[cfg(feature = "sig-sha2")]
+    #[cfg_attr(feature = "docsrs", doc(cfg(feature = "sig-sha2")))]
+    Sha512(sha2::Sha512),
 }
 
-impl SignatureType {
-    pub fn from_save_id(flag: u32) -> Option<Self> {
-        Some(match flag {
-            0x0001 => Self::Md5,
-            0x0002 => Self::Sha1,
-            0x0004 => Self::Sha256,
-            0x0008 => Self::Sha512,
+impl Signature {
+    /// Creates a signature from the phar format flag
+    pub fn from_u32(discrim: u32) -> Option<Signature> {
+        Some(match discrim {
+            #[cfg(feature = "sig-md5")]
+            1 => Self::Md5(Digest::new()),
+            #[cfg(feature = "sig-sha1")]
+            2 => Self::Sha1(Digest::new()),
+            #[cfg(feature = "sig-sha2")]
+            4 => Self::Sha256(Digest::new()),
+            #[cfg(feature = "sig-sha2")]
+            8 => Self::Sha512(Digest::new()),
             _ => return None,
         })
     }
 
-    pub fn to_save_id(self) -> u32 {
+    /// Returns the phar format flag of the signature type
+    pub fn to_u32(&self) -> u32 {
         match self {
-            Self::Md5 => 0x0001,
-            Self::Sha1 => 0x0002,
-            Self::Sha256 => 0x0004,
-            Self::Sha512 => 0x0008,
+            #[cfg(feature = "sig-md5")]
+            Self::Md5(_) => 1,
+            #[cfg(feature = "sig-sha1")]
+            Self::Sha1(_) => 2,
+            #[cfg(feature = "sig-sha2")]
+            Self::Sha256(_) => 4,
+            #[cfg(feature = "sig-sha2")]
+            Self::Sha512(_) => 8,
         }
     }
 
-    pub fn to_save_length(self) -> u64 {
+    /// The number of bytes used for this signature
+    pub fn size(&self) -> u8 {
         match self {
-            Self::Md5 => 16,
-            Self::Sha1 => 20,
-            Self::Sha256 => 32,
-            Self::Sha512 => 64,
+            #[cfg(feature = "sig-md5")]
+            Self::Md5(_) => 16,
+            #[cfg(feature = "sig-sha1")]
+            Self::Sha1(_) => 20,
+            #[cfg(feature = "sig-sha2")]
+            Self::Sha256(_) => 32,
+            #[cfg(feature = "sig-sha2")]
+            Self::Sha512(_) => 64,
         }
     }
 
-    pub fn to_verifier(self) -> Result<Box<dyn SignatureVerifier>, UnsupportedSignature> {
+    /// Returns a `Write` that writes to the underlying digest
+    pub fn write(&mut self) -> &mut dyn Write {
         match self {
-            Self::Md5 => {
-                cfg_if! {
-                    if #[cfg(feature = "sig-md5")] {
-                        Ok(Box::new(Md5Verifier { write: md5::Context::new() }))
-                    } else {
-                        Err(UnsupportedSignature::Md5)
-                    }
-                }
-            }
-            Self::Sha1 => {
-                cfg_if! {
-                    if #[cfg(feature = "sig-sha1")] {
-                        use sha1::Digest;
-                        Ok(Box::new(DigestVerifier { write: sha1::Sha1::new() }))
-                    } else {
-                        Err(UnsupportedSignature::Sha1)
-                    }
-                }
-            }
-            Self::Sha256 | Self::Sha512 => {
-                cfg_if! {
-                    if #[cfg(feature = "sig-sha2")] {
-                        use sha1::Digest;
-                        match self {
-                            Self::Sha256 => Ok(Box::new(DigestVerifier { write: sha2::Sha256::new() })),
-                            Self::Sha512 => Ok(Box::new(DigestVerifier { write: sha2::Sha512::new() })),
-                            _ => unreachable!(),
-                        }
-                    } else {
-                        Err(UnsupportedSignature::Sha2)
-                    }
-                }
-            }
+            #[cfg(feature = "sig-md5")]
+            Self::Md5(digest) => digest,
+            #[cfg(feature = "sig-sha1")]
+            Self::Sha1(digest) => digest,
+            #[cfg(feature = "sig-sha2")]
+            Self::Sha256(digest) => digest,
+            #[cfg(feature = "sig-sha2")]
+            Self::Sha512(digest) => digest,
+        }
+    }
+
+    pub fn finalize(self) -> SmallVec<[u8; 64]> {
+        let mut ret = SmallVec::new();
+        match self {
+            #[cfg(feature = "sig-md5")]
+            Self::Md5(digest) => ret.extend(digest.finalize()[..].iter().copied()),
+            #[cfg(feature = "sig-sha1")]
+            Self::Sha1(digest) => ret.extend(digest.finalize()[..].iter().copied()),
+            #[cfg(feature = "sig-sha2")]
+            Self::Sha256(digest) => ret.extend(digest.finalize()[..].iter().copied()),
+            #[cfg(feature = "sig-sha2")]
+            Self::Sha512(digest) => ret.extend(digest.finalize()[..].iter().copied()),
+        };
+        ret
+    }
+}
+
+pub enum MaybeDummy {
+    Real(Signature),
+    Dummy(NullDevice),
+}
+
+impl MaybeDummy {
+    pub fn write(&mut self) -> &mut dyn Write {
+        match self {
+            Self::Real(sig) => sig.write(),
+            Self::Dummy(dev) => dev,
         }
     }
 }
 
-#[derive(Debug, snafu::Snafu)]
-pub enum UnsupportedSignature {
-    #[snafu(display("Support for signature type md5 is disabled"))]
-    Md5,
-    #[snafu(display("Support for signature type sha1 is disabled"))]
-    Sha1,
-    #[snafu(display("Support for signature types sha256/sha512 is disabled"))]
-    Sha2,
-}
+pub struct NullDevice;
 
-pub trait SignatureVerifier {
-    fn write(&mut self) -> &mut dyn Write;
-    fn verify(self: Box<Self>, sig: &[u8]) -> bool;
-}
-
-pub struct DummyVerifier {
-    sink: Sink,
-}
-
-impl Default for DummyVerifier {
-    fn default() -> Self {
-        Self { sink: sink() }
-    }
-}
-
-impl SignatureVerifier for DummyVerifier {
-    fn write(&mut self) -> &mut dyn Write {
-        &mut self.sink
+impl Write for NullDevice {
+    #[inline]
+    fn write(&mut self, buf: &[u8]) -> Result<usize> {
+        Ok(buf.len())
     }
 
-    fn verify(self: Box<Self>, _: &[u8]) -> bool {
-        true
-    }
-}
-
-cfg_if! {
-    if #[cfg(feature = "md5")] {
-        pub struct Md5Verifier {
-            write: md5::Context,
-        }
-
-        impl SignatureVerifier for Md5Verifier {
-            fn write(&mut self) -> &mut dyn Write {
-                &mut self.write
-            }
-
-            fn verify(self: Box<Self>, sig: &[u8]) -> bool {
-                <[u8; 16]>::from(self.write.compute()) == sig
-            }
-        }
-    }
-}
-
-cfg_if! {
-    if #[cfg(any(feature = "sig-sha1", feature = "sig-sha2"))] {
-        pub struct DigestVerifier<W: Write + digest::Digest> {
-            write: W,
-        }
-
-        impl<W: Write + sha2::Digest> SignatureVerifier for DigestVerifier<W> {
-            fn write(&mut self) -> &mut dyn Write {
-                &mut self.write
-            }
-
-            fn verify(self: Box<Self>, sig: &[u8]) -> bool {
-                &self.write.result()[..] == sig
-            }
-        }
+    fn flush(&mut self) -> Result<()> {
+        Ok(())
     }
 }

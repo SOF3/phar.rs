@@ -1,4 +1,6 @@
+#![cfg_attr(feature = "docsrs", feature(doc_cfg))]
 #![warn(
+    unused_results,
     unused_qualifications,
     variant_size_differences,
     clippy::checked_conversions,
@@ -14,8 +16,7 @@
     clippy::float_cmp_const,
     clippy::if_not_else,
     clippy::indexing_slicing,
-    clippy::option_unwrap_used,
-    clippy::result_unwrap_used
+    clippy::unwrap_used
 )]
 #![cfg_attr(
     debug_assertions,
@@ -24,26 +25,32 @@
         unused_imports,
         unused_variables,
         unreachable_code,
-        unused_qualifications
+        unused_qualifications,
     )
 )]
 #![cfg_attr(not(debug_assertions), deny(warnings, missing_docs, clippy::dbg_macro))]
 
-//! A library for manipulating PHP phar format.
+//! A library for reading and writing files of the PHP phar format.
+//!
+//! Currently, this library only supports read-only and write-only styles.
 
-mod abstract_entry;
-mod entry;
-mod error;
-mod manifest;
-mod options;
-mod phar;
+#[cfg(feature = "reader")]
+#[cfg_attr(feature = "docsrs", doc(cfg(feature = "reader")))]
+pub use reader::Reader;
+
+#[cfg(feature = "reader")]
+#[cfg_attr(feature = "docsrs", doc(cfg(feature = "reader")))]
+pub mod reader;
+
+#[cfg(feature = "writer")]
+#[cfg_attr(feature = "docsrs", doc(cfg(feature = "writer")))]
+pub use writer::Writer;
+
+#[cfg(feature = "writer")]
+#[cfg_attr(feature = "docsrs", doc(cfg(feature = "writer")))]
+pub mod writer;
+
 mod signature;
-mod stub;
+pub use signature::Signature;
+
 mod util;
-
-pub use entry::FileEntry;
-pub use error::*;
-pub use options::*;
-pub use phar::Phar;
-
-use abstract_entry::AbstractEntry;
