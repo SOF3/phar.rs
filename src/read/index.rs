@@ -73,7 +73,7 @@ pub trait FileIndex: Default {
 }
 
 /// A subfamily of file indices for random access of files by name.
-pub trait RandomAccessFileIndex: FileIndex {
+pub trait RandomAccess: FileIndex {
     /// Returns the file contents range of the file of the required name.
     ///
     /// Returns `None` if there are no files with the specified name.

@@ -61,10 +61,11 @@ pub fn read_bstr(file: &mut impl Read) -> Result<Vec<u8>> {
 mod tests {
     use std::io::Cursor;
 
+    use super::super::Section;
+
     #[test]
     fn read_until_bstr() {
         let haystack = b"mississippi";
-        let mut buf = Vec::with_capacity(haystack.len());
 
         for needle in (1..=7).flat_map(|len| haystack.windows(len)) {
             let offset = haystack
@@ -72,10 +73,16 @@ mod tests {
                 .position(|substr| substr == needle)
                 .expect("needle was extracted from haystack");
 
-            buf.clear();
-            super::read_find_bstr(&mut Cursor::new(haystack.iter()), &mut buf, needle).expect(
+            let buf = Vec::with_capacity(haystack.len());
+            let mut section = Section::Cached(buf);
+            super::read_find_bstr(&mut Cursor::new(haystack.iter()), &mut section, needle).expect(
                 &format!("Failed to find needle {}", String::from_utf8_lossy(needle)),
             );
+
+            let buf = match section {
+                Section::Cached(buf) => buf,
+                _ => unreachable!(),
+            };
 
             assert_eq!(&haystack[0..offset + needle.len()], &buf[..]);
         }

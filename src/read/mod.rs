@@ -5,8 +5,8 @@ pub use reader::{Options, Reader};
 mod section;
 use section::Section;
 
-mod index;
-use index::FileIndex;
+pub mod index;
+pub use index::FileIndex;
 
 mod entry;
 use entry::Entry;

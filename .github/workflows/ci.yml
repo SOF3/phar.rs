@@ -34,3 +34,27 @@ jobs:
           default: true
       - name: cargo clippy
         run: "cargo clippy --all ${{matrix.stability}}"
+  test:
+    name: unit tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        toolchain:
+          - stable
+          - beta
+          - nightly
+        stability:
+          - ""
+          - "--release"
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: ${{matrix.toolchain}}
+          profile: default
+          default: true
+      - name: prepare test data
+        run: make
+        working-directory: data
+      - name: cargo test
+        run: "cargo test --all ${{matrix.stability}}"

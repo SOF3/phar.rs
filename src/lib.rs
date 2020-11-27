@@ -36,19 +36,19 @@
 
 #[cfg(feature = "reader")]
 #[cfg_attr(feature = "docsrs", doc(cfg(feature = "reader")))]
-pub use reader::Reader;
+pub use read::Reader;
 
 #[cfg(feature = "reader")]
 #[cfg_attr(feature = "docsrs", doc(cfg(feature = "reader")))]
-pub mod reader;
+pub mod read;
 
 #[cfg(feature = "writer")]
 #[cfg_attr(feature = "docsrs", doc(cfg(feature = "writer")))]
-pub use writer::Writer;
+pub use write::Writer;
 
 #[cfg(feature = "writer")]
 #[cfg_attr(feature = "docsrs", doc(cfg(feature = "writer")))]
-pub mod writer;
+pub mod write;
 
 mod signature;
 pub use signature::Signature;
