@@ -80,7 +80,7 @@ pub trait RandomAccess: FileIndex {
     fn read_file(&self, name: &[u8]) -> Option<Range<u64>>;
 }
 
-#[derive(Default)]
+#[derive(Debug, Default)]
 pub struct NoIndex {
     first_entry_offset: Option<u64>,
     num_files: u32,
@@ -151,7 +151,7 @@ impl FileIndex for NoIndex {
 /// where `n` is the number of files,
 /// and `m` is either `1` or the length of filenames
 /// depending on whether files are cached.
-#[derive(Default)]
+#[derive(Debug, Default)]
 pub struct OffsetOnly {
     content_offset: u64,
     entries: Vec<(Section, u32, u64)>,
@@ -204,7 +204,7 @@ impl FileIndex for OffsetOnly {
 }
 
 /// Indexes files by name for random access.
-#[derive(Default)]
+#[derive(Debug, Default)]
 pub struct NameMap<M> {
     map: M,
     last_offset: u64,
@@ -263,7 +263,7 @@ pub type NameHashMap = NameMap<HashMap<Vec<u8>, (u32, Range<u64>)>>;
 pub type NameBTreeMap = NameMap<BTreeMap<Vec<u8>, (u32, Range<u64>)>>;
 
 /// Indexes files by name for random access, and stores file metadata.
-#[derive(Default)]
+#[derive(Debug, Default)]
 pub struct MetadataMap<M> {
     pub(crate) map: M,
     last_offset: u64,
@@ -325,6 +325,7 @@ pub type MetadataHashMap = MetadataMap<HashMap<Vec<u8>, Range<u64>>>;
 /// Indexes files by name with a BTreeMap, and stores file metadata.
 pub type MetadataBTreeMap = MetadataMap<BTreeMap<Vec<u8>, Range<u64>>>;
 
+#[allow(clippy::unnecessary_wraps)]
 fn adapted_reader<'t>(flag: u32, r: impl Read + 't) -> Result<Box<(dyn Read + 't)>> {
     if (flag & 0x1000) > 0 {
         cfg_if! {

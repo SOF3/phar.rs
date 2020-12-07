@@ -2,7 +2,7 @@ use std::borrow::Cow;
 use std::convert::{TryFrom, TryInto};
 use std::io::{self, Read, Result, Seek, SeekFrom, Write};
 
-#[derive(Clone)]
+#[derive(Debug, Clone)]
 pub enum Section {
     Cached(Vec<u8>),
     Offset(u64, u64),
@@ -75,5 +75,17 @@ impl Section {
                 Cow::Owned(vec)
             }
         })
+    }
+
+    #[auto_enums::auto_enum(Transpose, Read)]
+    pub fn as_read<'t>(&'t self, read: &'t mut (impl Read + Seek)) -> Result<impl Read + 't> {
+        match self {
+            Self::Cached(vec) => Ok(io::Cursor::new(&vec[..])),
+            Self::Offset(start, end) => {
+                let _ = read.seek(SeekFrom::Start(*start))?;
+                Ok(read.take(*end - *start))
+            }
+        }
+        .transpose_ok()
     }
 }

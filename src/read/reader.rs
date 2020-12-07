@@ -11,6 +11,7 @@ use crate::signature::{self, Signature};
 use crate::util::{PHAR_TERMINATOR, STUB_TERMINATOR};
 
 /// The metadata of a phar file.
+#[derive(Debug)]
 #[cfg_attr(feature = "docsrs", doc(cfg(feature = "reader")))]
 pub struct Reader<R: Read + Seek, FileIndexT: FileIndex> {
     stream: R,
@@ -50,7 +51,7 @@ impl<R: Read + Seek, FileIndexT: FileIndex> Reader<R, FileIndexT> {
                 )
             })?;
 
-            let mut expect = Vec::<u8>::with_capacity(sig.size().into());
+            let mut expect = vec![0u8; sig.size().into()];
             let offset = read.seek(SeekFrom::End(-8i64 - i64::from(sig.size())))?;
             sig_offset = Some(offset);
             read.read_exact(&mut expect[..])?;
@@ -99,6 +100,7 @@ impl<R: Read + Seek, FileIndexT: FileIndex> Reader<R, FileIndexT> {
 
         if let (Some(expected_sig), Some(sig_offset)) = (expected_sig, sig_offset) {
             let _ = tee.seek(SeekFrom::Start(sig_offset))?;
+            drop(tee);
             let sig = match sig {
                 signature::MaybeDummy::Real(sig) => sig,
                 signature::MaybeDummy::Dummy(_) => {
@@ -121,6 +123,34 @@ impl<R: Read + Seek, FileIndexT: FileIndex> Reader<R, FileIndexT> {
             metadata,
             file_index,
         })
+    }
+
+    /// Returns the stub as a slice.
+    ///
+    /// If the stub was previously not stored in memory, it is stored in a new Vec.
+    /// Consider using `stub_read()` instead if `cache_stub` is false
+    /// and storing the stub in memory is not intended.
+    pub fn stub_bytes(&mut self) -> Result<impl AsRef<[u8]> + '_> {
+        self.stub.as_memory(&mut self.stream)
+    }
+
+    /// Returns the stub as an `io::Read`.
+    pub fn stub_read(&mut self) -> Result<impl Read + '_> {
+        self.stub.as_read(&mut self.stream)
+    }
+
+    /// Returns the metadata as a slice.
+    ///
+    /// If the metadata was previously not stored in memory, it is stored in a new Vec.
+    /// Consider using `metadata_read()` instead if `cache_metadata` is false
+    /// and storing the metadata in memory is not intended.
+    pub fn metadata_bytes(&mut self) -> Result<impl AsRef<[u8]> + '_> {
+        self.metadata.as_memory(&mut self.stream)
+    }
+
+    /// Returns the metadata as an `io::Read`.
+    pub fn metadata_read(&mut self) -> Result<impl Read + '_> {
+        self.metadata.as_read(&mut self.stream)
     }
 }
 

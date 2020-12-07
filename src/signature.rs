@@ -1,9 +1,11 @@
 use std::io::{Result, Write};
 
+use auto_enums::auto_enum;
 use digest::Digest;
 use smallvec::SmallVec;
 
 /// A possible phar signature
+#[derive(Debug)]
 pub enum Signature {
     #[cfg(feature = "sig-md5")]
     #[cfg_attr(feature = "docsrs", doc(cfg(feature = "sig-md5")))]
@@ -64,16 +66,17 @@ impl Signature {
     }
 
     /// Returns a `Write` that writes to the underlying digest
-    pub fn write(&mut self) -> &mut dyn Write {
+    pub fn write(&mut self) -> impl Write + '_ {
+        #[allow(clippy::as_conversions)]
         match self {
             #[cfg(feature = "sig-md5")]
-            Self::Md5(digest) => digest,
+            Self::Md5(digest) => digest as &mut dyn Write,
             #[cfg(feature = "sig-sha1")]
-            Self::Sha1(digest) => digest,
+            Self::Sha1(digest) => digest as &mut dyn Write,
             #[cfg(feature = "sig-sha2")]
-            Self::Sha256(digest) => digest,
+            Self::Sha256(digest) => digest as &mut dyn Write,
             #[cfg(feature = "sig-sha2")]
-            Self::Sha512(digest) => digest,
+            Self::Sha512(digest) => digest as &mut dyn Write,
         }
     }
 
@@ -99,7 +102,8 @@ pub enum MaybeDummy {
 }
 
 impl MaybeDummy {
-    pub fn write(&mut self) -> &mut dyn Write {
+    #[auto_enum(io::Write)]
+    pub fn write(&mut self) -> impl Write + '_ {
         match self {
             Self::Real(sig) => sig.write(),
             Self::Dummy(dev) => dev,
