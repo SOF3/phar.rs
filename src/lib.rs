@@ -29,6 +29,7 @@
     )
 )]
 #![cfg_attr(not(debug_assertions), deny(warnings, missing_docs, clippy::dbg_macro))]
+#![cfg_attr(not(debug_assertions), allow(clippy::unknown_clippy_lints))]
 
 //! A library for reading and writing files of the PHP phar format.
 //!
