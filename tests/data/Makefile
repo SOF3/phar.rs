@@ -1,3 +1,6 @@
+.PHONY: all
+all: plain.phar zip.phar ssl.phar
+
 plain.phar: plain.php; php -dphar.readonly=0 plain.php
 
 zip.phar: zip.php; php -dphar.readonly=0 zip.php
