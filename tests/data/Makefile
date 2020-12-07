@@ -1,9 +1,9 @@
-plain.phar: plain.php; php plain.php
+plain.phar: plain.php; php -dphar.readonly=0 plain.php
 
-zip.phar: zip.php; php zip.php
+zip.phar: zip.php; php -dphar.readonly=0 zip.php
 
 ssl.phar: ssl.php ssl-private.pem ssl.phar.pubkey
-	php ssl.php
+	php -dphar.readonly=0 ssl.php
 
 ssl-private.pem: Makefile
 	openssl genrsa -out ssl-private.pem 4096
