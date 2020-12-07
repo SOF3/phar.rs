@@ -108,7 +108,8 @@ impl<R: Read + Seek, FileIndexT: FileIndex> Reader<R, FileIndexT> {
                 }
             };
             let ret = sig.finalize();
-            if ret[..] != expected_sig {
+
+            if ret[..] != expected_sig[..] {
                 return Err(Error::new(ErrorKind::Other, "signature mismatch"));
             }
         }
