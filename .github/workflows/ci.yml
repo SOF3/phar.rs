@@ -55,6 +55,6 @@ jobs:
           default: true
       - name: prepare test data
         run: make
-        working-directory: data
+        working-directory: tests/data
       - name: cargo test
         run: "cargo test --all ${{matrix.stability}}"
