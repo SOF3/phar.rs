@@ -1,3 +1,5 @@
+//! `FileIndex` implementations
+
 use std::cmp;
 use std::collections::{BTreeMap, HashMap};
 use std::io::{Read, Result, Seek, SeekFrom};
@@ -80,6 +82,10 @@ pub trait RandomAccess: FileIndex {
     fn read_file(&self, name: &[u8]) -> Option<Range<u64>>;
 }
 
+/// Indicates that the phar should not index phar files at all.
+///
+/// This should only be used if phar files are not going to be accessed, 
+/// or allocating `O(num_files)` memory is considered a security vulnerability.
 #[derive(Debug, Default)]
 pub struct NoIndex {
     first_entry_offset: Option<u64>,
@@ -212,7 +218,7 @@ pub struct NameMap<M> {
 
 impl<M: Default + Extend<(Vec<u8>, (u32, Range<u64>))>> FileIndex for NameMap<M>
 where
-    for<'t> &'t M: Iterator<Item = (&'t Vec<u8>, &'t (u32, Range<u64>))>,
+    for<'t> &'t M: IntoIterator<Item = (&'t Vec<u8>, &'t (u32, Range<u64>))>,
 {
     fn requires_name() -> bool {
         true
@@ -271,7 +277,7 @@ pub struct MetadataMap<M> {
 
 impl<M: Default + Extend<(Vec<u8>, (Entry, Range<u64>))>> FileIndex for MetadataMap<M>
 where
-    for<'t> &'t M: Iterator<Item = (&'t Vec<u8>, &'t (Entry, Range<u64>))>,
+    for<'t> &'t M: IntoIterator<Item = (&'t Vec<u8>, &'t (Entry, Range<u64>))>,
 {
     fn requires_name() -> bool {
         true

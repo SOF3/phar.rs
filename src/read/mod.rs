@@ -1,3 +1,5 @@
+//! Utilities for read-only phar archives
+
 #[allow(clippy::module_inception)]
 mod reader;
 pub use reader::{Options, Reader};

@@ -7,15 +7,19 @@ use smallvec::SmallVec;
 /// A possible phar signature
 #[derive(Debug)]
 pub enum Signature {
+    /// Signature corresponding to `Phar::MD5`
     #[cfg(feature = "sig-md5")]
     #[cfg_attr(feature = "docsrs", doc(cfg(feature = "sig-md5")))]
     Md5(md5::Md5),
+    /// Signature corresponding to `Phar::SHA1`
     #[cfg(feature = "sig-sha1")]
     #[cfg_attr(feature = "docsrs", doc(cfg(feature = "sig-sha1")))]
     Sha1(sha1::Sha1),
+    /// Signature corresponding to `Phar::SHA256`
     #[cfg(feature = "sig-sha2")]
     #[cfg_attr(feature = "docsrs", doc(cfg(feature = "sig-sha2")))]
     Sha256(sha2::Sha256),
+    /// Signature corresponding to `Phar::SHA512`
     #[cfg(feature = "sig-sha2")]
     #[cfg_attr(feature = "docsrs", doc(cfg(feature = "sig-sha2")))]
     Sha512(sha2::Sha512),
@@ -80,6 +84,7 @@ impl Signature {
         }
     }
 
+    /// Returns the memory allocated by the underlying signature implementation
     pub fn finalize(self) -> SmallVec<[u8; 64]> {
         let mut ret = SmallVec::new();
         match self {

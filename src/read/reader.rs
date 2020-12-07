@@ -6,14 +6,14 @@ use takes::Ext;
 use typed_builder::TypedBuilder;
 
 use super::util::read_find_bstr;
-use super::{Entry, FileIndex, Section};
+use super::{Entry, FileIndex, Section, index};
 use crate::signature::{self, Signature};
 use crate::util::{PHAR_TERMINATOR, STUB_TERMINATOR};
 
 /// The metadata of a phar file.
 #[derive(Debug)]
 #[cfg_attr(feature = "docsrs", doc(cfg(feature = "reader")))]
-pub struct Reader<R: Read + Seek, FileIndexT: FileIndex> {
+pub struct Reader<R: Read + Seek, FileIndexT: FileIndex = index::NameHashMap> {
     stream: R,
     stub: Section,
     num_files: u32,
@@ -154,6 +154,7 @@ impl<R: Read + Seek, FileIndexT: FileIndex> Reader<R, FileIndexT> {
     }
 }
 
+/// Options for reading phar archives
 #[derive(Default, TypedBuilder)]
 pub struct Options {
     /// Whether to cache the phar stub in memory

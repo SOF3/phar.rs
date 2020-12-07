@@ -1,7 +1,5 @@
-use std::convert::TryInto;
 use std::io::{Error, ErrorKind, Read, Result};
 
-use byteorder::{LittleEndian, ReadBytesExt};
 use itertools::{multipeek, MultiPeek};
 
 use super::Section;
@@ -45,16 +43,6 @@ pub fn read_find_bstr(file: &mut impl Read, buf: &mut Section, bstr: &[u8]) -> R
             .expect("Err values were checked in multi_peek_starts_with()");
         buf.feed(&[next]);
     }
-}
-
-pub fn read_bstr(file: &mut impl Read) -> Result<Vec<u8>> {
-    let len = file
-        .read_u32::<LittleEndian>()?
-        .try_into()
-        .expect("usize is smaller than 32 bits");
-    let mut vec = vec![0u8; len];
-    file.read_exact(&mut vec[..])?;
-    Ok(vec)
 }
 
 #[cfg(test)]
