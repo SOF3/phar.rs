@@ -6,7 +6,7 @@ use takes::Ext;
 use typed_builder::TypedBuilder;
 
 use super::util::read_find_bstr;
-use super::{Entry, FileIndex, Section, index};
+use super::{index, Entry, FileIndex, Section};
 use crate::signature::{self, Signature};
 use crate::util::{PHAR_TERMINATOR, STUB_TERMINATOR};
 

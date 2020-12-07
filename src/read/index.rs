@@ -84,7 +84,7 @@ pub trait RandomAccess: FileIndex {
 
 /// Indicates that the phar should not index phar files at all.
 ///
-/// This should only be used if phar files are not going to be accessed, 
+/// This should only be used if phar files are not going to be accessed,
 /// or allocating `O(num_files)` memory is considered a security vulnerability.
 #[derive(Debug, Default)]
 pub struct NoIndex {
