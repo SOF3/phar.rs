@@ -85,7 +85,6 @@ fn test_zip_metadata_map() -> Result<()> {
     Ok(())
 }
 
-
 fn verify_std_header<R: io::Read + io::Seek, T: phar::read::FileIndex>(phar: &mut Reader<R, T>) {
     assert_eq!(
         phar.stub_bytes().expect("cannot read phar stub").as_ref(),
