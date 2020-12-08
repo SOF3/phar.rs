@@ -1,6 +1,5 @@
 //! `FileIndex` implementations
 
-use std::cmp;
 use std::collections::{BTreeMap, HashMap};
 use std::io::{Read, Result, Seek, SeekFrom};
 use std::iter::{self, Extend};
