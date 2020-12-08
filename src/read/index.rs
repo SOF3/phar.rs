@@ -13,18 +13,17 @@ use super::{Entry, Section};
 /// The storage used to store file indices.
 ///
 /// If you open the phar only to view the stub, phar metadata, etc.,
-/// use `NoIndex`.
-/// You may also want to use `NoIndex`
-/// if you are worried about the phar having too many files
-/// and overloading the memory allocated for loading the phar.
+/// use `index::NoIndex`.
 ///
-/// If you are not worried about storing a large amount of file names in memory,
-/// use `OffsetOnly`.
-/// This allows sequential iteration of files.
+/// To sequentially access all files in the archive,
+/// use `index::Iterable` implementations.
+/// If random file access is not required,
+/// use `index::OffsetOnly`.
 ///
 /// To access specific files only,
-/// prefer using `NameMap`.
-/// To also access thei metadata,
+/// use `index::RandomAccess` implementations.
+/// Prefer using `NameMap` if individual entry metadata is not required.
+/// To also access their metadata,
 /// use `MetadataMap`.
 /// There are some type aliases for the respective HashMap/BTreeMap implementations.
 pub trait FileIndex: Default {
@@ -48,25 +47,23 @@ pub trait FileIndex: Default {
 
     /// Marks the end of header
     fn end_of_header(&mut self, _offset: u64) {}
+}
 
-    /// Iterates over the file in this index.
-    fn for_each_file<'t, R, F>(&self, read: R, mut f: F) -> Result<()>
+/// A subfamily of file indices for iterable files.
+///
+/// The iteration order may not be the order in the phar archive,
+/// and may not even be stable.
+pub trait Iterable: FileIndex {
+    /// Iterates over the files in this index.
+    fn for_each_file<'t, R, F>(&self, read: R, f: F) -> Result<()>
     where
         R: Read + Seek + 't,
-        F: FnMut(&[u8], &mut (dyn Read)),
+        F: FnMut(&[u8], &mut (dyn Read)) -> Result<()>,
     {
-        self.for_each_file_fold(
-            read,
-            |name, r| {
-                f(name, r);
-                Ok(())
-            },
-            |_, ()| (),
-        )
-        .map(|_| ())
+        self.for_each_file_fold(read, f, |_, ()| ()).map(|_| ())
     }
 
-    /// Iterates over the file in this index and fold return values.
+    /// Iterates over the files in this index and fold return values.
     fn for_each_file_fold<'t, R, F, G, T, U>(&self, read: R, f: F, fold: G) -> Result<Option<T>>
     where
         R: Read + Seek + 't,
@@ -87,67 +84,15 @@ pub trait RandomAccess: FileIndex {
 /// This should only be used if phar files are not going to be accessed,
 /// or allocating `O(num_files)` memory is considered a security vulnerability.
 #[derive(Debug, Default)]
-pub struct NoIndex {
-    first_entry_offset: Option<u64>,
-    num_files: u32,
-    end_of_header: u64,
-}
+pub struct NoIndex(());
 
 impl FileIndex for NoIndex {
     fn scan_files() -> bool {
         false
     }
 
-    fn feed_entry(&mut self, offset: u64, _: Entry) -> Result<()> {
-        self.first_entry_offset = Some(match self.first_entry_offset {
-            Some(first) => cmp::min(first, offset),
-            None => offset,
-        });
-        self.num_files += 1;
-        Ok(())
-    }
-
-    fn end_of_header(&mut self, offset: u64) {
-        self.end_of_header = offset;
-    }
-
-    fn for_each_file_fold<'t, R, F, G, T, U>(
-        &self,
-        mut read: R,
-        mut f: F,
-        mut fold: G,
-    ) -> Result<Option<T>>
-    where
-        R: Read + Seek + 't,
-        F: FnMut(&[u8], &mut (dyn Read)) -> Result<U>,
-        G: FnMut(Option<T>, U) -> T,
-    {
-        let mut seek_manifest = match self.first_entry_offset {
-            Some(start) => start,
-            None => return Ok(None),
-        };
-        let mut seek_content = self.end_of_header;
-
-        let mut reduced = None;
-
-        for _ in 0..self.num_files {
-            let _ = read.seek(SeekFrom::Start(seek_manifest))?;
-            let entry = Entry::parse(&mut read, true, false)?;
-            seek_manifest = read.seek(SeekFrom::Current(0))?;
-
-            let file_name = entry.name.as_memory(&mut read)?;
-            let file_name = file_name.as_ref();
-            let _ = read.seek(SeekFrom::Start(seek_content))?;
-
-            let take = (&mut read).take(entry.compressed_file_size.into());
-            let mut decompressed = adapted_reader(entry.flags, take)?;
-            let mapped = f(file_name, &mut decompressed)?;
-            reduced = Some(fold(reduced, mapped));
-
-            seek_content += u64::from(entry.compressed_file_size);
-        }
-
-        Ok(reduced)
+    fn feed_entry(&mut self, _: u64, _: Entry) -> Result<()> {
+        unreachable!()
     }
 }
 
@@ -160,24 +105,37 @@ impl FileIndex for NoIndex {
 #[derive(Debug, Default)]
 pub struct OffsetOnly {
     content_offset: u64,
-    entries: Vec<(Section, u32, u64)>,
+    entries: Vec<OffsetOnlyEntry>,
+}
+
+#[derive(Debug)]
+struct OffsetOnlyEntry {
+    name: Section,
+    flags: u32,
+    end_offset_from_co: u64,
 }
 
 impl FileIndex for OffsetOnly {
     fn feed_entry(&mut self, _: u64, entry: Entry) -> Result<()> {
         let prev = match self.entries.last() {
-            Some((_, _, last)) => *last,
+            Some(ooe) => ooe.end_offset_from_co,
             None => 0,
         };
         let size: u64 = entry.compressed_file_size.into();
-        self.entries.push((entry.name, entry.flags, prev + size));
+        self.entries.push(OffsetOnlyEntry {
+            name: entry.name,
+            flags: entry.flags,
+            end_offset_from_co: prev + size,
+        });
         Ok(())
     }
 
     fn end_of_header(&mut self, offset: u64) {
         self.content_offset = offset;
     }
+}
 
+impl Iterable for OffsetOnly {
     fn for_each_file_fold<'t, R, F, G, T, U>(
         &self,
         mut read: R,
@@ -192,17 +150,23 @@ impl FileIndex for OffsetOnly {
         let mut start_offset = self.content_offset;
         let mut reduced = None;
 
-        for (name, flags, end_offset) in &self.entries {
+        for OffsetOnlyEntry {
+            name,
+            flags,
+            end_offset_from_co,
+        } in &self.entries
+        {
             let name = name.as_memory(&mut read)?;
             let name = name.as_ref();
+            let end_offset = *end_offset_from_co + self.content_offset;
 
             let _ = read.seek(SeekFrom::Start(start_offset))?;
             let mut decompressed =
-                adapted_reader(*flags, (&mut read).take(*end_offset - start_offset))?;
+                adapted_reader(*flags, (&mut read).take(end_offset - start_offset))?;
             let mapped = f(name, &mut decompressed)?;
             reduced = Some(fold(reduced, mapped));
 
-            start_offset = *end_offset;
+            start_offset = end_offset;
         }
 
         Ok(reduced)
@@ -214,6 +178,7 @@ impl FileIndex for OffsetOnly {
 pub struct NameMap<M> {
     map: M,
     last_offset: u64,
+    content_offset: u64,
 }
 
 impl<M: Default + Extend<(Vec<u8>, (u32, Range<u64>))>> FileIndex for NameMap<M>
@@ -222,6 +187,10 @@ where
 {
     fn requires_name() -> bool {
         true
+    }
+
+    fn end_of_header(&mut self, offset: u64) {
+        self.content_offset = offset;
     }
 
     fn feed_entry(&mut self, _: u64, entry: Entry) -> Result<()> {
@@ -238,7 +207,12 @@ where
             .extend(iter::once((name, (entry.flags, start..end))));
         Ok(())
     }
+}
 
+impl<M: Default + Extend<(Vec<u8>, (u32, Range<u64>))>> Iterable for NameMap<M>
+where
+    for<'t> &'t M: IntoIterator<Item = (&'t Vec<u8>, &'t (u32, Range<u64>))>,
+{
     fn for_each_file_fold<'t, R, F, G, T, U>(
         &self,
         mut read: R,
@@ -253,7 +227,7 @@ where
         let mut reduced = None;
 
         for (name, (flags, Range { start, end })) in &self.map {
-            let _ = read.seek(SeekFrom::Start(*start))?;
+            let _ = read.seek(SeekFrom::Start(*start + self.content_offset))?;
             let mut decompressed = adapted_reader(*flags, (&mut read).take(end - start))?;
             let mapped = f(name, &mut decompressed)?;
             reduced = Some(fold(reduced, mapped));
@@ -273,6 +247,7 @@ pub type NameBTreeMap = NameMap<BTreeMap<Vec<u8>, (u32, Range<u64>)>>;
 pub struct MetadataMap<M> {
     pub(crate) map: M,
     last_offset: u64,
+    content_offset: u64,
 }
 
 impl<M: Default + Extend<(Vec<u8>, (Entry, Range<u64>))>> FileIndex for MetadataMap<M>
@@ -285,6 +260,10 @@ where
 
     fn requires_metadata() -> bool {
         true
+    }
+
+    fn end_of_header(&mut self, offset: u64) {
+        self.content_offset = offset;
     }
 
     fn feed_entry(&mut self, _: u64, entry: Entry) -> Result<()> {
@@ -300,7 +279,12 @@ where
             .extend(iter::once((name.clone(), (entry, start..end))));
         Ok(())
     }
+}
 
+impl<M: Default + Extend<(Vec<u8>, (Entry, Range<u64>))>> Iterable for MetadataMap<M>
+where
+    for<'t> &'t M: IntoIterator<Item = (&'t Vec<u8>, &'t (Entry, Range<u64>))>,
+{
     fn for_each_file_fold<'t, R, F, G, T, U>(
         &self,
         mut read: R,
@@ -315,7 +299,7 @@ where
         let mut reduced = None;
 
         for (name, (entry, Range { start, end })) in &self.map {
-            let _ = read.seek(SeekFrom::Start(*start))?;
+            let _ = read.seek(SeekFrom::Start(*start + self.content_offset))?;
             let mut decompressed = adapted_reader(entry.flags, (&mut read).take(end - start))?;
             let mapped = f(name, &mut decompressed)?;
             reduced = Some(fold(reduced, mapped));
@@ -326,10 +310,10 @@ where
 }
 
 /// Indexes files by name with a HashMap, and stores file metadata.
-pub type MetadataHashMap = MetadataMap<HashMap<Vec<u8>, Range<u64>>>;
+pub type MetadataHashMap = MetadataMap<HashMap<Vec<u8>, (Entry, Range<u64>)>>;
 
 /// Indexes files by name with a BTreeMap, and stores file metadata.
-pub type MetadataBTreeMap = MetadataMap<BTreeMap<Vec<u8>, Range<u64>>>;
+pub type MetadataBTreeMap = MetadataMap<BTreeMap<Vec<u8>, (Entry, Range<u64>)>>;
 
 #[allow(clippy::unnecessary_wraps)]
 fn adapted_reader<'t>(flag: u32, r: impl Read + 't) -> Result<Box<(dyn Read + 't)>> {

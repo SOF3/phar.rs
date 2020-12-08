@@ -63,16 +63,17 @@ mod tests {
 
             let buf = Vec::with_capacity(haystack.len());
             let mut section = Section::Cached(buf);
-            super::read_find_bstr(&mut Cursor::new(haystack.iter()), &mut section, needle).expect(
-                &format!("Failed to find needle {}", String::from_utf8_lossy(needle)),
-            );
+            super::read_find_bstr(&mut Cursor::new(haystack.iter()), &mut section, needle)
+                .unwrap_or_else(|_| {
+                    panic!("Failed to find needle {}", String::from_utf8_lossy(needle))
+                });
 
             let buf = match section {
                 Section::Cached(buf) => buf,
                 _ => unreachable!(),
             };
 
-            assert_eq!(&haystack[0..offset + needle.len()], &buf[..]);
+            assert_eq!(haystack.get(0..offset + needle.len()), Some(&buf[..]));
         }
     }
 }

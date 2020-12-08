@@ -97,6 +97,7 @@ impl<R: Read + Seek, FileIndexT: FileIndex> Reader<R, FileIndexT> {
                 file_index.feed_entry(start, entry)?;
             }
         }
+        file_index.end_of_header(manifest.seek(SeekFrom::Current(0))?);
 
         if let (Some(expected_sig), Some(sig_offset)) = (expected_sig, sig_offset) {
             let _ = tee.seek(SeekFrom::Start(sig_offset))?;
@@ -152,6 +153,26 @@ impl<R: Read + Seek, FileIndexT: FileIndex> Reader<R, FileIndexT> {
     /// Returns the metadata as an `io::Read`.
     pub fn metadata_read(&mut self) -> Result<impl Read + '_> {
         self.metadata.as_read(&mut self.stream)
+    }
+}
+
+impl<R: Read + Seek, FileIndexT: index::Iterable> Reader<R, FileIndexT> {
+    /// Iterates over the files in this archive.
+    pub fn for_each_file<F>(&mut self, f: F) -> Result<()>
+    where
+        F: FnMut(&[u8], &mut (dyn Read)) -> Result<()>,
+    {
+        self.file_index.for_each_file(&mut self.stream, f)
+    }
+
+    /// Iterates over the files in this archive and fold return values.
+    pub fn for_each_file_fold<F, G, T, U>(&mut self, f: F, fold: G) -> Result<Option<T>>
+    where
+        F: FnMut(&[u8], &mut (dyn Read)) -> Result<U>,
+        G: FnMut(Option<T>, U) -> T,
+    {
+        self.file_index
+            .for_each_file_fold(&mut self.stream, f, fold)
     }
 }
 
