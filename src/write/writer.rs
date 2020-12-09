@@ -272,7 +272,7 @@ impl<W: Read + Write + Seek> Writer<W> {
                 }
                 self.end_offset = *new_end_offset;
             }
-            Err(err) => self.ptr = None,
+            Err(_) => self.ptr = None,
         }
         ret.map(|_| ())
     }
