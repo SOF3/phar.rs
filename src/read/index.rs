@@ -5,9 +5,8 @@ use std::io::{Read, Result, Seek, SeekFrom};
 use std::iter::{self, Extend};
 use std::ops::Range;
 
-use cfg_if::cfg_if;
-
 use super::{Entry, Section};
+use crate::Compression;
 
 /// The storage used to store file indices.
 ///
@@ -314,25 +313,7 @@ pub type MetadataHashMap = MetadataMap<HashMap<Vec<u8>, (Entry, Range<u64>)>>;
 /// Indexes files by name with a BTreeMap, and stores file metadata.
 pub type MetadataBTreeMap = MetadataMap<BTreeMap<Vec<u8>, (Entry, Range<u64>)>>;
 
-#[allow(clippy::unnecessary_wraps)]
-fn adapted_reader<'t>(flag: u32, r: impl Read + 't) -> Result<Box<(dyn Read + 't)>> {
-    if (flag & 0x1000) > 0 {
-        cfg_if! {
-            if #[cfg(feature = "comp-zlib")] {
-                Ok(Box::new(flate2::read::ZlibDecoder::new(r)))
-            } else {
-                Err(Error::new(ErrorKind::Other, "Compile the phar crate with comp-zlib feature to use zlib-compressed files"))
-            }
-        }
-    } else if (flag & 0x2000) > 0 {
-        cfg_if! {
-            if #[cfg(feature = "comp-bzip")] {
-                Ok(Box::new(bzip2::read::BzDecoder::new(r)))
-            } else {
-                Err(Error::new(ErrorKind::Other, "Compile the phar crate with comp-bzip feature to use bzip-compressed files"))
-            }
-        }
-    } else {
-        Ok(Box::new(r))
-    }
+fn adapted_reader<'t>(flag: u32, read: impl Read + 't) -> Result<Box<(dyn Read + 't)>> {
+    let compression = Compression::from_bit(flag);
+    compression.make_read(read)
 }

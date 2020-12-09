@@ -45,7 +45,7 @@ pub mod read;
 
 #[cfg(feature = "writer")]
 #[cfg_attr(feature = "docsrs", doc(cfg(feature = "writer")))]
-pub use write::Writer;
+pub use write::write;
 
 #[cfg(feature = "writer")]
 #[cfg_attr(feature = "docsrs", doc(cfg(feature = "writer")))]
@@ -53,5 +53,8 @@ pub mod write;
 
 mod signature;
 pub use signature::Signature;
+
+mod compression;
+pub use compression::Compression;
 
 mod util;
