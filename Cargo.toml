@@ -1,6 +1,6 @@
 [package]
 name = "phar"
-version = "0.0.2"
+version = "0.0.3"
 authors = ["SOFe <sofe2038@gmail.com>"]
 edition = "2018"
 license = "Apache-2.0"
