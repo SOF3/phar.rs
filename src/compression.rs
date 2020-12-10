@@ -75,7 +75,7 @@ impl Compression {
             Self::None => Ok(Box::new(read)),
             #[cfg(feature = "comp-zlib")]
             Self::Zlib(_) => Ok(Box::new(flate2::read::DeflateDecoder::new(read))),
-            #[cfg(feature = "comp-zlib")]
+            #[cfg(feature = "comp-bzip")]
             Self::Bzip(_) => Ok(Box::new(bzip2::read::BzDecoder::new(read))),
             #[allow(unreachable_patterns)] // unreachable when all features enabled
             _ => Err(Error::new(

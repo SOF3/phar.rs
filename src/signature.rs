@@ -33,19 +33,19 @@ impl Signature {
     }
 
     /// Creates a sha1 signature
-    #[cfg(feature = "sig-md5")]
+    #[cfg(feature = "sig-sha1")]
     pub fn sha1() -> Self {
         Self::Sha1(Digest::new())
     }
 
     /// Creates a sha256 signature
-    #[cfg(feature = "sig-md5")]
+    #[cfg(feature = "sig-sha2")]
     pub fn sha256() -> Self {
         Self::Sha256(Digest::new())
     }
 
     /// Creates a sha512 signature
-    #[cfg(feature = "sig-md5")]
+    #[cfg(feature = "sig-sha2")]
     pub fn sha512() -> Self {
         Self::Sha512(Digest::new())
     }
