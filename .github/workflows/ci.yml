@@ -15,9 +15,12 @@ jobs:
       - run: cargo fmt --all -- --check
   lint:
     name: clippy lint
-    runs-on: [ubuntu-latest, windows-latest]
+    runs-on: ${{matrix.os}}
     strategy:
       matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
         toolchain:
           - stable
           - beta
@@ -36,9 +39,12 @@ jobs:
         run: "cargo clippy --all ${{matrix.stability}}"
   test:
     name: unit tests
-    runs-on: [ubuntu-latest, windows-latest]
+    runs-on: ${{matrix.os}}
     strategy:
       matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
         toolchain:
           - stable
           - beta
