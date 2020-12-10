@@ -261,7 +261,7 @@ impl<W: Read + Write + Seek> NeedEntries<W> {
         }
 
         #[cfg(not(unix))]
-        fn os_str_to_bytes(name: &OsStr) -> impl AsRef<[u8]> {
+        fn os_str_to_bytes(name: &OsStr) -> impl AsRef<[u8]> + '_ {
             match name.to_string_lossy() {
                 Cow::Borrowed(name) => Cow::Borrowed(name.as_bytes()),
                 Cow::Owned(name) => Cow::Owned(name.into_bytes()),
