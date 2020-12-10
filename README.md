@@ -6,3 +6,5 @@
 [![GitHub](https://img.shields.io/github/stars/SOF3/phar?style=social)](https://github.com/SOF3/phar)
 
 Rust library for PHP phar format
+
+See the [tests/reader.rs](./tests/reader.rs) and [tests/writer.rs](./tests/writer.rs) directory for example code.
