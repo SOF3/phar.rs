@@ -1,8 +1,12 @@
+use std::borrow::Cow;
 use std::convert::TryInto;
+use std::ffi::OsStr;
 use std::io::{self, Error, ErrorKind, Read, Result, Seek, SeekFrom, Write};
+use std::path::Path;
 use std::time::{SystemTime, UNIX_EPOCH};
 
 use byteorder::{LittleEndian, WriteBytesExt};
+use walkdir::WalkDir;
 
 use super::util::{write_bstr, Crc32Writer, MultiWrite};
 use crate::signature::Signature;
@@ -172,6 +176,89 @@ impl<W: Read + Write + Seek> WriterNeedEntries<W> {
             signature: Some(self.signature),
             end_offset: content_offset,
         })
+    }
+
+    pub fn build_from_directory(self, path: &Path, compression: Compression) -> Result<()> {
+        let vec: Result<Vec<(_, _)>> = WalkDir::new(path)
+            .into_iter()
+            .map(|entry| {
+                let entry = entry?;
+                Ok((
+                    entry
+                        .path()
+                        .strip_prefix(path)
+                        .map_err(|_| {
+                            Error::new(ErrorKind::Other, "path is not a prefix of walked entry")
+                        })?
+                        .as_os_str()
+                        .to_owned(),
+                    entry.path().to_owned(),
+                ))
+            })
+            .collect();
+        let vec = vec?;
+        self.build_from_iter(|| vec.iter().map(|(a, b)| Ok((a, b))), compression)
+    }
+
+    pub fn build_from_iter<S, P, I>(
+        mut self,
+        iter: impl Fn() -> I,
+        compression: Compression,
+    ) -> Result<()>
+    where
+        I: Iterator<Item = Result<(S, P)>>,
+        S: AsRef<OsStr>,
+        P: AsRef<Path>,
+    {
+        use std::fs;
+
+        #[cfg(unix)]
+        fn os_str_to_bytes(name: &OsStr) -> impl AsRef<[u8]> + '_ {
+            use std::os::unix::ffi::OsStrExt;
+            Cow::Borrowed(name.as_bytes())
+        }
+
+        #[cfg(not(unix))]
+        fn os_str_to_bytes(name: &OsStr) -> impl AsRef<[u8]> {
+            match name.to_string_lossy() {
+                Cow::Borrowed(name) => Cow::Borrowed(name.as_bytes()),
+                Cow::Owned(name) => Cow::Owned(name.into_bytes()),
+            }
+        }
+
+        #[cfg(unix)]
+        fn stat_to_mode(permissions: fs::Permissions) -> u32 {
+            use std::os::unix::fs::PermissionsExt;
+            permissions.mode()
+        }
+        #[cfg(not(unix))]
+        fn stat_to_mode(permissions: fs::Permissions) -> u32 {
+            if permissions.readonly() {
+                0o444
+            } else {
+                0o664
+            }
+        }
+
+        for pair in iter() {
+            let (name, file) = pair?;
+            let stat = file.as_ref().metadata()?;
+            if stat.is_file() {
+                self.entry(
+                    os_str_to_bytes(name.as_ref()).as_ref(),
+                    &b""[..],
+                    stat.modified()?,
+                    stat_to_mode(stat.permissions()),
+                    compression,
+                )?;
+            }
+        }
+        let mut contents = self.contents()?;
+        for pair in iter() {
+            let (_, file) = pair?;
+            contents.feed(fs::File::open(file)?)?;
+        }
+        Ok(())
     }
 }
 

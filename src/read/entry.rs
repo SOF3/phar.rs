@@ -1,8 +1,9 @@
-use std::io::{Read, Result, Seek, SeekFrom};
+use std::io::{Read, Result, Seek};
 
 use byteorder::{LittleEndian, ReadBytesExt};
 
 use super::Section;
+use crate::util::tell;
 
 pub struct Entry {
     pub name: Section,
@@ -21,7 +22,7 @@ impl Entry {
         cache_metadata: bool,
     ) -> Result<Self> {
         let name_len = read.read_u32::<LittleEndian>()?;
-        let mut name = Section::create(cache_name, read.seek(SeekFrom::Current(0))?);
+        let mut name = Section::create(cache_name, tell(&mut *read)?);
         name.from_read(read, name_len)?;
 
         let original_file_size = read.read_u32::<LittleEndian>()?;
@@ -31,7 +32,7 @@ impl Entry {
         let flags = read.read_u32::<LittleEndian>()?;
 
         let metadata_len = read.read_u32::<LittleEndian>()?;
-        let mut metadata = Section::create(cache_metadata, read.seek(SeekFrom::Current(0))?);
+        let mut metadata = Section::create(cache_metadata, tell(&mut *read)?);
         metadata.from_read(read, metadata_len)?;
 
         Ok(Entry {

@@ -8,7 +8,7 @@ use typed_builder::TypedBuilder;
 use super::util::read_find_bstr;
 use super::{index, Entry, FileIndex, Section};
 use crate::signature::{self, Signature};
-use crate::util::{PHAR_TERMINATOR, STUB_TERMINATOR};
+use crate::util::{tell, PHAR_TERMINATOR, STUB_TERMINATOR};
 
 /// The metadata of a phar file.
 #[derive(Debug)]
@@ -77,18 +77,17 @@ impl<R: Read + Seek, FileIndexT: FileIndex> Reader<R, FileIndexT> {
         let flags = manifest.read_u32::<LittleEndian>()?;
 
         let alias_len = manifest.read_u32::<LittleEndian>()?;
-        let mut alias = Section::create(options.cache_alias, manifest.seek(SeekFrom::Current(0))?);
+        let mut alias = Section::create(options.cache_alias, tell(&mut manifest)?);
         alias.from_read(&mut manifest, alias_len)?;
 
         let metadata_len = manifest.read_u32::<LittleEndian>()?;
-        let mut metadata =
-            Section::create(options.cache_metadata, manifest.seek(SeekFrom::Current(0))?);
+        let mut metadata = Section::create(options.cache_metadata, tell(&mut manifest)?);
         metadata.from_read(&mut manifest, metadata_len)?;
 
         let mut file_index = FileIndexT::default();
         if FileIndexT::scan_files() {
             for _ in 0..num_files {
-                let start = manifest.seek(SeekFrom::Current(0))?;
+                let start = tell(&mut manifest)?;
                 let entry = Entry::parse(
                     &mut manifest,
                     FileIndexT::requires_name(),
@@ -97,7 +96,7 @@ impl<R: Read + Seek, FileIndexT: FileIndex> Reader<R, FileIndexT> {
                 file_index.feed_entry(start, entry)?;
             }
         }
-        file_index.end_of_header(manifest.seek(SeekFrom::Current(0))?);
+        file_index.end_of_header(tell(&mut manifest)?);
 
         if let (Some(expected_sig), Some(sig_offset)) = (expected_sig, sig_offset) {
             let _ = tee.seek(SeekFrom::Start(sig_offset))?;
