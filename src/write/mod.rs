@@ -3,6 +3,6 @@
 #[allow(clippy::module_inception)]
 mod writer;
 
-pub use writer::write;
+pub use writer::*;
 
 mod util;

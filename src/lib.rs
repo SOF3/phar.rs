@@ -45,7 +45,7 @@ pub mod read;
 
 #[cfg(feature = "writer")]
 #[cfg_attr(feature = "docsrs", doc(cfg(feature = "writer")))]
-pub use write::write;
+pub use write::create;
 
 #[cfg(feature = "writer")]
 #[cfg_attr(feature = "docsrs", doc(cfg(feature = "writer")))]

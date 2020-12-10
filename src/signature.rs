@@ -26,17 +26,41 @@ pub enum Signature {
 }
 
 impl Signature {
+    /// Creates an md5 signature
+    #[cfg(feature = "sig-md5")]
+    pub fn md5() -> Self {
+        Self::Md5(Digest::new())
+    }
+
+    /// Creates a sha1 signature
+    #[cfg(feature = "sig-md5")]
+    pub fn sha1() -> Self {
+        Self::Sha1(Digest::new())
+    }
+
+    /// Creates a sha256 signature
+    #[cfg(feature = "sig-md5")]
+    pub fn sha256() -> Self {
+        Self::Sha256(Digest::new())
+    }
+
+    /// Creates a sha512 signature
+    #[cfg(feature = "sig-md5")]
+    pub fn sha512() -> Self {
+        Self::Sha512(Digest::new())
+    }
+
     /// Creates a signature from the phar format flag
-    pub fn from_u32(discrim: u32) -> Option<Signature> {
+    pub fn from_u32(discrim: u32) -> Option<Self> {
         Some(match discrim {
             #[cfg(feature = "sig-md5")]
             1 => Self::Md5(Digest::new()),
             #[cfg(feature = "sig-sha1")]
             2 => Self::Sha1(Digest::new()),
             #[cfg(feature = "sig-sha2")]
-            4 => Self::Sha256(Digest::new()),
+            3 => Self::Sha256(Digest::new()),
             #[cfg(feature = "sig-sha2")]
-            8 => Self::Sha512(Digest::new()),
+            4 => Self::Sha512(Digest::new()),
             _ => return None,
         })
     }
@@ -49,9 +73,9 @@ impl Signature {
             #[cfg(feature = "sig-sha1")]
             Self::Sha1(_) => 2,
             #[cfg(feature = "sig-sha2")]
-            Self::Sha256(_) => 4,
+            Self::Sha256(_) => 3,
             #[cfg(feature = "sig-sha2")]
-            Self::Sha512(_) => 8,
+            Self::Sha512(_) => 4,
         }
     }
 

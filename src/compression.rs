@@ -52,7 +52,7 @@ impl Compression {
         match self {
             Self::None => Ok(Box::new(write)),
             #[cfg(feature = "comp-zlib")]
-            Self::Zlib(level) => Ok(Box::new(flate2::write::ZlibEncoder::new(
+            Self::Zlib(level) => Ok(Box::new(flate2::write::DeflateEncoder::new(
                 write,
                 flate2::Compression::new(level),
             ))),
@@ -74,7 +74,7 @@ impl Compression {
         match self {
             Self::None => Ok(Box::new(read)),
             #[cfg(feature = "comp-zlib")]
-            Self::Zlib(_) => Ok(Box::new(flate2::read::ZlibDecoder::new(read))),
+            Self::Zlib(_) => Ok(Box::new(flate2::read::DeflateDecoder::new(read))),
             #[cfg(feature = "comp-zlib")]
             Self::Bzip(_) => Ok(Box::new(bzip2::read::BzDecoder::new(read))),
             #[allow(unreachable_patterns)] // unreachable when all features enabled

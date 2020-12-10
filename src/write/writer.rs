@@ -13,24 +13,30 @@ use crate::signature::Signature;
 use crate::util::{tell, PHAR_TERMINATOR, STUB_TERMINATOR};
 use crate::Compression;
 
-/// Writes a phar file
+/// Creates a phar file.
+///
+/// The `stream` must support *random-access read AND write*.
+/// When passing `fs::File`, it should be created with
+/// `fs::OpenOptions::new().read(true).write(true).create(true)`,
+/// optionally with `truncate(true)` as well.
 ///
 /// For performance reasons, the name and metadata of _all_ entries
 /// must be known at the beginning before writing any file content.
-/// Editing previous writes is _not_ supported.
-pub fn write<W: Read + Write + Seek>(stream: W, signature: Signature) -> WriterNeedStub<W> {
-    WriterNeedStub { stream, signature }
+/// Editing previous writes is _not_ supported,
+/// because that would require repacking all subsequent contents.
+pub fn create<W: Read + Write + Seek>(stream: W, signature: Signature) -> NeedStub<W> {
+    NeedStub { stream, signature }
 }
 
-/// Intermediate builder type for `Writer`.
+/// Intermediate type for writing phar.
 ///
 /// Call `stub` to progress to the next builder step.
-pub struct WriterNeedStub<W: Read + Write + Seek> {
+pub struct NeedStub<W: Read + Write + Seek> {
     stream: W,
     signature: Signature,
 }
 
-impl<W: Read + Write + Seek> WriterNeedStub<W> {
+impl<W: Read + Write + Seek> NeedStub<W> {
     /// Sets the stub for the phar archive.
     ///
     /// It is not necessary to append the `__HALT_COMPILER();`,
@@ -41,7 +47,7 @@ impl<W: Read + Write + Seek> WriterNeedStub<W> {
     ///
     /// Consider adding a line `#!/usr/bin/env php\n` before the `<?php` tag
     /// to allow direct shebang execution of the output file.
-    pub fn stub(mut self, mut stub: impl Read) -> Result<WriterNeedAlias<W>> {
+    pub fn stub(mut self, mut stub: impl Read) -> Result<NeedAlias<W>> {
         let _ = io::copy(&mut stub, &mut self.stream)?;
         self.stream.write_all(STUB_TERMINATOR)?;
         let manifest_size_offset = tell(&mut self.stream)?;
@@ -50,7 +56,7 @@ impl<W: Read + Write + Seek> WriterNeedStub<W> {
         self.stream.write_all(&[0x11, 0])?; // api
         self.stream.write_u32::<LittleEndian>(0x00010000)?; // flag
 
-        Ok(WriterNeedAlias {
+        Ok(NeedAlias {
             manifest_size_offset,
             stream: self.stream,
             signature: self.signature,
@@ -58,62 +64,77 @@ impl<W: Read + Write + Seek> WriterNeedStub<W> {
     }
 }
 
-/// Intermediate builder type for `Writer`.
+/// Intermediate type for writing phar.
 ///
-/// Call `stub` to progress to the next builder step.
-pub struct WriterNeedAlias<W: Read + Write + Seek> {
+/// Call `alias` or `metadata` to progress to the next builder step.
+pub struct NeedAlias<W: Read + Write + Seek> {
     manifest_size_offset: u64,
     stream: W,
     signature: Signature,
 }
 
-impl<W: Read + Write + Seek> WriterNeedAlias<W> {
-    pub fn alias(mut self, alias: impl Read) -> Result<WriterNeedGlobMeta<W>> {
+impl<W: Read + Write + Seek> NeedAlias<W> {
+    /// Sets the alias for the phar archive.
+    pub fn alias(mut self, alias: impl Read) -> Result<NeedGlobMeta<W>> {
         write_bstr(&mut self.stream, alias, "alias is too long")?;
-        Ok(WriterNeedGlobMeta {
+        Ok(NeedGlobMeta {
             manifest_size_offset: self.manifest_size_offset,
             stream: self.stream,
             signature: self.signature,
         })
     }
 
-    pub fn metadata(self, metadata: impl Read) -> Result<WriterNeedEntries<W>> {
+    /// Sets the metadata for the phar archive.
+    ///
+    /// The `phar` crate does not validate the contents,
+    /// but they should either be empty string or comply to PHP serialization format.
+    pub fn metadata(self, metadata: impl Read) -> Result<NeedEntries<W>> {
         self.alias(io::empty())?.metadata(metadata)
     }
 }
 
-pub struct WriterNeedGlobMeta<W: Read + Write + Seek> {
+/// Intermediate type for writing phar.
+pub struct NeedGlobMeta<W: Read + Write + Seek> {
     manifest_size_offset: u64,
     stream: W,
     signature: Signature,
 }
 
-impl<W: Read + Write + Seek> WriterNeedGlobMeta<W> {
-    pub fn metadata(mut self, metadata: impl Read) -> Result<WriterNeedEntries<W>> {
+impl<W: Read + Write + Seek> NeedGlobMeta<W> {
+    /// Sets the metadata for the phar archive.
+    ///
+    /// The `phar` crate does not validate the contents,
+    /// but they should either be empty string or comply to PHP serialization format.
+    pub fn metadata(mut self, metadata: impl Read) -> Result<NeedEntries<W>> {
         write_bstr(&mut self.stream, metadata, "metadata is too long")?;
-        Ok(WriterNeedEntries {
+        Ok(NeedEntries {
             manifest_size_offset: self.manifest_size_offset,
             stream: self.stream,
             signature: self.signature,
             entries: Vec::new(),
+            global_flags: 0x00010000,
         })
     }
 }
 
-pub struct WriterNeedEntries<W: Read + Write + Seek> {
+/// Preparation step for writing phar entries.
+///
+/// For performance reasons, users need to first provide all file metadata
+/// before providing all file contents.
+/// Consider using `build_from_*`
+/// if the data source is located on the filesystem.
+pub struct NeedEntries<W: Read + Write + Seek> {
     manifest_size_offset: u64,
     stream: W,
     signature: Signature,
     entries: Vec<WriteEntry>,
+    global_flags: u32,
 }
 
-struct WriteEntry {
-    uncompressed_offset: u64,
-    compression: Compression,
-}
-
-impl<W: Read + Write + Seek> WriterNeedEntries<W> {
+impl<W: Read + Write + Seek> NeedEntries<W> {
     /// Adds an entry to the phar.
+    ///
+    /// The file contents shall be later passed with the `Contents::feed` method in the same order.
     pub fn entry(
         &mut self,
         name: impl Read,
@@ -146,6 +167,8 @@ impl<W: Read + Write + Seek> WriterNeedEntries<W> {
             out
         })?;
 
+        self.global_flags |= compression.bit();
+
         write_bstr(&mut self.stream, metadata, "file metadata is too large")?;
 
         self.entries.push(WriteEntry {
@@ -156,7 +179,11 @@ impl<W: Read + Write + Seek> WriterNeedEntries<W> {
         Ok(())
     }
 
-    pub fn contents(mut self) -> Result<Writer<W>> {
+    /// Starts writing the contents section of the phar.
+    ///
+    /// Users should call `feed` on the returned `Contents` value with the file contents
+    /// in the exact same order as entries declared with `entry`.
+    pub fn contents(mut self) -> Result<Contents<W>> {
         let content_offset = tell(&mut self.stream)?;
         let manifest_size = content_offset - (self.manifest_size_offset + 4);
 
@@ -168,8 +195,16 @@ impl<W: Read + Write + Seek> WriterNeedEntries<W> {
                 .try_into()
                 .map_err(|_| Error::new(ErrorKind::Other, "manifest too large"))?,
         )?;
+        self.stream.write_u32::<LittleEndian>(
+            self.entries
+                .len()
+                .try_into()
+                .map_err(|_| Error::new(ErrorKind::Other, "too many file entries"))?,
+        )?;
+        let _ = self.stream.seek(SeekFrom::Current(2))?; // phar api version
+        self.stream.write_u32::<LittleEndian>(self.global_flags)?;
 
-        Ok(Writer {
+        Ok(Contents {
             stream: self.stream,
             entries: self.entries,
             ptr: Some(0),
@@ -178,6 +213,7 @@ impl<W: Read + Write + Seek> WriterNeedEntries<W> {
         })
     }
 
+    /// Builds the phar from a directory on the filesystem.
     pub fn build_from_directory(self, path: &Path, compression: Compression) -> Result<()> {
         let vec: Result<Vec<(_, _)>> = WalkDir::new(path)
             .into_iter()
@@ -197,10 +233,16 @@ impl<W: Read + Write + Seek> WriterNeedEntries<W> {
             })
             .collect();
         let vec = vec?;
-        self.build_from_iter(|| vec.iter().map(|(a, b)| Ok((a, b))), compression)
+        self.build_from_path_iter(|| vec.iter().map(|(a, b)| Ok((a, b))), compression)
     }
 
-    pub fn build_from_iter<S, P, I>(
+    /// Builds the phar from an iterator of file paths.
+    ///
+    /// The iterator parameter yields `(S, P)` pairs,
+    /// where each `S` is an `OsStr` representing the path inside the archive
+    /// and each `P` is a `Path` that resolves to the actual file to include
+    /// (at least relative to the current working directory).
+    pub fn build_from_path_iter<S, P, I>(
         mut self,
         iter: impl Fn() -> I,
         compression: Compression,
@@ -262,7 +304,18 @@ impl<W: Read + Write + Seek> WriterNeedEntries<W> {
     }
 }
 
-pub struct Writer<W: Read + Write + Seek> {
+struct WriteEntry {
+    uncompressed_offset: u64,
+    compression: Compression,
+}
+
+/// Step for writing phar file contents.
+///
+/// See also the documentation of `NeedEntries`.
+///
+/// The file signature is automatically appended when all files have been written.
+/// File state is _undefined_ before the last entry is written.
+pub struct Contents<W: Read + Write + Seek> {
     stream: W,
     entries: Vec<WriteEntry>,
     ptr: Option<usize>,
@@ -270,7 +323,8 @@ pub struct Writer<W: Read + Write + Seek> {
     end_offset: u64,
 }
 
-impl<W: Read + Write + Seek> Writer<W> {
+impl<W: Read + Write + Seek> Contents<W> {
+    /// Passes the content source for the next file entry.
     pub fn feed(&mut self, read: impl Read) -> Result<()> {
         fn try_feed(
             entry: &WriteEntry,
@@ -339,7 +393,7 @@ impl<W: Read + Write + Seek> Writer<W> {
                 ))
             }
         };
-        let Writer {
+        let Contents {
             stream: write,
             entries,
             end_offset,
