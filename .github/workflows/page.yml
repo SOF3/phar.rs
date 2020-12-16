@@ -12,6 +12,10 @@ jobs:
           ref: gh-pages
           path: pages
           token: ${{secrets.GH_TOKEN}}
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: nightly
+      - run: cargo install wasm-pack
       - run: npm install
         working-directory: web
       - run: npm run build
