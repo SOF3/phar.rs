@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ShallowTees","A tee-reader implementation that implements Seek only on the shallow level, i.e. the Write still receives all the bytes skipped in the seek."]]});

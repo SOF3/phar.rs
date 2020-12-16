@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Takes","A Seekable `Take` implementation."]],"trait":[["Ext","Extension trait for `Read + Seek` to support `takes`"]]});

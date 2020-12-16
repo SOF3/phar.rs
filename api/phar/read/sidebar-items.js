@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["index","`FileIndex` implementations"]],"struct":[["Options","Options for reading phar archives"],["Reader","The metadata of a phar file."]]});
