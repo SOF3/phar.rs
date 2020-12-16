@@ -1,0 +1,27 @@
+name: Pages
+on:
+  push:
+    branches: [master]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+        with:
+          ref: gh-pages
+          path: pages
+          token: ${{secrets.GH_TOKEN}}
+      - run: npm install
+        working-directory: web
+      - run: npm run build
+        working-directory: web
+      - run: cargo doc --features docsrs
+      - run: rm -r pages/*
+      - run: cp -r target/doc pages/api
+      - run: cp -r web/pkg/* pages
+      - run: git add .
+        working-directory: pages
+      - run: git commit -c user.name=github-actions[bot] -c user.email=41898282+github-actions[bot]@users.noreply.github.com -m "Update for ${{github.sha}}"
+        working-directory: pages
+      - run: git push

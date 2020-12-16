@@ -1,0 +1,32 @@
+[package]
+name = "phar-cli"
+description = "Manipulate phar format on the command line"
+version = "0.1.0"
+authors = ["SOFe <sofe2038@gmail.com>"]
+categories = ["command-line-utilities", "compression", "encoding"]
+readme = "README.md"
+edition = "2018"
+license = "Apache-2.0"
+
+[dependencies]
+anyhow = "1.0.35"
+structopt = "0.3.21"
+
+[dependencies.phar]
+version = "0.0.3"
+default-features = false
+path = ".."
+
+[features]
+default = ["reader", "writer", "sig-md5", "sig-sha1", "sig-sha2", "comp-zlib", "comp-bzip"]
+reader = ["phar/reader"]
+writer = ["phar/writer"]
+sig-md5 = ["phar/sig-md5"]
+sig-sha1 = ["phar/sig-sha1"]
+sig-sha2 = ["phar/sig-sha2"]
+comp-zlib = ["phar/comp-zlib"]
+comp-bzip = ["phar/comp-bzip"]
+
+[[bin]]
+name = "phar"
+path = "src/main.rs"

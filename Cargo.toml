@@ -1,3 +1,10 @@
+# Global settings
+[workspace]
+members = [".", "cli", "web"]
+
+[profile.release]
+lto = true
+
 [package]
 name = "phar"
 version = "0.0.3"

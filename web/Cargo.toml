@@ -1,0 +1,37 @@
+[package]
+name = "phar-browse"
+description = "Manipulate phar format on the browser"
+version = "0.1.0"
+authors = ["SOFe <sofe2038@gmail.com>"]
+categories = ["compression", "encoding", "wasm"]
+readme = "README.md"
+edition = "2018"
+license = "Apache-2.0"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+anyhow = "1.0.35"
+byte-unit = "4.0.9"
+console_error_panic_hook = "0.1.5"
+js-sys = "0.3.46"
+wasm-bindgen = "0.2.45"
+web-sys = "0.3.46"
+yew = "0.17.4"
+
+[dependencies.phar]
+version = "0.0.3"
+default-features = false
+features = [
+	"sig-md5",
+	"sig-sha1",
+	"sig-sha2",
+	"comp-zlib",
+	"reader",
+	"writer",
+]
+path = ".."
+
+[dev-dependencies]
+wasm-bindgen-test = "0.2.45"
