@@ -24,7 +24,7 @@ jobs:
       - run: cargo doc --features docsrs
       - run: rm -r pages/*
       - run: cp -r target/doc pages/api
-      - run: cp -r web/pkg/* pages
+      - run: cp -r web/dist/* pages
       - run: git add .
         working-directory: pages
       - run: git -c user.name=github-actions[bot] -c user.email=41898282+github-actions[bot]@users.noreply.github.com commit -m "Update for ${{github.sha}}"
