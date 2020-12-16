@@ -15,6 +15,7 @@ jobs:
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: nightly
+          default: true
       - run: cargo install wasm-pack
       - run: npm install
         working-directory: web
