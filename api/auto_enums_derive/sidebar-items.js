@@ -1,1 +1,1 @@
-initSidebarItems({"attr":[["enum_derive","An attribute macro like a wrapper of `#[derive]`, implementing the supported traits and passing unsupported traits to `#[derive]`. See crate level documentation for details."]]});
+initSidebarItems({"attr":[["enum_derive","An attribute macro like a wrapper of `#[derive]`, implementing the supported traits and passing unsupported traits to `#[derive]`."]]});

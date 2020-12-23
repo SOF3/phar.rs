@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/auto_enums-0.7.10/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings"></script><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/auto_enums-0.7.11/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings"></script><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg">
 <link rel="alternate icon" type="image/png" href="../../favicon-16x16.png">
 <link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../auto_enums/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
                 <a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
@@ -878,8 +878,16 @@
 <span id="875">875</span>
 <span id="876">876</span>
 <span id="877">877</span>
+<span id="878">878</span>
+<span id="879">879</span>
+<span id="880">880</span>
+<span id="881">881</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! A library for to allow multiple return types by automatically generated enum.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! This crate is a procedural macro implementation of the features discussions</span>
+<span class="doccomment">//! in [rust-lang/rfcs#2414]. This idea is also known as</span>
+<span class="doccomment">//! [&quot;Anonymous sum types&quot;][rust-lang/rfcs#294].</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! This library provides the following attribute macros:</span>
 <span class="doccomment">//!</span>
@@ -1435,8 +1443,8 @@
 <span class="doccomment">//! traits to `#[derive]`.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! If you want to use traits that are not supported by `#[enum_derive]`, you</span>
-<span class="doccomment">//! can use another crate that provides [derives macros][proc-macro-derive],</span>
-<span class="doccomment">//! or you can define derives macros yourself ([derive_utils] probably can help it).</span>
+<span class="doccomment">//! can use another crate that provides [derives macros][proc-macro-derive], or</span>
+<span class="doccomment">//! you can define derives macros yourself ([derive_utils] probably can help it).</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Basic usage of `#[enum_derive]`</span>
 <span class="doccomment">//!</span>
@@ -1556,7 +1564,7 @@
 <span class="doccomment">//! }</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! ### [futures 0.3][futures03] *(requires `&quot;futures03&quot;` or `&quot;futures&quot;` crate feature)*</span>
+<span class="doccomment">//! ### [futures v0.3][futures03] *(requires `&quot;futures03&quot;` or `&quot;futures&quot;` crate feature)*</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! * [`futures03::Stream`](https://docs.rs/futures/0.3/futures/stream/trait.Stream.html) - [generated code](https://github.com/taiki-e/auto_enums/blob/master/docs/supported_traits/external/futures/stream.md)</span>
 <span class="doccomment">//! * [`futures03::Sink`](https://docs.rs/futures/0.3/futures/sink/trait.Sink.html) - [generated code](https://github.com/taiki-e/auto_enums/blob/master/docs/supported_traits/external/futures/sink.md)</span>
@@ -1567,7 +1575,7 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! *See also [futures-enum] crate.*</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! ### [futures 0.1][futures01] *(requires `&quot;futures01&quot;` crate feature)*</span>
+<span class="doccomment">//! ### [futures v0.1][futures01] *(requires `&quot;futures01&quot;` crate feature)*</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! * [`futures01::Future`](https://docs.rs/futures/0.1/futures/future/trait.Future.html)</span>
 <span class="doccomment">//! * [`futures01::Stream`](https://docs.rs/futures/0.1/futures/stream/trait.Stream.html)</span>
@@ -1583,21 +1591,28 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! * [`serde::Serialize`](https://docs.rs/serde/1/serde/trait.Serialize.html) - [generated code](https://github.com/taiki-e/auto_enums/blob/master/docs/supported_traits/external/serde/serialize.md)</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! ### [tokio 0.3][tokio03] *(requires `&quot;tokio03&quot;` crate feature)*</span>
+<span class="doccomment">//! ### [tokio v1][tokio1] *(requires `&quot;tokio1&quot;` crate feature)*</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! * [`tokio1::AsyncRead`](https://docs.rs/tokio/1/tokio/io/trait.AsyncRead.html)</span>
+<span class="doccomment">//! * [`tokio1::AsyncWrite`](https://docs.rs/tokio/1/tokio/io/trait.AsyncWrite.html)</span>
+<span class="doccomment">//! * [`tokio1::AsyncSeek`](https://docs.rs/tokio/1/tokio/io/trait.AsyncSeek.html)</span>
+<span class="doccomment">//! * [`tokio1::AsyncBufRead`](https://docs.rs/tokio/1/tokio/io/trait.AsyncBufRead.html)</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ### [tokio v0.3][tokio03] *(requires `&quot;tokio03&quot;` crate feature)*</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! * [`tokio03::AsyncRead`](https://docs.rs/tokio/0.3/tokio/io/trait.AsyncRead.html)</span>
 <span class="doccomment">//! * [`tokio03::AsyncWrite`](https://docs.rs/tokio/0.3/tokio/io/trait.AsyncWrite.html)</span>
 <span class="doccomment">//! * [`tokio03::AsyncSeek`](https://docs.rs/tokio/0.3/tokio/io/trait.AsyncSeek.html)</span>
 <span class="doccomment">//! * [`tokio03::AsyncBufRead`](https://docs.rs/tokio/0.3/tokio/io/trait.AsyncBufRead.html)</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! ### [tokio 0.2][tokio02] *(requires `&quot;tokio02&quot;` crate feature)*</span>
+<span class="doccomment">//! ### [tokio v0.2][tokio02] *(requires `&quot;tokio02&quot;` crate feature)*</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! * [`tokio02::AsyncRead`](https://docs.rs/tokio/0.2/tokio/io/trait.AsyncRead.html)</span>
 <span class="doccomment">//! * [`tokio02::AsyncWrite`](https://docs.rs/tokio/0.2/tokio/io/trait.AsyncWrite.html)</span>
 <span class="doccomment">//! * [`tokio02::AsyncSeek`](https://docs.rs/tokio/0.2/tokio/io/trait.AsyncSeek.html)</span>
 <span class="doccomment">//! * [`tokio02::AsyncBufRead`](https://docs.rs/tokio/0.2/tokio/io/trait.AsyncBufRead.html)</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! ### [tokio 0.1][tokio01] *(requires `&quot;tokio01&quot;` crate feature)*</span>
+<span class="doccomment">//! ### [tokio v0.1][tokio01] *(requires `&quot;tokio01&quot;` crate feature)*</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! * [`tokio01::AsyncRead`](https://docs.rs/tokio/0.1/tokio/io/trait.AsyncRead.html)</span>
 <span class="doccomment">//! * [`tokio01::AsyncWrite`](https://docs.rs/tokio/0.1/tokio/io/trait.AsyncWrite.html)</span>
@@ -1644,19 +1659,21 @@
 <span class="doccomment">//! * **`transpose_methods`**</span>
 <span class="doccomment">//!   * Enable to use `transpose*` methods.</span>
 <span class="doccomment">//! * **`futures03`**</span>
-<span class="doccomment">//!   * Enable to use [futures 0.3][futures03] traits.</span>
+<span class="doccomment">//!   * Enable to use [futures v0.3][futures03] traits.</span>
 <span class="doccomment">//! * **`futures01`**</span>
-<span class="doccomment">//!   * Enable to use [futures 0.1][futures01] traits.</span>
+<span class="doccomment">//!   * Enable to use [futures v0.1][futures01] traits.</span>
 <span class="doccomment">//! * **`rayon`**</span>
 <span class="doccomment">//!   * Enable to use [rayon] traits.</span>
 <span class="doccomment">//! * **`serde`**</span>
 <span class="doccomment">//!   * Enable to use [serde] traits.</span>
+<span class="doccomment">//! * **`tokio1`**</span>
+<span class="doccomment">//!   * Enable to use [tokio v1][tokio1] traits.</span>
 <span class="doccomment">//! * **`tokio03`**</span>
-<span class="doccomment">//!   * Enable to use [tokio 0.3][tokio03] traits.</span>
+<span class="doccomment">//!   * Enable to use [tokio v0.3][tokio03] traits.</span>
 <span class="doccomment">//! * **`tokio02`**</span>
-<span class="doccomment">//!   * Enable to use [tokio 0.2][tokio02] traits.</span>
+<span class="doccomment">//!   * Enable to use [tokio v0.2][tokio02] traits.</span>
 <span class="doccomment">//! * **`tokio01`**</span>
-<span class="doccomment">//!   * Enable to use [tokio 0.1][tokio01] traits.</span>
+<span class="doccomment">//!   * Enable to use [tokio v0.1][tokio01] traits.</span>
 <span class="doccomment">//! * **`generator_trait`**</span>
 <span class="doccomment">//!   * Enable to use `[std|core]::ops::Generator` trait.</span>
 <span class="doccomment">//!   * Note that this feature is unstable and may cause incompatible changes between patch versions.</span>
@@ -1716,9 +1733,9 @@
 <span class="doccomment">//! [tokio01]: https://docs.rs/tokio/0.1</span>
 <span class="doccomment">//! [tokio02]: https://docs.rs/tokio/0.2</span>
 <span class="doccomment">//! [tokio03]: https://docs.rs/tokio/0.3</span>
+<span class="doccomment">//! [tokio1]: https://docs.rs/tokio/1</span>
 
 <span class="attribute">#![<span class="ident">no_std</span>]</span>
-<span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_root_url</span> <span class="op">=</span> <span class="string">&quot;https://docs.rs/auto_enums/0.7.10&quot;</span>)]</span>
 <span class="attribute">#![<span class="ident">doc</span>(<span class="ident">test</span>(
     <span class="ident">no_crate_inject</span>,
     <span class="ident">attr</span>(<span class="ident">deny</span>(<span class="ident">warnings</span>, <span class="ident">rust_2018_idioms</span>, <span class="ident">single_use_lifetimes</span>), <span class="ident">allow</span>(<span class="ident">dead_code</span>))
@@ -1726,15 +1743,6 @@
 <span class="attribute">#![<span class="ident">forbid</span>(<span class="ident">unsafe_code</span>)]</span>
 <span class="attribute">#![<span class="ident">warn</span>(<span class="ident">future_incompatible</span>, <span class="ident">rust_2018_idioms</span>, <span class="ident">single_use_lifetimes</span>, <span class="ident">unreachable_pub</span>)]</span>
 <span class="attribute">#![<span class="ident">warn</span>(<span class="ident">clippy</span>::<span class="ident">all</span>, <span class="ident">clippy</span>::<span class="ident">default_trait_access</span>)]</span>
-<span class="comment">// mem::take, #[non_exhaustive], and Option::{as_deref, as_deref_mut} require Rust 1.40,</span>
-<span class="comment">// matches! requires Rust 1.42, str::{strip_prefix, strip_suffix} requires Rust 1.45</span>
-<span class="attribute">#![<span class="ident">allow</span>(
-    <span class="ident">clippy</span>::<span class="ident">mem_replace_with_default</span>,
-    <span class="ident">clippy</span>::<span class="ident">manual_non_exhaustive</span>,
-    <span class="ident">clippy</span>::<span class="ident">option_as_ref_deref</span>,
-    <span class="ident">clippy</span>::<span class="ident">match_like_matches_macro</span>,
-    <span class="ident">clippy</span>::<span class="ident">manual_strip</span>
-)]</span>
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;generator_trait&quot;</span>, <span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable&quot;</span>)))]</span>
 <span class="macro">compile_error</span><span class="macro">!</span>(

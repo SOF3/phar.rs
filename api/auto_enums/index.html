@@ -1,7 +1,10 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `auto_enums` crate."><meta name="keywords" content="rust, rustlang, rust-lang, auto_enums"><title>auto_enums - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../ayu.css" disabled ><script id="default-settings"></script><script src="../storage.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="alternate icon" type="image/png" href="../favicon-16x16.png">
-<link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../auto_enums/index.html'><div class='logo-container rust-logo'><img src='../rust-logo.png' alt='logo'></div></a><p class="location">Crate auto_enums</p><div class="block version"><p>Version 0.7.10</p></div><div class="sidebar-elems"><a id="all-types" href="all.html"><p>See all auto_enums's items</p></a><p class="location"></p><script>window.sidebarCurrent = {name: "auto_enums", ty: "mod", relpath: "../"};</script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
-                <a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/auto_enums/lib.rs.html#1-877" title="goto source code">[src]</a></span><span class="in-band">Crate <a class="mod" href="">auto_enums</a></span></h1><div class="docblock"><p>A library for to allow multiple return types by automatically generated enum.</p>
+<link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../auto_enums/index.html'><div class='logo-container rust-logo'><img src='../rust-logo.png' alt='logo'></div></a><p class="location">Crate auto_enums</p><div class="block version"><p>Version 0.7.11</p></div><div class="sidebar-elems"><a id="all-types" href="all.html"><p>See all auto_enums's items</p></a><p class="location"></p><script>window.sidebarCurrent = {name: "auto_enums", ty: "mod", relpath: "../"};</script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
+                <a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/auto_enums/lib.rs.html#1-881" title="goto source code">[src]</a></span><span class="in-band">Crate <a class="mod" href="">auto_enums</a></span></h1><div class="docblock"><p>A library for to allow multiple return types by automatically generated enum.</p>
+<p>This crate is a procedural macro implementation of the features discussions
+in [rust-lang/rfcs#2414]. This idea is also known as
+[&quot;Anonymous sum types&quot;][rust-lang/rfcs#294].</p>
 <p>This library provides the following attribute macros:</p>
 <ul>
 <li>
@@ -500,8 +503,8 @@ function is unnecessary.</p>
 <p><code>#[enum_derive]</code> implements the supported traits and passes unsupported
 traits to <code>#[derive]</code>.</p>
 <p>If you want to use traits that are not supported by <code>#[enum_derive]</code>, you
-can use another crate that provides <a href="https://doc.rust-lang.org/reference/procedural-macros.html#derive-macros">derives macros</a>,
-or you can define derives macros yourself (<a href="https://github.com/taiki-e/derive_utils">derive_utils</a> probably can help it).</p>
+can use another crate that provides <a href="https://doc.rust-lang.org/reference/procedural-macros.html#derive-macros">derives macros</a>, or
+you can define derives macros yourself (<a href="https://github.com/taiki-e/derive_utils">derive_utils</a> probably can help it).</p>
 <p>Basic usage of <code>#[enum_derive]</code></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -601,7 +604,7 @@ Note that some traits have aliases.</p>
         <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="number">5</span>, <span class="number">10</span>].<span class="ident">into_par_iter</span>(),
     }
 }</pre></div>
-<h3 id="futures-03-requires-futures03-or-futures-crate-feature" class="section-header"><a href="#futures-03-requires-futures03-or-futures-crate-feature">futures 0.3 <em>(requires <code>&quot;futures03&quot;</code> or <code>&quot;futures&quot;</code> crate feature)</em></a></h3>
+<h3 id="futures-v03-requires-futures03-or-futures-crate-feature" class="section-header"><a href="#futures-v03-requires-futures03-or-futures-crate-feature">futures v0.3 <em>(requires <code>&quot;futures03&quot;</code> or <code>&quot;futures&quot;</code> crate feature)</em></a></h3>
 <ul>
 <li><a href="https://docs.rs/futures/0.3/futures/stream/trait.Stream.html"><code>futures03::Stream</code></a> - <a href="https://github.com/taiki-e/auto_enums/blob/master/docs/supported_traits/external/futures/stream.md">generated code</a></li>
 <li><a href="https://docs.rs/futures/0.3/futures/sink/trait.Sink.html"><code>futures03::Sink</code></a> - <a href="https://github.com/taiki-e/auto_enums/blob/master/docs/supported_traits/external/futures/sink.md">generated code</a></li>
@@ -611,7 +614,7 @@ Note that some traits have aliases.</p>
 <li><a href="https://docs.rs/futures/0.3/futures/io/trait.AsyncBufRead.html"><code>futures03::AsyncBufRead</code></a> - <a href="https://github.com/taiki-e/auto_enums/blob/master/docs/supported_traits/external/futures/AsyncBufRead.md">generated code</a></li>
 </ul>
 <p><em>See also <a href="https://github.com/taiki-e/futures-enum">futures-enum</a> crate.</em></p>
-<h3 id="futures-01-requires-futures01-crate-feature" class="section-header"><a href="#futures-01-requires-futures01-crate-feature">futures 0.1 <em>(requires <code>&quot;futures01&quot;</code> crate feature)</em></a></h3>
+<h3 id="futures-v01-requires-futures01-crate-feature" class="section-header"><a href="#futures-v01-requires-futures01-crate-feature">futures v0.1 <em>(requires <code>&quot;futures01&quot;</code> crate feature)</em></a></h3>
 <ul>
 <li><a href="https://docs.rs/futures/0.1/futures/future/trait.Future.html"><code>futures01::Future</code></a></li>
 <li><a href="https://docs.rs/futures/0.1/futures/stream/trait.Stream.html"><code>futures01::Stream</code></a></li>
@@ -627,21 +630,28 @@ Note that some traits have aliases.</p>
 <ul>
 <li><a href="https://docs.rs/serde/1/serde/trait.Serialize.html"><code>serde::Serialize</code></a> - <a href="https://github.com/taiki-e/auto_enums/blob/master/docs/supported_traits/external/serde/serialize.md">generated code</a></li>
 </ul>
-<h3 id="tokio-03-requires-tokio03-crate-feature" class="section-header"><a href="#tokio-03-requires-tokio03-crate-feature">tokio 0.3 <em>(requires <code>&quot;tokio03&quot;</code> crate feature)</em></a></h3>
+<h3 id="tokio-v1-requires-tokio1-crate-feature" class="section-header"><a href="#tokio-v1-requires-tokio1-crate-feature">tokio v1 <em>(requires <code>&quot;tokio1&quot;</code> crate feature)</em></a></h3>
+<ul>
+<li><a href="https://docs.rs/tokio/1/tokio/io/trait.AsyncRead.html"><code>tokio1::AsyncRead</code></a></li>
+<li><a href="https://docs.rs/tokio/1/tokio/io/trait.AsyncWrite.html"><code>tokio1::AsyncWrite</code></a></li>
+<li><a href="https://docs.rs/tokio/1/tokio/io/trait.AsyncSeek.html"><code>tokio1::AsyncSeek</code></a></li>
+<li><a href="https://docs.rs/tokio/1/tokio/io/trait.AsyncBufRead.html"><code>tokio1::AsyncBufRead</code></a></li>
+</ul>
+<h3 id="tokio-v03-requires-tokio03-crate-feature" class="section-header"><a href="#tokio-v03-requires-tokio03-crate-feature">tokio v0.3 <em>(requires <code>&quot;tokio03&quot;</code> crate feature)</em></a></h3>
 <ul>
 <li><a href="https://docs.rs/tokio/0.3/tokio/io/trait.AsyncRead.html"><code>tokio03::AsyncRead</code></a></li>
 <li><a href="https://docs.rs/tokio/0.3/tokio/io/trait.AsyncWrite.html"><code>tokio03::AsyncWrite</code></a></li>
 <li><a href="https://docs.rs/tokio/0.3/tokio/io/trait.AsyncSeek.html"><code>tokio03::AsyncSeek</code></a></li>
 <li><a href="https://docs.rs/tokio/0.3/tokio/io/trait.AsyncBufRead.html"><code>tokio03::AsyncBufRead</code></a></li>
 </ul>
-<h3 id="tokio-02-requires-tokio02-crate-feature" class="section-header"><a href="#tokio-02-requires-tokio02-crate-feature">tokio 0.2 <em>(requires <code>&quot;tokio02&quot;</code> crate feature)</em></a></h3>
+<h3 id="tokio-v02-requires-tokio02-crate-feature" class="section-header"><a href="#tokio-v02-requires-tokio02-crate-feature">tokio v0.2 <em>(requires <code>&quot;tokio02&quot;</code> crate feature)</em></a></h3>
 <ul>
 <li><a href="https://docs.rs/tokio/0.2/tokio/io/trait.AsyncRead.html"><code>tokio02::AsyncRead</code></a></li>
 <li><a href="https://docs.rs/tokio/0.2/tokio/io/trait.AsyncWrite.html"><code>tokio02::AsyncWrite</code></a></li>
 <li><a href="https://docs.rs/tokio/0.2/tokio/io/trait.AsyncSeek.html"><code>tokio02::AsyncSeek</code></a></li>
 <li><a href="https://docs.rs/tokio/0.2/tokio/io/trait.AsyncBufRead.html"><code>tokio02::AsyncBufRead</code></a></li>
 </ul>
-<h3 id="tokio-01-requires-tokio01-crate-feature" class="section-header"><a href="#tokio-01-requires-tokio01-crate-feature">tokio 0.1 <em>(requires <code>&quot;tokio01&quot;</code> crate feature)</em></a></h3>
+<h3 id="tokio-v01-requires-tokio01-crate-feature" class="section-header"><a href="#tokio-v01-requires-tokio01-crate-feature">tokio v0.1 <em>(requires <code>&quot;tokio01&quot;</code> crate feature)</em></a></h3>
 <ul>
 <li><a href="https://docs.rs/tokio/0.1/tokio/io/trait.AsyncRead.html"><code>tokio01::AsyncRead</code></a></li>
 <li><a href="https://docs.rs/tokio/0.1/tokio/io/trait.AsyncWrite.html"><code>tokio01::AsyncWrite</code></a></li>
@@ -709,12 +719,12 @@ Note that some traits have aliases.</p>
 </li>
 <li><strong><code>futures03</code></strong>
 <ul>
-<li>Enable to use <a href="https://docs.rs/futures/0.3">futures 0.3</a> traits.</li>
+<li>Enable to use <a href="https://docs.rs/futures/0.3">futures v0.3</a> traits.</li>
 </ul>
 </li>
 <li><strong><code>futures01</code></strong>
 <ul>
-<li>Enable to use <a href="https://docs.rs/futures/0.1">futures 0.1</a> traits.</li>
+<li>Enable to use <a href="https://docs.rs/futures/0.1">futures v0.1</a> traits.</li>
 </ul>
 </li>
 <li><strong><code>rayon</code></strong>
@@ -727,19 +737,24 @@ Note that some traits have aliases.</p>
 <li>Enable to use <a href="https://docs.rs/serde/1">serde</a> traits.</li>
 </ul>
 </li>
+<li><strong><code>tokio1</code></strong>
+<ul>
+<li>Enable to use <a href="https://docs.rs/tokio/1">tokio v1</a> traits.</li>
+</ul>
+</li>
 <li><strong><code>tokio03</code></strong>
 <ul>
-<li>Enable to use <a href="https://docs.rs/tokio/0.3">tokio 0.3</a> traits.</li>
+<li>Enable to use <a href="https://docs.rs/tokio/0.3">tokio v0.3</a> traits.</li>
 </ul>
 </li>
 <li><strong><code>tokio02</code></strong>
 <ul>
-<li>Enable to use <a href="https://docs.rs/tokio/0.2">tokio 0.2</a> traits.</li>
+<li>Enable to use <a href="https://docs.rs/tokio/0.2">tokio v0.2</a> traits.</li>
 </ul>
 </li>
 <li><strong><code>tokio01</code></strong>
 <ul>
-<li>Enable to use <a href="https://docs.rs/tokio/0.1">tokio 0.1</a> traits.</li>
+<li>Enable to use <a href="https://docs.rs/tokio/0.1">tokio v0.1</a> traits.</li>
 </ul>
 </li>
 <li><strong><code>generator_trait</code></strong>
@@ -793,9 +808,7 @@ Note that some traits have aliases.</p>
 <li>There needs to be marker macros for unsupported expressions.</li>
 </ul>
 </div><h2 id="attributes" class="section-header"><a href="#attributes">Attribute Macros</a></h2>
-<table><tr class="module-item"><td><a class="attr" href="attr.auto_enum.html" title="auto_enums::auto_enum attr">auto_enum</a></td><td class="docblock-short"><p>An attribute macro for to allow multiple return types by automatically generated enum.
-See crate level documentation for details.</p>
+<table><tr class="module-item"><td><a class="attr" href="attr.auto_enum.html" title="auto_enums::auto_enum attr">auto_enum</a></td><td class="docblock-short"><p>An attribute macro for to allow multiple return types by automatically generated enum.</p>
 </td></tr><tr class="module-item"><td><a class="attr" href="attr.enum_derive.html" title="auto_enums::enum_derive attr">enum_derive</a></td><td class="docblock-short"><p>An attribute macro like a wrapper of <code>#[derive]</code>, implementing
-the supported traits and passing unsupported traits to <code>#[derive]</code>.
-See crate level documentation for details.</p>
+the supported traits and passing unsupported traits to <code>#[derive]</code>.</p>
 </td></tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../";window.currentCrate = "auto_enums";</script><script src="../main.js"></script><script defer src="../search-index.js"></script></body></html>
