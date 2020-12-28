@@ -232,7 +232,7 @@ which is lazily evaluated.</p>
 <h1 id="panics" class="section-header"><a href="#panics">Panics</a></h1>
 <p>When <code>Either</code> is a <code>Right</code> value</p>
 
-<div class='information'><div class='tooltip should_panic'>ⓘ<span class='tooltiptext'>This example panics</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered should_panic">
+<div class='information'><div class='tooltip should_panic'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered should_panic">
 <span class="kw">let</span> <span class="ident">right</span>: <span class="ident">Either</span><span class="op">&lt;</span>(), <span class="kw">_</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Right</span>(<span class="number">3</span>);
 <span class="ident">right</span>.<span class="ident">unwrap_left</span>();</pre></div>
 </div><h4 id="method.unwrap_right" class="method"><code>pub fn <a href="#method.unwrap_right" class="fnname">unwrap_right</a>(self) -&gt; R <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;L: <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html" title="trait core::fmt::Debug">Debug</a>,&nbsp;</span></code><a class="srclink" href="../src/either/lib.rs.html#590-598" title="goto source code">[src]</a></h4><div class="docblock"><p>Returns the right value</p>
@@ -243,7 +243,7 @@ which is lazily evaluated.</p>
 <h1 id="panics-1" class="section-header"><a href="#panics-1">Panics</a></h1>
 <p>When <code>Either</code> is a <code>Left</code> value</p>
 
-<div class='information'><div class='tooltip should_panic'>ⓘ<span class='tooltiptext'>This example panics</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered should_panic">
+<div class='information'><div class='tooltip should_panic'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered should_panic">
 <span class="kw">let</span> <span class="ident">left</span>: <span class="ident">Either</span><span class="op">&lt;</span><span class="kw">_</span>, ()<span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Left</span>(<span class="number">3</span>);
 <span class="ident">left</span>.<span class="ident">unwrap_right</span>();</pre></div>
 </div><h4 id="method.expect_left" class="method"><code>pub fn <a href="#method.expect_left" class="fnname">expect_left</a>(self, msg: &amp;str) -&gt; L <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;R: <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html" title="trait core::fmt::Debug">Debug</a>,&nbsp;</span></code><a class="srclink" href="../src/either/lib.rs.html#619-627" title="goto source code">[src]</a></h4><div class="docblock"><p>Returns the left value</p>
@@ -254,7 +254,7 @@ which is lazily evaluated.</p>
 <h1 id="panics-2" class="section-header"><a href="#panics-2">Panics</a></h1>
 <p>When <code>Either</code> is a <code>Right</code> value</p>
 
-<div class='information'><div class='tooltip should_panic'>ⓘ<span class='tooltiptext'>This example panics</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered should_panic">
+<div class='information'><div class='tooltip should_panic'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered should_panic">
 <span class="kw">let</span> <span class="ident">right</span>: <span class="ident">Either</span><span class="op">&lt;</span>(), <span class="kw">_</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Right</span>(<span class="number">3</span>);
 <span class="ident">right</span>.<span class="ident">expect_left</span>(<span class="string">&quot;value was Right&quot;</span>);</pre></div>
 </div><h4 id="method.expect_right" class="method"><code>pub fn <a href="#method.expect_right" class="fnname">expect_right</a>(self, msg: &amp;str) -&gt; R <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;L: <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html" title="trait core::fmt::Debug">Debug</a>,&nbsp;</span></code><a class="srclink" href="../src/either/lib.rs.html#648-656" title="goto source code">[src]</a></h4><div class="docblock"><p>Returns the right value</p>
@@ -265,7 +265,7 @@ which is lazily evaluated.</p>
 <h1 id="panics-3" class="section-header"><a href="#panics-3">Panics</a></h1>
 <p>When <code>Either</code> is a <code>Left</code> value</p>
 
-<div class='information'><div class='tooltip should_panic'>ⓘ<span class='tooltiptext'>This example panics</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered should_panic">
+<div class='information'><div class='tooltip should_panic'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered should_panic">
 <span class="kw">let</span> <span class="ident">left</span>: <span class="ident">Either</span><span class="op">&lt;</span><span class="kw">_</span>, ()<span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Left</span>(<span class="number">3</span>);
 <span class="ident">left</span>.<span class="ident">expect_right</span>(<span class="string">&quot;value was Right&quot;</span>);</pre></div>
 </div></div><h3 id="impl-1" class="impl"><code class="in-band">impl&lt;T, L, R&gt; <a class="enum" href="../either/enum.Either.html" title="enum either::Either">Either</a>&lt;(T, L), (T, R)&gt;</code><a href="#impl-1" class="anchor"></a><a class="srclink" href="../src/either/lib.rs.html#659-678" title="goto source code">[src]</a></h3><div class="impl-items"><h4 id="method.factor_first" class="method"><code>pub fn <a href="#method.factor_first" class="fnname">factor_first</a>(self) -&gt; (T, <a class="enum" href="../either/enum.Either.html" title="enum either::Either">Either</a>&lt;L, R&gt;)</code><a class="srclink" href="../src/either/lib.rs.html#672-677" title="goto source code">[src]</a></h4><div class="docblock"><p>Factor out a homogeneous type from an either of pairs.</p>

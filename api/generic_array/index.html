@@ -5,7 +5,7 @@
 Core Rust array types <code>[T; N]</code> can't be used generically with
 respect to <code>N</code>, so for example this:</p>
 
-<div class='information'><div class='tooltip compile_fail'>ⓘ<span class='tooltiptext'>This example deliberately fails to compile</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered compile_fail">
+<div class='information'><div class='tooltip compile_fail'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered compile_fail">
 <span class="kw">struct</span> <span class="ident">Foo</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">N</span><span class="op">&gt;</span> {
     <span class="ident">data</span>: [<span class="ident">T</span>; <span class="ident">N</span>]
 }</pre></div>

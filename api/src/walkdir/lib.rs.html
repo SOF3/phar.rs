@@ -1371,7 +1371,7 @@ for entry in walker.filter_entry(|e| !is_hidden(e)) {
     <span class="ident">max_depth</span>: <span class="ident">usize</span>,
     <span class="ident">sorter</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span>
         <span class="ident">Box</span><span class="op">&lt;</span>
-            <span class="ident">dyn</span> <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">DirEntry</span>, <span class="kw-2">&amp;</span><span class="ident">DirEntry</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Ordering</span>
+            <span class="kw">dyn</span> <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">DirEntry</span>, <span class="kw-2">&amp;</span><span class="ident">DirEntry</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Ordering</span>
                 <span class="op">+</span> <span class="ident">Send</span>
                 <span class="op">+</span> <span class="ident">Sync</span>
                 <span class="op">+</span> <span class="lifetime">&#39;static</span>,

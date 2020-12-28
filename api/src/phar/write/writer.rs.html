@@ -766,8 +766,8 @@
             <span class="kw">let</span> <span class="ident">uncompressed_size</span> <span class="op">=</span> <span class="ident">io</span>::<span class="ident">copy</span>(
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">read</span>,
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">MultiWrite</span>([
-                    <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">comp_write</span> <span class="kw">as</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">dyn</span> <span class="ident">Write</span>,
-                    <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">cksum</span> <span class="kw">as</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">dyn</span> <span class="ident">Write</span>,
+                    <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">comp_write</span> <span class="kw">as</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> <span class="ident">Write</span>,
+                    <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">cksum</span> <span class="kw">as</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> <span class="ident">Write</span>,
                 ]),
             )<span class="question-mark">?</span>;
             <span class="ident">drop</span>(<span class="ident">comp_write</span>);
