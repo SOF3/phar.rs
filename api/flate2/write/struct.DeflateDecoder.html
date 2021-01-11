@@ -48,7 +48,7 @@ function is called.</p>
 <h1 id="errors-1" class="section-header"><a href="#errors-1">Errors</a></h1>
 <p>This function will perform I/O to finish the stream, returning any
 errors which happen.</p>
-</div><h4 id="method.finish" class="method"><code>pub fn <a href="#method.finish" class="fnname">finish</a>(self) -&gt; <a class="type" href="https://doc.rust-lang.org/nightly/std/io/error/type.Result.html" title="type std::io::error::Result">Result</a>&lt;W&gt;</code><a class="srclink" href="../../src/flate2/deflate/write.rs.html#303-306" title="goto source code">[src]</a></h4><div class="docblock"><p>Consumes this encoder, flushing the output stream.</p>
+</div><h4 id="method.finish" class="method"><code>pub fn <a href="#method.finish" class="fnname">finish</a>(mut self: Self) -&gt; <a class="type" href="https://doc.rust-lang.org/nightly/std/io/error/type.Result.html" title="type std::io::error::Result">Result</a>&lt;W&gt;</code><a class="srclink" href="../../src/flate2/deflate/write.rs.html#303-306" title="goto source code">[src]</a></h4><div class="docblock"><p>Consumes this encoder, flushing the output stream.</p>
 <p>This will flush the underlying data stream and then return the contained
 writer if the flush succeeded.</p>
 <p>Note that this function may not be suitable to call in a situation where

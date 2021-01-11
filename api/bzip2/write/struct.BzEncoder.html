@@ -16,7 +16,7 @@ calls to <code>write</code> may result in a panic.</p>
 <h1 id="panics" class="section-header"><a href="#panics">Panics</a></h1>
 <p>Attempts to write data to this stream may result in a panic after this
 function is called.</p>
-</div><h4 id="method.finish" class="method"><code>pub fn <a href="#method.finish" class="fnname">finish</a>(self) -&gt; <a class="type" href="https://doc.rust-lang.org/nightly/std/io/error/type.Result.html" title="type std::io::error::Result">Result</a>&lt;W&gt;</code><a class="srclink" href="../../src/bzip2/write.rs.html#100-103" title="goto source code">[src]</a></h4><div class="docblock"><p>Consumes this encoder, flushing the output stream.</p>
+</div><h4 id="method.finish" class="method"><code>pub fn <a href="#method.finish" class="fnname">finish</a>(mut self: Self) -&gt; <a class="type" href="https://doc.rust-lang.org/nightly/std/io/error/type.Result.html" title="type std::io::error::Result">Result</a>&lt;W&gt;</code><a class="srclink" href="../../src/bzip2/write.rs.html#100-103" title="goto source code">[src]</a></h4><div class="docblock"><p>Consumes this encoder, flushing the output stream.</p>
 <p>This will flush the underlying data stream and then return the contained
 writer if the flush succeeded.</p>
 <p>Note that this function may not be suitable to call in a situation where

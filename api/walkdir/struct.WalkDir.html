@@ -53,25 +53,25 @@ and only item yielded by the iterator. If <code>root</code> is a symlink, then i
 is always followed for the purposes of directory traversal. (A root
 <code>DirEntry</code> still obeys its documentation with respect to symlinks and
 the <code>follow_links</code> setting.)</p>
-</div><h4 id="method.min_depth" class="method"><code>pub fn <a href="#method.min_depth" class="fnname">min_depth</a>(self, depth: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; Self</code><a class="srclink" href="../src/walkdir/lib.rs.html#306-312" title="goto source code">[src]</a></h4><div class="docblock"><p>Set the minimum depth of entries yielded by the iterator.</p>
+</div><h4 id="method.min_depth" class="method"><code>pub fn <a href="#method.min_depth" class="fnname">min_depth</a>(mut self: Self, depth: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; Self</code><a class="srclink" href="../src/walkdir/lib.rs.html#306-312" title="goto source code">[src]</a></h4><div class="docblock"><p>Set the minimum depth of entries yielded by the iterator.</p>
 <p>The smallest depth is <code>0</code> and always corresponds to the path given
 to the <code>new</code> function on this type. Its direct descendents have depth
 <code>1</code>, and their descendents have depth <code>2</code>, and so on.</p>
-</div><h4 id="method.max_depth" class="method"><code>pub fn <a href="#method.max_depth" class="fnname">max_depth</a>(self, depth: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; Self</code><a class="srclink" href="../src/walkdir/lib.rs.html#323-329" title="goto source code">[src]</a></h4><div class="docblock"><p>Set the maximum depth of entries yield by the iterator.</p>
+</div><h4 id="method.max_depth" class="method"><code>pub fn <a href="#method.max_depth" class="fnname">max_depth</a>(mut self: Self, depth: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; Self</code><a class="srclink" href="../src/walkdir/lib.rs.html#323-329" title="goto source code">[src]</a></h4><div class="docblock"><p>Set the maximum depth of entries yield by the iterator.</p>
 <p>The smallest depth is <code>0</code> and always corresponds to the path given
 to the <code>new</code> function on this type. Its direct descendents have depth
 <code>1</code>, and their descendents have depth <code>2</code>, and so on.</p>
 <p>Note that this will not simply filter the entries of the iterator, but
 it will actually avoid descending into directories when the depth is
 exceeded.</p>
-</div><h4 id="method.follow_links" class="method"><code>pub fn <a href="#method.follow_links" class="fnname">follow_links</a>(self, yes: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; Self</code><a class="srclink" href="../src/walkdir/lib.rs.html#342-345" title="goto source code">[src]</a></h4><div class="docblock"><p>Follow symbolic links. By default, this is disabled.</p>
+</div><h4 id="method.follow_links" class="method"><code>pub fn <a href="#method.follow_links" class="fnname">follow_links</a>(mut self: Self, yes: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; Self</code><a class="srclink" href="../src/walkdir/lib.rs.html#342-345" title="goto source code">[src]</a></h4><div class="docblock"><p>Follow symbolic links. By default, this is disabled.</p>
 <p>When <code>yes</code> is <code>true</code>, symbolic links are followed as if they were
 normal directories and files. If a symbolic link is broken or is
 involved in a loop, an error is yielded.</p>
 <p>When enabled, the yielded <a href="struct.DirEntry.html"><code>DirEntry</code></a> values represent the target of
 the link while the path corresponds to the link. See the <a href="struct.DirEntry.html"><code>DirEntry</code></a>
 type for more details.</p>
-</div><h4 id="method.max_open" class="method"><code>pub fn <a href="#method.max_open" class="fnname">max_open</a>(self, n: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; Self</code><a class="srclink" href="../src/walkdir/lib.rs.html#372-378" title="goto source code">[src]</a></h4><div class="docblock"><p>Set the maximum number of simultaneously open file descriptors used
+</div><h4 id="method.max_open" class="method"><code>pub fn <a href="#method.max_open" class="fnname">max_open</a>(mut self: Self, mut n: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; Self</code><a class="srclink" href="../src/walkdir/lib.rs.html#372-378" title="goto source code">[src]</a></h4><div class="docblock"><p>Set the maximum number of simultaneously open file descriptors used
 by the iterator.</p>
 <p><code>n</code> must be greater than or equal to <code>1</code>. If <code>n</code> is <code>0</code>, then it is set
 to <code>1</code> automatically. If this is not set, then it defaults to some
@@ -91,7 +91,7 @@ an exhausted iterator.</p>
 <p>On Windows, if <code>follow_links</code> is enabled, then this limit is not
 respected. In particular, the maximum number of file descriptors opened
 is proportional to the depth of the directory tree traversed.</p>
-</div><h4 id="method.sort_by" class="method"><code>pub fn <a href="#method.sort_by" class="fnname">sort_by</a>&lt;F&gt;(self, cmp: F) -&gt; Self <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnMut.html" title="trait core::ops::function::FnMut">FnMut</a>(&amp;<a class="struct" href="../walkdir/struct.DirEntry.html" title="struct walkdir::DirEntry">DirEntry</a>, &amp;<a class="struct" href="../walkdir/struct.DirEntry.html" title="struct walkdir::DirEntry">DirEntry</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/cmp/enum.Ordering.html" title="enum core::cmp::Ordering">Ordering</a> + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html" title="trait core::marker::Sync">Sync</a> + 'static,&nbsp;</span></code><a class="srclink" href="../src/walkdir/lib.rs.html#393-399" title="goto source code">[src]</a></h4><div class="docblock"><p>Set a function for sorting directory entries.</p>
+</div><h4 id="method.sort_by" class="method"><code>pub fn <a href="#method.sort_by" class="fnname">sort_by</a>&lt;F&gt;(mut self: Self, cmp: F) -&gt; Self <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnMut.html" title="trait core::ops::function::FnMut">FnMut</a>(&amp;<a class="struct" href="../walkdir/struct.DirEntry.html" title="struct walkdir::DirEntry">DirEntry</a>, &amp;<a class="struct" href="../walkdir/struct.DirEntry.html" title="struct walkdir::DirEntry">DirEntry</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/cmp/enum.Ordering.html" title="enum core::cmp::Ordering">Ordering</a> + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html" title="trait core::marker::Sync">Sync</a> + 'static,&nbsp;</span></code><a class="srclink" href="../src/walkdir/lib.rs.html#393-399" title="goto source code">[src]</a></h4><div class="docblock"><p>Set a function for sorting directory entries.</p>
 <p>If a compare function is set, the resulting iterator will return all
 paths in sorted order. The compare function will be called to compare
 entries from the same directory.</p>
@@ -102,7 +102,7 @@ entries from the same directory.</p>
 <span class="kw">use</span> <span class="ident">walkdir</span>::<span class="ident">WalkDir</span>;
 
 <span class="ident">WalkDir</span>::<span class="ident">new</span>(<span class="string">&quot;foo&quot;</span>).<span class="ident">sort_by</span>(<span class="op">|</span><span class="ident">a</span>,<span class="ident">b</span><span class="op">|</span> <span class="ident">a</span>.<span class="ident">file_name</span>().<span class="ident">cmp</span>(<span class="ident">b</span>.<span class="ident">file_name</span>()));</pre></div>
-</div><h4 id="method.contents_first" class="method"><code>pub fn <a href="#method.contents_first" class="fnname">contents_first</a>(self, yes: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; Self</code><a class="srclink" href="../src/walkdir/lib.rs.html#458-461" title="goto source code">[src]</a></h4><div class="docblock"><p>Yield a directory's contents before the directory itself. By default,
+</div><h4 id="method.contents_first" class="method"><code>pub fn <a href="#method.contents_first" class="fnname">contents_first</a>(mut self: Self, yes: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; Self</code><a class="srclink" href="../src/walkdir/lib.rs.html#458-461" title="goto source code">[src]</a></h4><div class="docblock"><p>Yield a directory's contents before the directory itself. By default,
 this is disabled.</p>
 <p>When <code>yes</code> is <code>false</code> (as is the default), the directory is yielded
 before its contents are read. This is useful when, e.g. you want to
@@ -149,7 +149,7 @@ the directory tree in depth-first order:</p>
 <span class="comment">// foo/abc</span>
 <span class="comment">// foo/def</span>
 <span class="comment">// foo</span></pre></div>
-</div><h4 id="method.same_file_system" class="method"><code>pub fn <a href="#method.same_file_system" class="fnname">same_file_system</a>(self, yes: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; Self</code><a class="srclink" href="../src/walkdir/lib.rs.html#471-474" title="goto source code">[src]</a></h4><div class="docblock"><p>Do not cross file system boundaries.</p>
+</div><h4 id="method.same_file_system" class="method"><code>pub fn <a href="#method.same_file_system" class="fnname">same_file_system</a>(mut self: Self, yes: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; Self</code><a class="srclink" href="../src/walkdir/lib.rs.html#471-474" title="goto source code">[src]</a></h4><div class="docblock"><p>Do not cross file system boundaries.</p>
 <p>When this option is enabled, directory traversal will not descend into
 directories that are on a different file system from the root path.</p>
 <p>Currently, this option is only supported on Unix and Windows. If this
