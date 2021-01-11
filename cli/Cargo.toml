@@ -9,7 +9,7 @@ edition = "2018"
 license = "Apache-2.0"
 
 [dependencies]
-anyhow = "1.0.37"
+anyhow = "1.0.38"
 structopt = "0.3.21"
 
 [dependencies.phar]
