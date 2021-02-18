@@ -3,3 +3,4 @@ node_modules
 dist
 **/*.rs.bk
 .*.sw[a-z]
+Cargo.lock
