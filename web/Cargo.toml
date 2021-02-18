@@ -34,4 +34,4 @@ features = [
 path = ".."
 
 [dev-dependencies]
-wasm-bindgen-test = "0.2.45"
+wasm-bindgen-test = "0.3.19"
