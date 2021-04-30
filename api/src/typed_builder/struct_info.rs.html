@@ -1,7 +1,7 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/typed-builder-0.9.0/src/struct_info.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>struct_info.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings"></script><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/typed-builder-0.9.0/src/struct_info.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>struct_info.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings"></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg">
 <link rel="alternate icon" type="image/png" href="../../favicon-16x16.png">
-<link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../typed_builder/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
-                <a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../typed_builder/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
+                <a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -636,27 +636,27 @@
 <span id="633">633</span>
 <span id="634">634</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="ident">proc_macro2</span>::<span class="ident">TokenStream</span>;
-<span class="kw">use</span> <span class="ident">quote</span>::<span class="ident">quote</span>;
-<span class="kw">use</span> <span class="ident">syn</span>::<span class="ident">parse</span>::<span class="ident">Error</span>;
+<span class="kw">use</span> <span class="ident">proc_macro2::TokenStream</span>;
+<span class="kw">use</span> <span class="ident">quote::quote</span>;
+<span class="kw">use</span> <span class="ident">syn::parse::Error</span>;
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">field_info</span>::{<span class="ident">FieldBuilderAttr</span>, <span class="ident">FieldInfo</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">util</span>::{
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::field_info</span>::{<span class="ident">FieldBuilderAttr</span>, <span class="ident">FieldInfo</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::util</span>::{
     <span class="ident">empty_type</span>, <span class="ident">empty_type_tuple</span>, <span class="ident">expr_to_single_string</span>, <span class="ident">make_punctuated_single</span>, <span class="ident">modify_types_generics_hack</span>,
     <span class="ident">path_to_single_string</span>, <span class="ident">strip_raw_ident_prefix</span>, <span class="ident">type_tuple</span>,
 };
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">StructInfo</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="kw">pub</span> <span class="ident">vis</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">syn</span>::<span class="ident">Visibility</span>,
-    <span class="kw">pub</span> <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">syn</span>::<span class="ident">Ident</span>,
-    <span class="kw">pub</span> <span class="ident">generics</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">syn</span>::<span class="ident">Generics</span>,
+    <span class="kw">pub</span> <span class="ident">vis</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">syn::Visibility</span>,
+    <span class="kw">pub</span> <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">syn::Ident</span>,
+    <span class="kw">pub</span> <span class="ident">generics</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">syn::Generics</span>,
     <span class="kw">pub</span> <span class="ident">fields</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">FieldInfo</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
     <span class="kw">pub</span> <span class="ident">builder_attr</span>: <span class="ident">TypeBuilderAttr</span>,
-    <span class="kw">pub</span> <span class="ident">builder_name</span>: <span class="ident">syn</span>::<span class="ident">Ident</span>,
-    <span class="kw">pub</span> <span class="ident">conversion_helper_trait_name</span>: <span class="ident">syn</span>::<span class="ident">Ident</span>,
-    <span class="kw">pub</span> <span class="ident">core</span>: <span class="ident">syn</span>::<span class="ident">Ident</span>,
+    <span class="kw">pub</span> <span class="ident">builder_name</span>: <span class="ident">syn::Ident</span>,
+    <span class="kw">pub</span> <span class="ident">conversion_helper_trait_name</span>: <span class="ident">syn::Ident</span>,
+    <span class="kw">pub</span> <span class="ident">core</span>: <span class="ident">syn::Ident</span>,
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">StructInfo</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
@@ -664,25 +664,25 @@
         <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">iter</span>().<span class="ident">filter</span>(<span class="op">|</span><span class="ident">f</span><span class="op">|</span> <span class="op">!</span><span class="ident">f</span>.<span class="ident">builder_attr</span>.<span class="ident">setter</span>.<span class="ident">skip</span>)
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">ast</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">syn</span>::<span class="ident">DeriveInput</span>, <span class="ident">fields</span>: <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">syn</span>::<span class="ident">Field</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">StructInfo</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">builder_attr</span> <span class="op">=</span> <span class="ident">TypeBuilderAttr</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="ident">ast</span>.<span class="ident">attrs</span>)<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">builder_name</span> <span class="op">=</span> <span class="ident">strip_raw_ident_prefix</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}Builder&quot;</span>, <span class="ident">ast</span>.<span class="ident">ident</span>));
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">ast</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">syn::DeriveInput</span>, <span class="ident">fields</span>: <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">syn::Field</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">StructInfo</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">builder_attr</span> <span class="op">=</span> <span class="ident">TypeBuilderAttr::new</span>(<span class="kw-2">&amp;</span><span class="ident">ast</span>.<span class="ident">attrs</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">builder_name</span> <span class="op">=</span> <span class="ident">strip_raw_ident_prefix</span>(<span class="macro">format!</span>(<span class="string">&quot;{}Builder&quot;</span>, <span class="ident">ast</span>.<span class="ident">ident</span>));
         <span class="prelude-val">Ok</span>(<span class="ident">StructInfo</span> {
             <span class="ident">vis</span>: <span class="kw-2">&amp;</span><span class="ident">ast</span>.<span class="ident">vis</span>,
             <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">ast</span>.<span class="ident">ident</span>,
             <span class="ident">generics</span>: <span class="kw-2">&amp;</span><span class="ident">ast</span>.<span class="ident">generics</span>,
             <span class="ident">fields</span>: <span class="ident">fields</span>
                 .<span class="ident">enumerate</span>()
-                .<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">i</span>, <span class="ident">f</span>)<span class="op">|</span> <span class="ident">FieldInfo</span>::<span class="ident">new</span>(<span class="ident">i</span>, <span class="ident">f</span>, <span class="ident">builder_attr</span>.<span class="ident">field_defaults</span>.<span class="ident">clone</span>()))
+                .<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">i</span>, <span class="ident">f</span>)<span class="op">|</span> <span class="ident">FieldInfo::new</span>(<span class="ident">i</span>, <span class="ident">f</span>, <span class="ident">builder_attr</span>.<span class="ident">field_defaults</span>.<span class="ident">clone</span>()))
                 .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw">_</span>, <span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>()<span class="question-mark">?</span>,
             <span class="ident">builder_attr</span>,
-            <span class="ident">builder_name</span>: <span class="ident">syn</span>::<span class="ident">Ident</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="ident">builder_name</span>, <span class="ident">proc_macro2</span>::<span class="ident">Span</span>::<span class="ident">call_site</span>()),
-            <span class="ident">conversion_helper_trait_name</span>: <span class="ident">syn</span>::<span class="ident">Ident</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}_Optional&quot;</span>, <span class="ident">builder_name</span>), <span class="ident">proc_macro2</span>::<span class="ident">Span</span>::<span class="ident">call_site</span>()),
-            <span class="ident">core</span>: <span class="ident">syn</span>::<span class="ident">Ident</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}_core&quot;</span>, <span class="ident">builder_name</span>), <span class="ident">proc_macro2</span>::<span class="ident">Span</span>::<span class="ident">call_site</span>()),
+            <span class="ident">builder_name</span>: <span class="ident">syn::Ident::new</span>(<span class="kw-2">&amp;</span><span class="ident">builder_name</span>, <span class="ident">proc_macro2::Span::call_site</span>()),
+            <span class="ident">conversion_helper_trait_name</span>: <span class="ident">syn::Ident::new</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;{}_Optional&quot;</span>, <span class="ident">builder_name</span>), <span class="ident">proc_macro2::Span::call_site</span>()),
+            <span class="ident">core</span>: <span class="ident">syn::Ident::new</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;{}_core&quot;</span>, <span class="ident">builder_name</span>), <span class="ident">proc_macro2::Span::call_site</span>()),
         })
     }
 
-    <span class="kw">fn</span> <span class="ident">modify_generics</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">syn</span>::<span class="ident">Generics</span>)<span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">mutator</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">syn</span>::<span class="ident">Generics</span> {
+    <span class="kw">fn</span> <span class="ident">modify_generics</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">syn::Generics</span>)<span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">mutator</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">syn::Generics</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">generics</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">generics</span>.<span class="ident">clone</span>();
         <span class="ident">mutator</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">generics</span>);
         <span class="ident">generics</span>
@@ -697,35 +697,35 @@
         } <span class="op">=</span> <span class="kw-2">*</span><span class="self">self</span>;
         <span class="kw">let</span> (<span class="ident">impl_generics</span>, <span class="ident">ty_generics</span>, <span class="ident">where_clause</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">generics</span>.<span class="ident">split_for_impl</span>();
         <span class="kw">let</span> <span class="ident">all_fields_param</span> <span class="op">=</span>
-            <span class="ident">syn</span>::<span class="ident">GenericParam</span>::<span class="ident">Type</span>(<span class="ident">syn</span>::<span class="ident">Ident</span>::<span class="ident">new</span>(<span class="string">&quot;TypedBuilderFields&quot;</span>, <span class="ident">proc_macro2</span>::<span class="ident">Span</span>::<span class="ident">call_site</span>()).<span class="ident">into</span>());
+            <span class="ident">syn::GenericParam::Type</span>(<span class="ident">syn::Ident::new</span>(<span class="string">&quot;TypedBuilderFields&quot;</span>, <span class="ident">proc_macro2::Span::call_site</span>()).<span class="ident">into</span>());
         <span class="kw">let</span> <span class="ident">b_generics</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">modify_generics</span>(<span class="op">|</span><span class="ident">g</span><span class="op">|</span> {
             <span class="ident">g</span>.<span class="ident">params</span>.<span class="ident">insert</span>(<span class="number">0</span>, <span class="ident">all_fields_param</span>.<span class="ident">clone</span>());
         });
         <span class="kw">let</span> <span class="ident">empties_tuple</span> <span class="op">=</span> <span class="ident">type_tuple</span>(<span class="self">self</span>.<span class="ident">included_fields</span>().<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">empty_type</span>()));
         <span class="kw">let</span> <span class="ident">generics_with_empty</span> <span class="op">=</span> <span class="ident">modify_types_generics_hack</span>(<span class="kw-2">&amp;</span><span class="ident">ty_generics</span>, <span class="op">|</span><span class="ident">args</span><span class="op">|</span> {
-            <span class="ident">args</span>.<span class="ident">insert</span>(<span class="number">0</span>, <span class="ident">syn</span>::<span class="ident">GenericArgument</span>::<span class="ident">Type</span>(<span class="ident">empties_tuple</span>.<span class="ident">clone</span>().<span class="ident">into</span>()));
+            <span class="ident">args</span>.<span class="ident">insert</span>(<span class="number">0</span>, <span class="ident">syn::GenericArgument::Type</span>(<span class="ident">empties_tuple</span>.<span class="ident">clone</span>().<span class="ident">into</span>()));
         });
         <span class="kw">let</span> <span class="ident">phantom_generics</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">generics</span>.<span class="ident">params</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">param</span><span class="op">|</span> {
             <span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">param</span> {
-                <span class="ident">syn</span>::<span class="ident">GenericParam</span>::<span class="ident">Lifetime</span>(<span class="ident">lifetime</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">syn::GenericParam::Lifetime</span>(<span class="ident">lifetime</span>) <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">let</span> <span class="ident">lifetime</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">lifetime</span>.<span class="ident">lifetime</span>;
-                    <span class="macro">quote</span><span class="macro">!</span>(<span class="kw-2">&amp;</span>#<span class="ident">lifetime</span> ())
+                    <span class="macro">quote!</span>(<span class="kw-2">&amp;</span>#<span class="ident">lifetime</span> ())
                 }
-                <span class="ident">syn</span>::<span class="ident">GenericParam</span>::<span class="ident">Type</span>(<span class="ident">ty</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">syn::GenericParam::Type</span>(<span class="ident">ty</span>) <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">let</span> <span class="ident">ty</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">ty</span>.<span class="ident">ident</span>;
-                    <span class="macro">quote</span><span class="macro">!</span>(#<span class="ident">ty</span>)
+                    <span class="macro">quote!</span>(#<span class="ident">ty</span>)
                 }
-                <span class="ident">syn</span>::<span class="ident">GenericParam</span>::<span class="ident">Const</span>(<span class="ident">cnst</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">syn::GenericParam::Const</span>(<span class="ident">cnst</span>) <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">let</span> <span class="ident">cnst</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">cnst</span>.<span class="ident">ident</span>;
-                    <span class="macro">quote</span><span class="macro">!</span>(#<span class="ident">cnst</span>)
+                    <span class="macro">quote!</span>(#<span class="ident">cnst</span>)
                 }
             };
-            <span class="macro">quote</span><span class="macro">!</span>(<span class="ident">core</span>::<span class="ident">marker</span>::<span class="ident">PhantomData</span><span class="op">&lt;</span>#<span class="ident">t</span><span class="op">&gt;</span>)
+            <span class="macro">quote!</span>(<span class="ident">core::marker::PhantomData</span><span class="op">&lt;</span>#<span class="ident">t</span><span class="op">&gt;</span>)
         });
         <span class="kw">let</span> <span class="ident">builder_method_doc</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">builder_attr</span>.<span class="ident">builder_method_doc</span> {
-            <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">doc</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">quote</span><span class="macro">!</span>(#<span class="ident">doc</span>),
+            <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">doc</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">quote!</span>(#<span class="ident">doc</span>),
             <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="kw">let</span> <span class="ident">doc</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(
+                <span class="kw">let</span> <span class="ident">doc</span> <span class="op">=</span> <span class="macro">format!</span>(
                     <span class="string">&quot;
                     Create a builder for building `{name}`.
                     On the builder, call {setters} to set the values of the fields.
@@ -733,57 +733,57 @@
                     &quot;</span>,
                     <span class="ident">name</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">name</span>,
                     <span class="ident">setters</span> <span class="op">=</span> {
-                        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">String</span>::<span class="ident">new</span>();
+                        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">String::new</span>();
                         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">is_first</span> <span class="op">=</span> <span class="bool-val">true</span>;
                         <span class="kw">for</span> <span class="ident">field</span> <span class="kw">in</span> <span class="self">self</span>.<span class="ident">included_fields</span>() {
-                            <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Write</span>;
+                            <span class="kw">use</span> <span class="ident">std::fmt::Write</span>;
                             <span class="kw">if</span> <span class="ident">is_first</span> {
                                 <span class="ident">is_first</span> <span class="op">=</span> <span class="bool-val">false</span>;
                             } <span class="kw">else</span> {
-                                <span class="macro">write</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">result</span>, <span class="string">&quot;, &quot;</span>).<span class="ident">unwrap</span>();
+                                <span class="macro">write!</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">result</span>, <span class="string">&quot;, &quot;</span>).<span class="ident">unwrap</span>();
                             }
-                            <span class="macro">write</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">result</span>, <span class="string">&quot;`.{}(...)`&quot;</span>, <span class="ident">field</span>.<span class="ident">name</span>).<span class="ident">unwrap</span>();
+                            <span class="macro">write!</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">result</span>, <span class="string">&quot;`.{}(...)`&quot;</span>, <span class="ident">field</span>.<span class="ident">name</span>).<span class="ident">unwrap</span>();
                             <span class="kw">if</span> <span class="ident">field</span>.<span class="ident">builder_attr</span>.<span class="ident">default</span>.<span class="ident">is_some</span>() {
-                                <span class="macro">write</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">result</span>, <span class="string">&quot;(optional)&quot;</span>).<span class="ident">unwrap</span>();
+                                <span class="macro">write!</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">result</span>, <span class="string">&quot;(optional)&quot;</span>).<span class="ident">unwrap</span>();
                             }
                         }
                         <span class="ident">result</span>
                     }
                 );
-                <span class="macro">quote</span><span class="macro">!</span>(#<span class="ident">doc</span>)
+                <span class="macro">quote!</span>(#<span class="ident">doc</span>)
             }
         };
         <span class="kw">let</span> <span class="ident">builder_type_doc</span> <span class="op">=</span> <span class="kw">if</span> <span class="self">self</span>.<span class="ident">builder_attr</span>.<span class="ident">doc</span> {
             <span class="kw">match</span> <span class="self">self</span>.<span class="ident">builder_attr</span>.<span class="ident">builder_type_doc</span> {
-                <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">doc</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">quote</span><span class="macro">!</span>(<span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> #<span class="ident">doc</span>]</span>),
+                <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">doc</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">quote!</span>(<span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> #<span class="ident">doc</span>]</span>),
                 <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
-                    <span class="kw">let</span> <span class="ident">doc</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(
+                    <span class="kw">let</span> <span class="ident">doc</span> <span class="op">=</span> <span class="macro">format!</span>(
                         <span class="string">&quot;Builder for [`{name}`] instances.\n\nSee [`{name}::builder()`] for more info.&quot;</span>,
                         <span class="ident">name</span> <span class="op">=</span> <span class="ident">name</span>
                     );
-                    <span class="macro">quote</span><span class="macro">!</span>(<span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> #<span class="ident">doc</span>]</span>)
+                    <span class="macro">quote!</span>(<span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> #<span class="ident">doc</span>]</span>)
                 }
             }
         } <span class="kw">else</span> {
-            <span class="macro">quote</span><span class="macro">!</span>(<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>)
+            <span class="macro">quote!</span>(<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>)
         };
 
         <span class="kw">let</span> (<span class="ident">b_generics_impl</span>, <span class="ident">b_generics_ty</span>, <span class="ident">b_generics_where_extras_predicates</span>) <span class="op">=</span> <span class="ident">b_generics</span>.<span class="ident">split_for_impl</span>();
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">b_generics_where</span>: <span class="ident">syn</span>::<span class="ident">WhereClause</span> <span class="op">=</span> <span class="ident">syn</span>::<span class="ident">parse2</span>(<span class="macro">quote</span><span class="macro">!</span> {
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">b_generics_where</span>: <span class="ident">syn::WhereClause</span> <span class="op">=</span> <span class="ident">syn::parse2</span>(<span class="macro">quote!</span> {
             <span class="kw">where</span> <span class="ident">TypedBuilderFields</span>: <span class="ident">Clone</span>
         })<span class="question-mark">?</span>;
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">predicates</span>) <span class="op">=</span> <span class="ident">b_generics_where_extras_predicates</span> {
             <span class="ident">b_generics_where</span>.<span class="ident">predicates</span>.<span class="ident">extend</span>(<span class="ident">predicates</span>.<span class="ident">predicates</span>.<span class="ident">clone</span>());
         }
 
-        <span class="prelude-val">Ok</span>(<span class="macro">quote</span><span class="macro">!</span> {
+        <span class="prelude-val">Ok</span>(<span class="macro">quote!</span> {
             <span class="kw">impl</span> #<span class="ident">impl_generics</span> #<span class="ident">name</span> #<span class="ident">ty_generics</span> #<span class="ident">where_clause</span> {
                 <span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> #<span class="ident">builder_method_doc</span>]</span>
                 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>)]</span>
                 #<span class="ident">vis</span> <span class="kw">fn</span> <span class="ident">builder</span>() <span class="op">-</span><span class="op">&gt;</span> #<span class="ident">builder_name</span> #<span class="ident">generics_with_empty</span> {
                     #<span class="ident">builder_name</span> {
                         <span class="ident">fields</span>: #<span class="ident">empties_tuple</span>,
-                        <span class="ident">_phantom</span>: <span class="ident">core</span>::<span class="ident">default</span>::<span class="ident">Default</span>::<span class="ident">default</span>(),
+                        <span class="ident">_phantom</span>: <span class="ident">core::default::Default::default</span>(),
                     }
                 }
             }
@@ -800,7 +800,7 @@
                 <span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
                     <span class="self">Self</span> {
                         <span class="ident">fields</span>: <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">clone</span>(),
-                        <span class="ident">_phantom</span>: <span class="ident">Default</span>::<span class="ident">default</span>(),
+                        <span class="ident">_phantom</span>: <span class="ident">Default::default</span>(),
                     }
                 }
             }
@@ -811,7 +811,7 @@
     <span class="comment">// crate.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">conversion_helper_impl</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">TokenStream</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">trait_name</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">conversion_helper_trait_name</span>;
-        <span class="prelude-val">Ok</span>(<span class="macro">quote</span><span class="macro">!</span> {
+        <span class="prelude-val">Ok</span>(<span class="macro">quote!</span> {
             <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
             <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>, <span class="ident">non_camel_case_types</span>, <span class="ident">non_snake_case</span>)]</span>
             <span class="kw">pub</span> <span class="kw">trait</span> #<span class="ident">trait_name</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
@@ -837,10 +837,10 @@
 
         <span class="kw">let</span> <span class="ident">descructuring</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">included_fields</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">f</span><span class="op">|</span> {
             <span class="kw">if</span> <span class="ident">f</span>.<span class="ident">ordinal</span> <span class="op">=</span><span class="op">=</span> <span class="ident">field</span>.<span class="ident">ordinal</span> {
-                <span class="macro">quote</span><span class="macro">!</span>(<span class="kw">_</span>)
+                <span class="macro">quote!</span>(<span class="kw">_</span>)
             } <span class="kw">else</span> {
                 <span class="kw">let</span> <span class="ident">name</span> <span class="op">=</span> <span class="ident">f</span>.<span class="ident">name</span>;
-                <span class="macro">quote</span><span class="macro">!</span>(#<span class="ident">name</span>)
+                <span class="macro">quote!</span>(#<span class="ident">name</span>)
             }
         });
         <span class="kw">let</span> <span class="ident">reconstructing</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">included_fields</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">f</span><span class="op">|</span> <span class="ident">f</span>.<span class="ident">name</span>);
@@ -850,19 +850,19 @@
             <span class="ident">ty</span>: <span class="kw-2">ref</span> <span class="ident">field_type</span>,
             ..
         } <span class="op">=</span> <span class="ident">field</span>;
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ty_generics</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">syn</span>::<span class="ident">GenericArgument</span><span class="op">&gt;</span> <span class="op">=</span> <span class="self">self</span>
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ty_generics</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">syn::GenericArgument</span><span class="op">&gt;</span> <span class="op">=</span> <span class="self">self</span>
             .<span class="ident">generics</span>
             .<span class="ident">params</span>
             .<span class="ident">iter</span>()
             .<span class="ident">map</span>(<span class="op">|</span><span class="ident">generic_param</span><span class="op">|</span> <span class="kw">match</span> <span class="ident">generic_param</span> {
-                <span class="ident">syn</span>::<span class="ident">GenericParam</span>::<span class="ident">Type</span>(<span class="ident">type_param</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">syn::GenericParam::Type</span>(<span class="ident">type_param</span>) <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">let</span> <span class="ident">ident</span> <span class="op">=</span> <span class="ident">type_param</span>.<span class="ident">ident</span>.<span class="ident">clone</span>();
-                    <span class="ident">syn</span>::<span class="ident">parse</span>(<span class="macro">quote</span><span class="macro">!</span>(#<span class="ident">ident</span>).<span class="ident">into</span>()).<span class="ident">unwrap</span>()
+                    <span class="ident">syn::parse</span>(<span class="macro">quote!</span>(#<span class="ident">ident</span>).<span class="ident">into</span>()).<span class="ident">unwrap</span>()
                 }
-                <span class="ident">syn</span>::<span class="ident">GenericParam</span>::<span class="ident">Lifetime</span>(<span class="ident">lifetime_def</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">syn</span>::<span class="ident">GenericArgument</span>::<span class="ident">Lifetime</span>(<span class="ident">lifetime_def</span>.<span class="ident">lifetime</span>.<span class="ident">clone</span>()),
-                <span class="ident">syn</span>::<span class="ident">GenericParam</span>::<span class="ident">Const</span>(<span class="ident">const_param</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">syn::GenericParam::Lifetime</span>(<span class="ident">lifetime_def</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">syn::GenericArgument::Lifetime</span>(<span class="ident">lifetime_def</span>.<span class="ident">lifetime</span>.<span class="ident">clone</span>()),
+                <span class="ident">syn::GenericParam::Const</span>(<span class="ident">const_param</span>) <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">let</span> <span class="ident">ident</span> <span class="op">=</span> <span class="ident">const_param</span>.<span class="ident">ident</span>.<span class="ident">clone</span>();
-                    <span class="ident">syn</span>::<span class="ident">parse</span>(<span class="macro">quote</span><span class="macro">!</span>(#<span class="ident">ident</span>).<span class="ident">into</span>()).<span class="ident">unwrap</span>()
+                    <span class="ident">syn::parse</span>(<span class="macro">quote!</span>(#<span class="ident">ident</span>).<span class="ident">into</span>()).<span class="ident">unwrap</span>()
                 }
             })
             .<span class="ident">collect</span>();
@@ -875,32 +875,32 @@
                     <span class="ident">target_generics_tuple</span>.<span class="ident">elems</span>.<span class="ident">push_value</span>(<span class="ident">f</span>.<span class="ident">tuplized_type_ty_param</span>());
                 } <span class="kw">else</span> {
                     <span class="ident">g</span>.<span class="ident">params</span>.<span class="ident">push</span>(<span class="ident">f</span>.<span class="ident">generic_ty_param</span>());
-                    <span class="kw">let</span> <span class="ident">generic_argument</span>: <span class="ident">syn</span>::<span class="ident">Type</span> <span class="op">=</span> <span class="ident">f</span>.<span class="ident">type_ident</span>();
+                    <span class="kw">let</span> <span class="ident">generic_argument</span>: <span class="ident">syn::Type</span> <span class="op">=</span> <span class="ident">f</span>.<span class="ident">type_ident</span>();
                     <span class="ident">ty_generics_tuple</span>.<span class="ident">elems</span>.<span class="ident">push_value</span>(<span class="ident">generic_argument</span>.<span class="ident">clone</span>());
                     <span class="ident">target_generics_tuple</span>.<span class="ident">elems</span>.<span class="ident">push_value</span>(<span class="ident">generic_argument</span>);
                 }
-                <span class="ident">ty_generics_tuple</span>.<span class="ident">elems</span>.<span class="ident">push_punct</span>(<span class="ident">Default</span>::<span class="ident">default</span>());
-                <span class="ident">target_generics_tuple</span>.<span class="ident">elems</span>.<span class="ident">push_punct</span>(<span class="ident">Default</span>::<span class="ident">default</span>());
+                <span class="ident">ty_generics_tuple</span>.<span class="ident">elems</span>.<span class="ident">push_punct</span>(<span class="ident">Default::default</span>());
+                <span class="ident">target_generics_tuple</span>.<span class="ident">elems</span>.<span class="ident">push_punct</span>(<span class="ident">Default::default</span>());
             }
         });
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">target_generics</span> <span class="op">=</span> <span class="ident">ty_generics</span>.<span class="ident">clone</span>();
 
         <span class="kw">let</span> <span class="ident">index_after_lifetime_in_generics</span> <span class="op">=</span> <span class="ident">target_generics</span>
             .<span class="ident">iter</span>()
-            .<span class="ident">filter</span>(<span class="op">|</span><span class="ident">arg</span><span class="op">|</span> <span class="macro">matches</span><span class="macro">!</span>(<span class="ident">arg</span>, <span class="ident">syn</span>::<span class="ident">GenericArgument</span>::<span class="ident">Lifetime</span>(<span class="kw">_</span>)))
+            .<span class="ident">filter</span>(<span class="op">|</span><span class="ident">arg</span><span class="op">|</span> <span class="macro">matches!</span>(<span class="ident">arg</span>, <span class="ident">syn::GenericArgument::Lifetime</span>(<span class="kw">_</span>)))
             .<span class="ident">count</span>();
         <span class="ident">target_generics</span>.<span class="ident">insert</span>(
             <span class="ident">index_after_lifetime_in_generics</span>,
-            <span class="ident">syn</span>::<span class="ident">GenericArgument</span>::<span class="ident">Type</span>(<span class="ident">target_generics_tuple</span>.<span class="ident">into</span>()),
+            <span class="ident">syn::GenericArgument::Type</span>(<span class="ident">target_generics_tuple</span>.<span class="ident">into</span>()),
         );
         <span class="ident">ty_generics</span>.<span class="ident">insert</span>(
             <span class="ident">index_after_lifetime_in_generics</span>,
-            <span class="ident">syn</span>::<span class="ident">GenericArgument</span>::<span class="ident">Type</span>(<span class="ident">ty_generics_tuple</span>.<span class="ident">into</span>()),
+            <span class="ident">syn::GenericArgument::Type</span>(<span class="ident">ty_generics_tuple</span>.<span class="ident">into</span>()),
         );
         <span class="kw">let</span> (<span class="ident">impl_generics</span>, <span class="kw">_</span>, <span class="ident">where_clause</span>) <span class="op">=</span> <span class="ident">generics</span>.<span class="ident">split_for_impl</span>();
         <span class="kw">let</span> <span class="ident">doc</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">field</span>.<span class="ident">builder_attr</span>.<span class="ident">setter</span>.<span class="ident">doc</span> {
-            <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">doc</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">quote</span><span class="macro">!</span>(<span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> #<span class="ident">doc</span>]</span>),
-            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">quote</span><span class="macro">!</span>(),
+            <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">doc</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">quote!</span>(<span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> #<span class="ident">doc</span>]</span>),
+            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">quote!</span>(),
         };
 
         <span class="comment">// NOTE: both auto_into and strip_option affect `arg_type` and `arg_expr`, but the order of</span>
@@ -908,33 +908,33 @@
         <span class="kw">let</span> <span class="ident">arg_type</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">field</span>.<span class="ident">builder_attr</span>.<span class="ident">setter</span>.<span class="ident">strip_option</span> {
             <span class="kw">let</span> <span class="ident">internal_type</span> <span class="op">=</span> <span class="ident">field</span>
                 .<span class="ident">type_from_inside_option</span>()
-                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">Error</span>::<span class="ident">new_spanned</span>(<span class="kw-2">&amp;</span><span class="ident">field_type</span>, <span class="string">&quot;can&#39;t `strip_option` - field is not `Option&lt;...&gt;`&quot;</span>))<span class="question-mark">?</span>;
+                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">Error::new_spanned</span>(<span class="kw-2">&amp;</span><span class="ident">field_type</span>, <span class="string">&quot;can&#39;t `strip_option` - field is not `Option&lt;...&gt;`&quot;</span>))<span class="question-mark">?</span>;
             <span class="ident">internal_type</span>
         } <span class="kw">else</span> {
             <span class="ident">field_type</span>
         };
         <span class="kw">let</span> (<span class="ident">arg_type</span>, <span class="ident">arg_expr</span>) <span class="op">=</span> <span class="kw">if</span> <span class="ident">field</span>.<span class="ident">builder_attr</span>.<span class="ident">setter</span>.<span class="ident">auto_into</span> {
-            (<span class="macro">quote</span><span class="macro">!</span>(<span class="kw">impl</span> <span class="ident">core</span>::<span class="ident">convert</span>::<span class="ident">Into</span><span class="op">&lt;</span>#<span class="ident">arg_type</span><span class="op">&gt;</span>), <span class="macro">quote</span><span class="macro">!</span>(#<span class="ident">field_name</span>.<span class="ident">into</span>()))
+            (<span class="macro">quote!</span>(<span class="kw">impl</span> <span class="ident">core::convert::Into</span><span class="op">&lt;</span>#<span class="ident">arg_type</span><span class="op">&gt;</span>), <span class="macro">quote!</span>(#<span class="ident">field_name</span>.<span class="ident">into</span>()))
         } <span class="kw">else</span> {
-            (<span class="macro">quote</span><span class="macro">!</span>(#<span class="ident">arg_type</span>), <span class="macro">quote</span><span class="macro">!</span>(#<span class="ident">field_name</span>))
+            (<span class="macro">quote!</span>(#<span class="ident">arg_type</span>), <span class="macro">quote!</span>(#<span class="ident">field_name</span>))
         };
         <span class="kw">let</span> <span class="ident">arg_expr</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">field</span>.<span class="ident">builder_attr</span>.<span class="ident">setter</span>.<span class="ident">strip_option</span> {
-            <span class="macro">quote</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(#<span class="ident">arg_expr</span>))
+            <span class="macro">quote!</span>(<span class="prelude-val">Some</span>(#<span class="ident">arg_expr</span>))
         } <span class="kw">else</span> {
             <span class="ident">arg_expr</span>
         };
 
-        <span class="kw">let</span> <span class="ident">repeated_fields_error_type_name</span> <span class="op">=</span> <span class="ident">syn</span>::<span class="ident">Ident</span>::<span class="ident">new</span>(
-            <span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(
+        <span class="kw">let</span> <span class="ident">repeated_fields_error_type_name</span> <span class="op">=</span> <span class="ident">syn::Ident::new</span>(
+            <span class="kw-2">&amp;</span><span class="macro">format!</span>(
                 <span class="string">&quot;{}_Error_Repeated_field_{}&quot;</span>,
                 <span class="ident">builder_name</span>,
                 <span class="ident">strip_raw_ident_prefix</span>(<span class="ident">field_name</span>.<span class="ident">to_string</span>())
             ),
-            <span class="ident">proc_macro2</span>::<span class="ident">Span</span>::<span class="ident">call_site</span>(),
+            <span class="ident">proc_macro2::Span::call_site</span>(),
         );
-        <span class="kw">let</span> <span class="ident">repeated_fields_error_message</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Repeated field {}&quot;</span>, <span class="ident">field_name</span>);
+        <span class="kw">let</span> <span class="ident">repeated_fields_error_message</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">&quot;Repeated field {}&quot;</span>, <span class="ident">field_name</span>);
 
-        <span class="prelude-val">Ok</span>(<span class="macro">quote</span><span class="macro">!</span> {
+        <span class="prelude-val">Ok</span>(<span class="macro">quote!</span> {
             <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>, <span class="ident">non_camel_case_types</span>, <span class="ident">missing_docs</span>)]</span>
             <span class="kw">impl</span> #<span class="ident">impl_generics</span> #<span class="ident">builder_name</span> <span class="op">&lt;</span> #( #<span class="ident">ty_generics</span> ),<span class="op">*</span> <span class="op">&gt;</span> #<span class="ident">where_clause</span> {
                 #<span class="ident">doc</span>
@@ -973,19 +973,19 @@
         <span class="kw">let</span> <span class="ident">FieldInfo</span> {
             <span class="ident">name</span>: <span class="kw-2">ref</span> <span class="ident">field_name</span>, ..
         } <span class="op">=</span> <span class="ident">field</span>;
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">builder_generics</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">syn</span>::<span class="ident">GenericArgument</span><span class="op">&gt;</span> <span class="op">=</span> <span class="self">self</span>
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">builder_generics</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">syn::GenericArgument</span><span class="op">&gt;</span> <span class="op">=</span> <span class="self">self</span>
             .<span class="ident">generics</span>
             .<span class="ident">params</span>
             .<span class="ident">iter</span>()
             .<span class="ident">map</span>(<span class="op">|</span><span class="ident">generic_param</span><span class="op">|</span> <span class="kw">match</span> <span class="ident">generic_param</span> {
-                <span class="ident">syn</span>::<span class="ident">GenericParam</span>::<span class="ident">Type</span>(<span class="ident">type_param</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">syn::GenericParam::Type</span>(<span class="ident">type_param</span>) <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">let</span> <span class="ident">ident</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">type_param</span>.<span class="ident">ident</span>;
-                    <span class="ident">syn</span>::<span class="ident">parse</span>(<span class="macro">quote</span><span class="macro">!</span>(#<span class="ident">ident</span>).<span class="ident">into</span>()).<span class="ident">unwrap</span>()
+                    <span class="ident">syn::parse</span>(<span class="macro">quote!</span>(#<span class="ident">ident</span>).<span class="ident">into</span>()).<span class="ident">unwrap</span>()
                 }
-                <span class="ident">syn</span>::<span class="ident">GenericParam</span>::<span class="ident">Lifetime</span>(<span class="ident">lifetime_def</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">syn</span>::<span class="ident">GenericArgument</span>::<span class="ident">Lifetime</span>(<span class="ident">lifetime_def</span>.<span class="ident">lifetime</span>.<span class="ident">clone</span>()),
-                <span class="ident">syn</span>::<span class="ident">GenericParam</span>::<span class="ident">Const</span>(<span class="ident">const_param</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">syn::GenericParam::Lifetime</span>(<span class="ident">lifetime_def</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">syn::GenericArgument::Lifetime</span>(<span class="ident">lifetime_def</span>.<span class="ident">lifetime</span>.<span class="ident">clone</span>()),
+                <span class="ident">syn::GenericParam::Const</span>(<span class="ident">const_param</span>) <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">let</span> <span class="ident">ident</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">const_param</span>.<span class="ident">ident</span>;
-                    <span class="ident">syn</span>::<span class="ident">parse</span>(<span class="macro">quote</span><span class="macro">!</span>(#<span class="ident">ident</span>).<span class="ident">into</span>()).<span class="ident">unwrap</span>()
+                    <span class="ident">syn::parse</span>(<span class="macro">quote!</span>(#<span class="ident">ident</span>).<span class="ident">into</span>()).<span class="ident">unwrap</span>()
                 }
             })
             .<span class="ident">collect</span>();
@@ -995,7 +995,7 @@
                 <span class="kw">if</span> <span class="ident">f</span>.<span class="ident">builder_attr</span>.<span class="ident">default</span>.<span class="ident">is_some</span>() {
                     <span class="comment">// `f` is not mandatory - it does not have it&#39;s own fake `build` method, so `field` will need</span>
                     <span class="comment">// to warn about missing `field` whether or not `f` is set.</span>
-                    <span class="macro">assert</span><span class="macro">!</span>(
+                    <span class="macro">assert!</span>(
                         <span class="ident">f</span>.<span class="ident">ordinal</span> <span class="op">!</span><span class="op">=</span> <span class="ident">field</span>.<span class="ident">ordinal</span>,
                         <span class="string">&quot;`required_field_impl` called for optional field {}&quot;</span>,
                         <span class="ident">field</span>.<span class="ident">name</span>
@@ -1016,43 +1016,43 @@
                     <span class="ident">builder_generics_tuple</span>.<span class="ident">elems</span>.<span class="ident">push_value</span>(<span class="ident">f</span>.<span class="ident">type_ident</span>());
                 }
 
-                <span class="ident">builder_generics_tuple</span>.<span class="ident">elems</span>.<span class="ident">push_punct</span>(<span class="ident">Default</span>::<span class="ident">default</span>());
+                <span class="ident">builder_generics_tuple</span>.<span class="ident">elems</span>.<span class="ident">push_punct</span>(<span class="ident">Default::default</span>());
             }
         });
 
         <span class="kw">let</span> <span class="ident">index_after_lifetime_in_generics</span> <span class="op">=</span> <span class="ident">builder_generics</span>
             .<span class="ident">iter</span>()
-            .<span class="ident">filter</span>(<span class="op">|</span><span class="ident">arg</span><span class="op">|</span> <span class="macro">matches</span><span class="macro">!</span>(<span class="ident">arg</span>, <span class="ident">syn</span>::<span class="ident">GenericArgument</span>::<span class="ident">Lifetime</span>(<span class="kw">_</span>)))
+            .<span class="ident">filter</span>(<span class="op">|</span><span class="ident">arg</span><span class="op">|</span> <span class="macro">matches!</span>(<span class="ident">arg</span>, <span class="ident">syn::GenericArgument::Lifetime</span>(<span class="kw">_</span>)))
             .<span class="ident">count</span>();
         <span class="ident">builder_generics</span>.<span class="ident">insert</span>(
             <span class="ident">index_after_lifetime_in_generics</span>,
-            <span class="ident">syn</span>::<span class="ident">GenericArgument</span>::<span class="ident">Type</span>(<span class="ident">builder_generics_tuple</span>.<span class="ident">into</span>()),
+            <span class="ident">syn::GenericArgument::Type</span>(<span class="ident">builder_generics_tuple</span>.<span class="ident">into</span>()),
         );
         <span class="kw">let</span> (<span class="ident">impl_generics</span>, <span class="kw">_</span>, <span class="ident">where_clause</span>) <span class="op">=</span> <span class="ident">generics</span>.<span class="ident">split_for_impl</span>();
         <span class="kw">let</span> (<span class="kw">_</span>, <span class="ident">ty_generics</span>, <span class="kw">_</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">generics</span>.<span class="ident">split_for_impl</span>();
 
-        <span class="kw">let</span> <span class="ident">early_build_error_type_name</span> <span class="op">=</span> <span class="ident">syn</span>::<span class="ident">Ident</span>::<span class="ident">new</span>(
-            <span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(
+        <span class="kw">let</span> <span class="ident">early_build_error_type_name</span> <span class="op">=</span> <span class="ident">syn::Ident::new</span>(
+            <span class="kw-2">&amp;</span><span class="macro">format!</span>(
                 <span class="string">&quot;{}_Error_Missing_required_field_{}&quot;</span>,
                 <span class="ident">builder_name</span>,
                 <span class="ident">strip_raw_ident_prefix</span>(<span class="ident">field_name</span>.<span class="ident">to_string</span>())
             ),
-            <span class="ident">proc_macro2</span>::<span class="ident">Span</span>::<span class="ident">call_site</span>(),
+            <span class="ident">proc_macro2::Span::call_site</span>(),
         );
-        <span class="kw">let</span> <span class="ident">early_build_error_message</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Missing required field {}&quot;</span>, <span class="ident">field_name</span>);
+        <span class="kw">let</span> <span class="ident">early_build_error_message</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">&quot;Missing required field {}&quot;</span>, <span class="ident">field_name</span>);
 
-        <span class="prelude-val">Ok</span>(<span class="macro">quote</span><span class="macro">!</span> {
+        <span class="prelude-val">Ok</span>(<span class="macro">quote!</span> {
             <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
             <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>, <span class="ident">non_camel_case_types</span>, <span class="ident">non_snake_case</span>)]</span>
             <span class="kw">pub</span> <span class="kw">enum</span> #<span class="ident">early_build_error_type_name</span> {}
             <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-            <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>, <span class="ident">non_camel_case_types</span>, <span class="ident">missing_docs</span>, <span class="ident">clippy</span>::<span class="ident">panic</span>)]</span>
+            <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>, <span class="ident">non_camel_case_types</span>, <span class="ident">missing_docs</span>, <span class="ident">clippy::panic</span>)]</span>
             <span class="kw">impl</span> #<span class="ident">impl_generics</span> #<span class="ident">builder_name</span> <span class="op">&lt;</span> #( #<span class="ident">builder_generics</span> ),<span class="op">*</span> <span class="op">&gt;</span> #<span class="ident">where_clause</span> {
                 <span class="attribute">#[<span class="ident">deprecated</span>(
                     <span class="ident">note</span> <span class="op">=</span> #<span class="ident">early_build_error_message</span>
                 )]</span>
                 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="self">self</span>, <span class="kw">_</span>: #<span class="ident">early_build_error_type_name</span>) <span class="op">-</span><span class="op">&gt;</span> #<span class="ident">name</span> #<span class="ident">ty_generics</span> {
-                    <span class="macro">panic</span><span class="macro">!</span>();
+                    <span class="macro">panic!</span>();
                 }
             }
         })
@@ -1068,22 +1068,22 @@
         <span class="kw">let</span> <span class="ident">generics</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">modify_generics</span>(<span class="op">|</span><span class="ident">g</span><span class="op">|</span> {
             <span class="kw">for</span> <span class="ident">field</span> <span class="kw">in</span> <span class="self">self</span>.<span class="ident">included_fields</span>() {
                 <span class="kw">if</span> <span class="ident">field</span>.<span class="ident">builder_attr</span>.<span class="ident">default</span>.<span class="ident">is_some</span>() {
-                    <span class="kw">let</span> <span class="ident">trait_ref</span> <span class="op">=</span> <span class="ident">syn</span>::<span class="ident">TraitBound</span> {
+                    <span class="kw">let</span> <span class="ident">trait_ref</span> <span class="op">=</span> <span class="ident">syn::TraitBound</span> {
                         <span class="ident">paren_token</span>: <span class="prelude-val">None</span>,
                         <span class="ident">lifetimes</span>: <span class="prelude-val">None</span>,
-                        <span class="ident">modifier</span>: <span class="ident">syn</span>::<span class="ident">TraitBoundModifier</span>::<span class="prelude-val">None</span>,
-                        <span class="ident">path</span>: <span class="ident">syn</span>::<span class="ident">PathSegment</span> {
+                        <span class="ident">modifier</span>: <span class="ident">syn::TraitBoundModifier::None</span>,
+                        <span class="ident">path</span>: <span class="ident">syn::PathSegment</span> {
                             <span class="ident">ident</span>: <span class="self">self</span>.<span class="ident">conversion_helper_trait_name</span>.<span class="ident">clone</span>(),
-                            <span class="ident">arguments</span>: <span class="ident">syn</span>::<span class="ident">PathArguments</span>::<span class="ident">AngleBracketed</span>(<span class="ident">syn</span>::<span class="ident">AngleBracketedGenericArguments</span> {
+                            <span class="ident">arguments</span>: <span class="ident">syn::PathArguments::AngleBracketed</span>(<span class="ident">syn::AngleBracketedGenericArguments</span> {
                                 <span class="ident">colon2_token</span>: <span class="prelude-val">None</span>,
-                                <span class="ident">lt_token</span>: <span class="ident">Default</span>::<span class="ident">default</span>(),
-                                <span class="ident">args</span>: <span class="ident">make_punctuated_single</span>(<span class="ident">syn</span>::<span class="ident">GenericArgument</span>::<span class="ident">Type</span>(<span class="ident">field</span>.<span class="ident">ty</span>.<span class="ident">clone</span>())),
-                                <span class="ident">gt_token</span>: <span class="ident">Default</span>::<span class="ident">default</span>(),
+                                <span class="ident">lt_token</span>: <span class="ident">Default::default</span>(),
+                                <span class="ident">args</span>: <span class="ident">make_punctuated_single</span>(<span class="ident">syn::GenericArgument::Type</span>(<span class="ident">field</span>.<span class="ident">ty</span>.<span class="ident">clone</span>())),
+                                <span class="ident">gt_token</span>: <span class="ident">Default::default</span>(),
                             }),
                         }
                         .<span class="ident">into</span>(),
                     };
-                    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">generic_param</span>: <span class="ident">syn</span>::<span class="ident">TypeParam</span> <span class="op">=</span> <span class="ident">field</span>.<span class="ident">generic_ident</span>.<span class="ident">clone</span>().<span class="ident">into</span>();
+                    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">generic_param</span>: <span class="ident">syn::TypeParam</span> <span class="op">=</span> <span class="ident">field</span>.<span class="ident">generic_ident</span>.<span class="ident">clone</span>().<span class="ident">into</span>();
                     <span class="ident">generic_param</span>.<span class="ident">bounds</span>.<span class="ident">push</span>(<span class="ident">trait_ref</span>.<span class="ident">into</span>());
                     <span class="ident">g</span>.<span class="ident">params</span>.<span class="ident">push</span>(<span class="ident">generic_param</span>.<span class="ident">into</span>());
                 }
@@ -1096,7 +1096,7 @@
         <span class="kw">let</span> <span class="ident">modified_ty_generics</span> <span class="op">=</span> <span class="ident">modify_types_generics_hack</span>(<span class="kw-2">&amp;</span><span class="ident">ty_generics</span>, <span class="op">|</span><span class="ident">args</span><span class="op">|</span> {
             <span class="ident">args</span>.<span class="ident">insert</span>(
                 <span class="number">0</span>,
-                <span class="ident">syn</span>::<span class="ident">GenericArgument</span>::<span class="ident">Type</span>(
+                <span class="ident">syn::GenericArgument::Type</span>(
                     <span class="ident">type_tuple</span>(<span class="self">self</span>.<span class="ident">included_fields</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">field</span><span class="op">|</span> {
                         <span class="kw">if</span> <span class="ident">field</span>.<span class="ident">builder_attr</span>.<span class="ident">default</span>.<span class="ident">is_some</span>() {
                             <span class="ident">field</span>.<span class="ident">type_ident</span>()
@@ -1121,29 +1121,29 @@
             <span class="kw">let</span> <span class="ident">name</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">field</span>.<span class="ident">name</span>;
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">default</span>) <span class="op">=</span> <span class="ident">field</span>.<span class="ident">builder_attr</span>.<span class="ident">default</span> {
                 <span class="kw">if</span> <span class="ident">field</span>.<span class="ident">builder_attr</span>.<span class="ident">setter</span>.<span class="ident">skip</span> {
-                    <span class="macro">quote</span><span class="macro">!</span>(<span class="kw">let</span> #<span class="ident">name</span> <span class="op">=</span> #<span class="ident">default</span>;)
+                    <span class="macro">quote!</span>(<span class="kw">let</span> #<span class="ident">name</span> <span class="op">=</span> #<span class="ident">default</span>;)
                 } <span class="kw">else</span> {
-                    <span class="macro">quote</span><span class="macro">!</span>(<span class="kw">let</span> #<span class="ident">name</span> <span class="op">=</span> #<span class="ident">helper_trait_name</span>::<span class="ident">into_value</span>(#<span class="ident">name</span>, <span class="op">|</span><span class="op">|</span> #<span class="ident">default</span>);)
+                    <span class="macro">quote!</span>(<span class="kw">let</span> #<span class="ident">name</span> <span class="op">=</span> #<span class="ident">helper_trait_name::into_value</span>(#<span class="ident">name</span>, <span class="op">|</span><span class="op">|</span> #<span class="ident">default</span>);)
                 }
             } <span class="kw">else</span> {
-                <span class="macro">quote</span><span class="macro">!</span>(<span class="kw">let</span> #<span class="ident">name</span> <span class="op">=</span> #<span class="ident">name</span>.<span class="number">0</span>;)
+                <span class="macro">quote!</span>(<span class="kw">let</span> #<span class="ident">name</span> <span class="op">=</span> #<span class="ident">name</span>.<span class="number">0</span>;)
             }
         });
         <span class="kw">let</span> <span class="ident">field_names</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">fields</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">field</span><span class="op">|</span> <span class="ident">field</span>.<span class="ident">name</span>);
         <span class="kw">let</span> <span class="ident">doc</span> <span class="op">=</span> <span class="kw">if</span> <span class="self">self</span>.<span class="ident">builder_attr</span>.<span class="ident">doc</span> {
             <span class="kw">match</span> <span class="self">self</span>.<span class="ident">builder_attr</span>.<span class="ident">build_method_doc</span> {
-                <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">doc</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">quote</span><span class="macro">!</span>(<span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> #<span class="ident">doc</span>]</span>),
+                <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">doc</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">quote!</span>(<span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> #<span class="ident">doc</span>]</span>),
                 <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="comment">// I’d prefer “a” or “an” to “its”, but determining which is grammatically</span>
                     <span class="comment">// correct is roughly impossible.</span>
-                    <span class="kw">let</span> <span class="ident">doc</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Finalise the builder and create its [`{}`] instance&quot;</span>, <span class="ident">name</span>);
-                    <span class="macro">quote</span><span class="macro">!</span>(<span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> #<span class="ident">doc</span>]</span>)
+                    <span class="kw">let</span> <span class="ident">doc</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">&quot;Finalise the builder and create its [`{}`] instance&quot;</span>, <span class="ident">name</span>);
+                    <span class="macro">quote!</span>(<span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> #<span class="ident">doc</span>]</span>)
                 }
             }
         } <span class="kw">else</span> {
-            <span class="macro">quote</span><span class="macro">!</span>()
+            <span class="macro">quote!</span>()
         };
-        <span class="macro">quote</span><span class="macro">!</span>(
+        <span class="macro">quote!</span>(
             <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>, <span class="ident">non_camel_case_types</span>, <span class="ident">missing_docs</span>)]</span>
             <span class="kw">impl</span> #<span class="ident">impl_generics</span> #<span class="ident">builder_name</span> #<span class="ident">modified_ty_generics</span> #<span class="ident">where_clause</span> {
                 #<span class="ident">doc</span>
@@ -1165,22 +1165,22 @@
     <span class="kw">pub</span> <span class="ident">doc</span>: <span class="ident">bool</span>,
 
     <span class="doccomment">/// Docs on the `Type::builder()` method.</span>
-    <span class="kw">pub</span> <span class="ident">builder_method_doc</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">syn</span>::<span class="ident">Expr</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">builder_method_doc</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">syn::Expr</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Docs on the `TypeBuilder` type. Specifying this implies `doc`, but you can just specify</span>
     <span class="doccomment">/// `doc` instead and a default value will be filled in here.</span>
-    <span class="kw">pub</span> <span class="ident">builder_type_doc</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">syn</span>::<span class="ident">Expr</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">builder_type_doc</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">syn::Expr</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Docs on the `TypeBuilder.build()` method. Specifying this implies `doc`, but you can just</span>
     <span class="doccomment">/// specify `doc` instead and a default value will be filled in here.</span>
-    <span class="kw">pub</span> <span class="ident">build_method_doc</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">syn</span>::<span class="ident">Expr</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">build_method_doc</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">syn::Expr</span><span class="op">&gt;</span>,
 
     <span class="kw">pub</span> <span class="ident">field_defaults</span>: <span class="ident">FieldBuilderAttr</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">TypeBuilderAttr</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">attrs</span>: <span class="kw-2">&amp;</span>[<span class="ident">syn</span>::<span class="ident">Attribute</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">TypeBuilderAttr</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">TypeBuilderAttr</span>::<span class="ident">default</span>();
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">attrs</span>: <span class="kw-2">&amp;</span>[<span class="ident">syn::Attribute</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">TypeBuilderAttr</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">TypeBuilderAttr::default</span>();
         <span class="kw">for</span> <span class="ident">attr</span> <span class="kw">in</span> <span class="ident">attrs</span> {
             <span class="kw">if</span> <span class="ident">path_to_single_string</span>(<span class="kw-2">&amp;</span><span class="ident">attr</span>.<span class="ident">path</span>).<span class="ident">as_deref</span>() <span class="op">!</span><span class="op">=</span> <span class="prelude-val">Some</span>(<span class="string">&quot;builder&quot;</span>) {
                 <span class="kw">continue</span>;
@@ -1189,19 +1189,19 @@
             <span class="kw">if</span> <span class="ident">attr</span>.<span class="ident">tokens</span>.<span class="ident">is_empty</span>() {
                 <span class="kw">continue</span>;
             }
-            <span class="kw">let</span> <span class="ident">as_expr</span>: <span class="ident">syn</span>::<span class="ident">Expr</span> <span class="op">=</span> <span class="ident">syn</span>::<span class="ident">parse2</span>(<span class="ident">attr</span>.<span class="ident">tokens</span>.<span class="ident">clone</span>())<span class="question-mark">?</span>;
+            <span class="kw">let</span> <span class="ident">as_expr</span>: <span class="ident">syn::Expr</span> <span class="op">=</span> <span class="ident">syn::parse2</span>(<span class="ident">attr</span>.<span class="ident">tokens</span>.<span class="ident">clone</span>())<span class="question-mark">?</span>;
 
             <span class="kw">match</span> <span class="ident">as_expr</span> {
-                <span class="ident">syn</span>::<span class="ident">Expr</span>::<span class="ident">Paren</span>(<span class="ident">body</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">syn::Expr::Paren</span>(<span class="ident">body</span>) <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="ident">result</span>.<span class="ident">apply_meta</span>(<span class="kw-2">*</span><span class="ident">body</span>.<span class="ident">expr</span>)<span class="question-mark">?</span>;
                 }
-                <span class="ident">syn</span>::<span class="ident">Expr</span>::<span class="ident">Tuple</span>(<span class="ident">body</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">syn::Expr::Tuple</span>(<span class="ident">body</span>) <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="kw">for</span> <span class="ident">expr</span> <span class="kw">in</span> <span class="ident">body</span>.<span class="ident">elems</span>.<span class="ident">into_iter</span>() {
                         <span class="ident">result</span>.<span class="ident">apply_meta</span>(<span class="ident">expr</span>)<span class="question-mark">?</span>;
                     }
                 }
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> {
-                    <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error</span>::<span class="ident">new_spanned</span>(<span class="ident">attr</span>.<span class="ident">tokens</span>.<span class="ident">clone</span>(), <span class="string">&quot;Expected (&lt;...&gt;)&quot;</span>));
+                    <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error::new_spanned</span>(<span class="ident">attr</span>.<span class="ident">tokens</span>.<span class="ident">clone</span>(), <span class="string">&quot;Expected (&lt;...&gt;)&quot;</span>));
                 }
             }
         }
@@ -1209,11 +1209,11 @@
         <span class="prelude-val">Ok</span>(<span class="ident">result</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">apply_meta</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">expr</span>: <span class="ident">syn</span>::<span class="ident">Expr</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">apply_meta</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">expr</span>: <span class="ident">syn::Expr</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="ident">expr</span> {
-            <span class="ident">syn</span>::<span class="ident">Expr</span>::<span class="ident">Assign</span>(<span class="ident">assign</span>) <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="ident">syn::Expr::Assign</span>(<span class="ident">assign</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">let</span> <span class="ident">name</span> <span class="op">=</span>
-                    <span class="ident">expr_to_single_string</span>(<span class="kw-2">&amp;</span><span class="ident">assign</span>.<span class="ident">left</span>).<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">Error</span>::<span class="ident">new_spanned</span>(<span class="kw-2">&amp;</span><span class="ident">assign</span>.<span class="ident">left</span>, <span class="string">&quot;Expected identifier&quot;</span>))<span class="question-mark">?</span>;
+                    <span class="ident">expr_to_single_string</span>(<span class="kw-2">&amp;</span><span class="ident">assign</span>.<span class="ident">left</span>).<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">Error::new_spanned</span>(<span class="kw-2">&amp;</span><span class="ident">assign</span>.<span class="ident">left</span>, <span class="string">&quot;Expected identifier&quot;</span>))<span class="question-mark">?</span>;
                 <span class="kw">match</span> <span class="ident">name</span>.<span class="ident">as_str</span>() {
                     <span class="string">&quot;builder_method_doc&quot;</span> <span class="op">=</span><span class="op">&gt;</span> {
                         <span class="self">self</span>.<span class="ident">builder_method_doc</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="kw-2">*</span><span class="ident">assign</span>.<span class="ident">right</span>);
@@ -1229,29 +1229,29 @@
                         <span class="self">self</span>.<span class="ident">doc</span> <span class="op">=</span> <span class="bool-val">true</span>;
                         <span class="prelude-val">Ok</span>(())
                     }
-                    <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">Error</span>::<span class="ident">new_spanned</span>(<span class="kw-2">&amp;</span><span class="ident">assign</span>, <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Unknown parameter {:?}&quot;</span>, <span class="ident">name</span>))),
+                    <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">Error::new_spanned</span>(<span class="kw-2">&amp;</span><span class="ident">assign</span>, <span class="macro">format!</span>(<span class="string">&quot;Unknown parameter {:?}&quot;</span>, <span class="ident">name</span>))),
                 }
             }
-            <span class="ident">syn</span>::<span class="ident">Expr</span>::<span class="ident">Path</span>(<span class="ident">path</span>) <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="kw">let</span> <span class="ident">name</span> <span class="op">=</span> <span class="ident">path_to_single_string</span>(<span class="kw-2">&amp;</span><span class="ident">path</span>.<span class="ident">path</span>).<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">Error</span>::<span class="ident">new_spanned</span>(<span class="kw-2">&amp;</span><span class="ident">path</span>, <span class="string">&quot;Expected identifier&quot;</span>))<span class="question-mark">?</span>;
+            <span class="ident">syn::Expr::Path</span>(<span class="ident">path</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="kw">let</span> <span class="ident">name</span> <span class="op">=</span> <span class="ident">path_to_single_string</span>(<span class="kw-2">&amp;</span><span class="ident">path</span>.<span class="ident">path</span>).<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">Error::new_spanned</span>(<span class="kw-2">&amp;</span><span class="ident">path</span>, <span class="string">&quot;Expected identifier&quot;</span>))<span class="question-mark">?</span>;
                 <span class="kw">match</span> <span class="ident">name</span>.<span class="ident">as_str</span>() {
                     <span class="string">&quot;doc&quot;</span> <span class="op">=</span><span class="op">&gt;</span> {
                         <span class="self">self</span>.<span class="ident">doc</span> <span class="op">=</span> <span class="bool-val">true</span>;
                         <span class="prelude-val">Ok</span>(())
                     }
-                    <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">Error</span>::<span class="ident">new_spanned</span>(<span class="kw-2">&amp;</span><span class="ident">path</span>, <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Unknown parameter {:?}&quot;</span>, <span class="ident">name</span>))),
+                    <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">Error::new_spanned</span>(<span class="kw-2">&amp;</span><span class="ident">path</span>, <span class="macro">format!</span>(<span class="string">&quot;Unknown parameter {:?}&quot;</span>, <span class="ident">name</span>))),
                 }
             }
-            <span class="ident">syn</span>::<span class="ident">Expr</span>::<span class="ident">Call</span>(<span class="ident">call</span>) <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="kw">let</span> <span class="ident">subsetting_name</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="ident">syn</span>::<span class="ident">Expr</span>::<span class="ident">Path</span>(<span class="ident">path</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">call</span>.<span class="ident">func</span> {
+            <span class="ident">syn::Expr::Call</span>(<span class="ident">call</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="kw">let</span> <span class="ident">subsetting_name</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="ident">syn::Expr::Path</span>(<span class="ident">path</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">call</span>.<span class="ident">func</span> {
                     <span class="ident">path_to_single_string</span>(<span class="kw-2">&amp;</span><span class="ident">path</span>.<span class="ident">path</span>)
                 } <span class="kw">else</span> {
                     <span class="prelude-val">None</span>
                 }
                 .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> {
                     <span class="kw">let</span> <span class="ident">call_func</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">call</span>.<span class="ident">func</span>;
-                    <span class="kw">let</span> <span class="ident">call_func</span> <span class="op">=</span> <span class="macro">quote</span><span class="macro">!</span>(#<span class="ident">call_func</span>);
-                    <span class="ident">Error</span>::<span class="ident">new_spanned</span>(<span class="kw-2">&amp;</span><span class="ident">call</span>.<span class="ident">func</span>, <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Illegal builder setting group {}&quot;</span>, <span class="ident">call_func</span>))
+                    <span class="kw">let</span> <span class="ident">call_func</span> <span class="op">=</span> <span class="macro">quote!</span>(#<span class="ident">call_func</span>);
+                    <span class="ident">Error::new_spanned</span>(<span class="kw-2">&amp;</span><span class="ident">call</span>.<span class="ident">func</span>, <span class="macro">format!</span>(<span class="string">&quot;Illegal builder setting group {}&quot;</span>, <span class="ident">call_func</span>))
                 })<span class="question-mark">?</span>;
                 <span class="kw">match</span> <span class="ident">subsetting_name</span>.<span class="ident">as_str</span>() {
                     <span class="string">&quot;field_defaults&quot;</span> <span class="op">=</span><span class="op">&gt;</span> {
@@ -1260,16 +1260,16 @@
                         }
                         <span class="prelude-val">Ok</span>(())
                     }
-                    <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">Error</span>::<span class="ident">new_spanned</span>(
+                    <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">Error::new_spanned</span>(
                         <span class="kw-2">&amp;</span><span class="ident">call</span>.<span class="ident">func</span>,
-                        <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Illegal builder setting group name {}&quot;</span>, <span class="ident">subsetting_name</span>),
+                        <span class="macro">format!</span>(<span class="string">&quot;Illegal builder setting group name {}&quot;</span>, <span class="ident">subsetting_name</span>),
                     )),
                 }
             }
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">Error</span>::<span class="ident">new_spanned</span>(<span class="ident">expr</span>, <span class="string">&quot;Expected (&lt;...&gt;=&lt;...&gt;)&quot;</span>)),
+            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">Error::new_spanned</span>(<span class="ident">expr</span>, <span class="string">&quot;Expected (&lt;...&gt;=&lt;...&gt;)&quot;</span>)),
         }
     }
 }
 </pre></div>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="typed_builder"></div>
-    <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>
+</section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="typed_builder" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
+    <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script></body></html>

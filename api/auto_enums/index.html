@@ -1,10 +1,10 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `auto_enums` crate."><meta name="keywords" content="rust, rustlang, rust-lang, auto_enums"><title>auto_enums - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../ayu.css" disabled ><script id="default-settings"></script><script src="../storage.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="A library for to allow multiple return types by automatically generated enum."><meta name="keywords" content="rust, rustlang, rust-lang, auto_enums"><title>auto_enums - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../ayu.css" disabled ><script id="default-settings"></script><script src="../storage.js"></script><script src="../crates.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="alternate icon" type="image/png" href="../favicon-16x16.png">
-<link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../auto_enums/index.html'><div class='logo-container rust-logo'><img src='../rust-logo.png' alt='logo'></div></a><p class="location">Crate auto_enums</p><div class="block version"><p>Version 0.7.12</p></div><div class="sidebar-elems"><a id="all-types" href="all.html"><p>See all auto_enums's items</p></a><p class="location"></p><div id="sidebar-vars" data-name="auto_enums" data-ty="mod" data-relpath="../"></div></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
-                <a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Crate <a class="mod" href="">auto_enums</a></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/auto_enums/lib.rs.html#1-884" title="goto source code">[src]</a></span></h1><div class="docblock"><p>A library for to allow multiple return types by automatically generated enum.</p>
+<link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../auto_enums/index.html'><div class='logo-container rust-logo'><img src='../rust-logo.png' alt='logo'></div></a><p class="location">Crate auto_enums</p><div class="block version"><p>Version 0.7.12</p></div><div class="sidebar-elems"><a id="all-types" href="all.html"><p>See all auto_enums's items</p></a><p class="location"></p><div id="sidebar-vars" data-name="auto_enums" data-ty="mod" data-relpath="../"></div></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
+                <a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Crate <a class="mod" href="">auto_enums</a><button id="copy-path" onclick="copy_path(this)">⎘</button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/auto_enums/lib.rs.html#1-884" title="goto source code">[src]</a></span></h1><div class="docblock"><p>A library for to allow multiple return types by automatically generated enum.</p>
 <p>This crate is a procedural macro implementation of the features discussions
 in [rust-lang/rfcs#2414]. This idea is also known as
-[&quot;Anonymous sum types&quot;][rust-lang/rfcs#294].</p>
+[“Anonymous sum types”][rust-lang/rfcs#294].</p>
 <p>This library provides the following attribute macros:</p>
 <ul>
 <li>
@@ -18,18 +18,18 @@ traits to <code>#[enum_derive]</code>.</p>
 </li>
 </ul>
 <h1 id="auto_enum" class="section-header"><a href="#auto_enum"><code>#[auto_enum]</code></a></h1>
-<p><code>#[auto_enum]</code>'s basic feature is to wrap the value returned by the obvious
+<p><code>#[auto_enum]</code>’s basic feature is to wrap the value returned by the obvious
 branches (<code>match</code>, <code>if</code>, <code>return</code>, etc..) by an enum that implemented the
 specified traits.</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">auto_enums</span>::<span class="ident">auto_enum</span>;
+<span class="kw">use</span> <span class="ident">auto_enums::auto_enum</span>;
 
 <span class="attribute">#[<span class="ident">auto_enum</span>(<span class="ident">Iterator</span>)]</span>
 <span class="kw">fn</span> <span class="ident">foo</span>(<span class="ident">x</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">i32</span><span class="op">&gt;</span> {
     <span class="kw">match</span> <span class="ident">x</span> {
         <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">1</span>..<span class="number">10</span>,
-        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="number">5</span>, <span class="number">10</span>].<span class="ident">into_iter</span>(),
+        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">vec!</span>[<span class="number">5</span>, <span class="number">10</span>].<span class="ident">into_iter</span>(),
     }
 }</pre></div>
 <p><code>#[auto_enum]</code> generates code in two stages.</p>
@@ -43,15 +43,15 @@ specified traits.</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="kw">fn</span> <span class="ident">foo</span>(<span class="ident">x</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">i32</span><span class="op">&gt;</span> {
-    <span class="attribute">#[::<span class="ident">auto_enums</span>::<span class="ident">enum_derive</span>(<span class="ident">Iterator</span>)]</span>
+    <span class="attribute">#[<span class="ident">::auto_enums::enum_derive</span>(<span class="ident">Iterator</span>)]</span>
     <span class="kw">enum</span> <span class="ident">__Enum1</span><span class="op">&lt;</span><span class="ident">__T1</span>, <span class="ident">__T2</span><span class="op">&gt;</span> {
         <span class="ident">__T1</span>(<span class="ident">__T1</span>),
         <span class="ident">__T2</span>(<span class="ident">__T2</span>),
     }
 
     <span class="kw">match</span> <span class="ident">x</span> {
-        <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">__Enum1</span>::<span class="ident">__T1</span>(<span class="number">1</span>..<span class="number">10</span>),
-        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">__Enum1</span>::<span class="ident">__T2</span>(<span class="macro">vec</span><span class="macro">!</span>[<span class="number">5</span>, <span class="number">10</span>].<span class="ident">into_iter</span>()),
+        <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">__Enum1::__T1</span>(<span class="number">1</span>..<span class="number">10</span>),
+        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">__Enum1::__T2</span>(<span class="macro">vec!</span>[<span class="number">5</span>, <span class="number">10</span>].<span class="ident">into_iter</span>()),
     }
 }</pre></div>
 <p>Next, <code>#[enum_derive]</code> implements the specified traits.</p>
@@ -65,31 +65,31 @@ specified traits.</p>
         <span class="ident">__T2</span>(<span class="ident">__T2</span>),
     }
 
-    <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">__T1</span>, <span class="ident">__T2</span><span class="op">&gt;</span> ::<span class="ident">core</span>::<span class="ident">iter</span>::<span class="ident">Iterator</span> <span class="kw">for</span> <span class="ident">__Enum1</span><span class="op">&lt;</span><span class="ident">__T1</span>, <span class="ident">__T2</span><span class="op">&gt;</span>
+    <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">__T1</span>, <span class="ident">__T2</span><span class="op">&gt;</span> <span class="ident">::core::iter::Iterator</span> <span class="kw">for</span> <span class="ident">__Enum1</span><span class="op">&lt;</span><span class="ident">__T1</span>, <span class="ident">__T2</span><span class="op">&gt;</span>
     <span class="kw">where</span>
-        <span class="ident">__T1</span>: ::<span class="ident">core</span>::<span class="ident">iter</span>::<span class="ident">Iterator</span>,
-        <span class="ident">__T2</span>: ::<span class="ident">core</span>::<span class="ident">iter</span>::<span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">__T1</span> <span class="kw">as</span> ::<span class="ident">core</span>::<span class="ident">iter</span>::<span class="ident">Iterator</span><span class="op">&gt;</span>::<span class="ident">Item</span><span class="op">&gt;</span>,
+        <span class="ident">__T1</span>: <span class="ident">::core::iter::Iterator</span>,
+        <span class="ident">__T2</span>: <span class="ident">::core::iter::Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">__T1</span> <span class="kw">as</span> <span class="ident">::core::iter::Iterator</span><span class="op">&gt;</span><span class="ident">::Item</span><span class="op">&gt;</span>,
     {
-        <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">__T1</span> <span class="kw">as</span> ::<span class="ident">core</span>::<span class="ident">iter</span>::<span class="ident">Iterator</span><span class="op">&gt;</span>::<span class="ident">Item</span>;
+        <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">__T1</span> <span class="kw">as</span> <span class="ident">::core::iter::Iterator</span><span class="op">&gt;</span><span class="ident">::Item</span>;
         <span class="attribute">#[<span class="ident">inline</span>]</span>
-        <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">core</span>::<span class="ident">option</span>::<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Item</span><span class="op">&gt;</span> {
+        <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">::core::option::Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::Item</span><span class="op">&gt;</span> {
             <span class="kw">match</span> <span class="self">self</span> {
-                <span class="ident">__Enum1</span>::<span class="ident">__T1</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">x</span>.<span class="ident">next</span>(),
-                <span class="ident">__Enum1</span>::<span class="ident">__T2</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">x</span>.<span class="ident">next</span>(),
+                <span class="ident">__Enum1::__T1</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">x</span>.<span class="ident">next</span>(),
+                <span class="ident">__Enum1::__T2</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">x</span>.<span class="ident">next</span>(),
             }
         }
         <span class="attribute">#[<span class="ident">inline</span>]</span>
-        <span class="kw">fn</span> <span class="ident">size_hint</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">usize</span>, ::<span class="ident">core</span>::<span class="ident">option</span>::<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>) {
+        <span class="kw">fn</span> <span class="ident">size_hint</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">usize</span>, <span class="ident">::core::option::Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>) {
             <span class="kw">match</span> <span class="self">self</span> {
-                <span class="ident">__Enum1</span>::<span class="ident">__T1</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">x</span>.<span class="ident">size_hint</span>(),
-                <span class="ident">__Enum1</span>::<span class="ident">__T2</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">x</span>.<span class="ident">size_hint</span>(),
+                <span class="ident">__Enum1::__T1</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">x</span>.<span class="ident">size_hint</span>(),
+                <span class="ident">__Enum1::__T2</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">x</span>.<span class="ident">size_hint</span>(),
             }
         }
     }
 
     <span class="kw">match</span> <span class="ident">x</span> {
-        <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">__Enum1</span>::<span class="ident">__T1</span>(<span class="number">1</span>..<span class="number">10</span>),
-        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">__Enum1</span>::<span class="ident">__T2</span>(<span class="macro">vec</span><span class="macro">!</span>[<span class="number">5</span>, <span class="number">10</span>].<span class="ident">into_iter</span>()),
+        <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">__Enum1::__T1</span>(<span class="number">1</span>..<span class="number">10</span>),
+        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">__Enum1::__T2</span>(<span class="macro">vec!</span>[<span class="number">5</span>, <span class="number">10</span>].<span class="ident">into_iter</span>()),
     }
 }</pre></div>
 </details>
@@ -99,7 +99,7 @@ specified traits.</p>
 attribute.</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">auto_enums</span>::<span class="ident">auto_enum</span>;
+<span class="kw">use</span> <span class="ident">auto_enums::auto_enum</span>;
 
 <span class="attribute">#[<span class="ident">auto_enum</span>(<span class="ident">Iterator</span>)]</span>
 <span class="kw">fn</span> <span class="ident">foo</span>(<span class="ident">x</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">i32</span><span class="op">&gt;</span> {
@@ -107,7 +107,7 @@ attribute.</p>
         <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">1</span>..<span class="number">10</span>,
         <span class="attribute">#[<span class="ident">nested</span>]</span>
         <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">match</span> <span class="ident">x</span> {
-            <span class="number">1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="number">5</span>, <span class="number">10</span>].<span class="ident">into_iter</span>(),
+            <span class="number">1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">vec!</span>[<span class="number">5</span>, <span class="number">10</span>].<span class="ident">into_iter</span>(),
             <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">0</span>..<span class="op">=</span><span class="ident">x</span>,
         },
     }
@@ -118,7 +118,7 @@ except that <code>#[nested]</code> cannot be used in functions.</p>
 <p>If an error due to recursion occurs, you need to box branches where recursion occurs.</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">auto_enums</span>::<span class="ident">auto_enum</span>;
+<span class="kw">use</span> <span class="ident">auto_enums::auto_enum</span>;
 
 <span class="kw">struct</span> <span class="ident">Type</span> {
     <span class="ident">child</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Type</span><span class="op">&gt;</span>,
@@ -131,7 +131,7 @@ except that <code>#[nested]</code> cannot be used in functions.</p>
             <span class="prelude-val">Some</span>(()).<span class="ident">into_iter</span>()
         } <span class="kw">else</span> {
             <span class="comment">// Boxing is only needed on branches where recursion occurs.</span>
-            <span class="ident">Box</span>::<span class="ident">new</span>(<span class="self">self</span>.<span class="ident">child</span>.<span class="ident">iter</span>().<span class="ident">flat_map</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <span class="ident">c</span>.<span class="ident">method</span>())) <span class="kw">as</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>
+            <span class="ident">Box::new</span>(<span class="self">self</span>.<span class="ident">child</span>.<span class="ident">iter</span>().<span class="ident">flat_map</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <span class="ident">c</span>.<span class="ident">method</span>())) <span class="kw">as</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>
         }
     }
 }</pre></div>
@@ -144,7 +144,7 @@ to use empty <code>#[auto_enum]</code> for functions except nightly.</p>
 <p>functions</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">auto_enums</span>::<span class="ident">auto_enum</span>;
+<span class="kw">use</span> <span class="ident">auto_enums::auto_enum</span>;
 
 <span class="attribute">#[<span class="ident">auto_enum</span>(<span class="ident">Iterator</span>)]</span>
 <span class="kw">fn</span> <span class="ident">func</span>(<span class="ident">x</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span><span class="op">=</span><span class="ident">i32</span><span class="op">&gt;</span> {
@@ -159,7 +159,7 @@ to use empty <code>#[auto_enum]</code> for functions except nightly.</p>
 <p>expressions</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">auto_enums</span>::<span class="ident">auto_enum</span>;
+<span class="kw">use</span> <span class="ident">auto_enums::auto_enum</span>;
 
 <span class="attribute">#[<span class="ident">auto_enum</span>]</span> <span class="comment">// Nightly does not need an empty attribute to the function.</span>
 <span class="kw">fn</span> <span class="ident">expr</span>(<span class="ident">x</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span><span class="op">=</span><span class="ident">i32</span><span class="op">&gt;</span> {
@@ -174,7 +174,7 @@ to use empty <code>#[auto_enum]</code> for functions except nightly.</p>
 <p>let binding</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">auto_enums</span>::<span class="ident">auto_enum</span>;
+<span class="kw">use</span> <span class="ident">auto_enums::auto_enum</span>;
 
 <span class="attribute">#[<span class="ident">auto_enum</span>]</span> <span class="comment">// Nightly does not need an empty attribute to the function.</span>
 <span class="kw">fn</span> <span class="ident">let_binding</span>(<span class="ident">x</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span><span class="op">=</span><span class="ident">i32</span><span class="op">&gt;</span> {
@@ -194,7 +194,7 @@ to use empty <code>#[auto_enum]</code> for functions except nightly.</p>
 <p>Wrap each branch with a variant.</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">auto_enums</span>::<span class="ident">auto_enum</span>;
+<span class="kw">use</span> <span class="ident">auto_enums::auto_enum</span>;
 
 <span class="comment">// if</span>
 <span class="attribute">#[<span class="ident">auto_enum</span>(<span class="ident">Iterator</span>)]</span>
@@ -223,7 +223,7 @@ to use empty <code>#[auto_enum]</code> for functions except nightly.</p>
 also supported.</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">auto_enums</span>::<span class="ident">auto_enum</span>;
+<span class="kw">use</span> <span class="ident">auto_enums::auto_enum</span>;
 
 <span class="attribute">#[<span class="ident">auto_enum</span>(<span class="ident">Iterator</span>)]</span>
 <span class="kw">fn</span> <span class="ident">expr_loop</span>(<span class="kw-2">mut</span> <span class="ident">x</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">i32</span><span class="op">&gt;</span> {
@@ -243,7 +243,7 @@ also supported.</p>
 <p>This analysis is valid only when the return type is <code>impl Trait</code>.</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">auto_enums</span>::<span class="ident">auto_enum</span>;
+<span class="kw">use</span> <span class="ident">auto_enums::auto_enum</span>;
 
 <span class="comment">// return (in functions)</span>
 <span class="attribute">#[<span class="ident">auto_enum</span>(<span class="ident">Iterator</span>)]</span>
@@ -269,7 +269,7 @@ also supported.</p>
 </ul>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">auto_enums</span>::<span class="ident">auto_enum</span>;
+<span class="kw">use</span> <span class="ident">auto_enums::auto_enum</span>;
 
 <span class="comment">// return (in closures)</span>
 <span class="attribute">#[<span class="ident">auto_enum</span>]</span> <span class="comment">// Nightly does not need an empty attribute to the function.</span>
@@ -295,8 +295,8 @@ also supported.</p>
 <p>This analysis is valid only when the return type is <code>Result&lt;T, impl Trait&gt;</code>.</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">auto_enums</span>::<span class="ident">auto_enum</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>::{<span class="ident">Debug</span>, <span class="ident">Display</span>};
+<span class="kw">use</span> <span class="ident">auto_enums::auto_enum</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>::{<span class="ident">Debug</span>, <span class="ident">Display</span>};
 
 <span class="comment">// `?` operator (in functions)</span>
 <span class="attribute">#[<span class="ident">auto_enum</span>(<span class="ident">Debug</span>, <span class="ident">Display</span>)]</span>
@@ -317,7 +317,7 @@ also supported.</p>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="kw">match</span> <span class="ident">expr</span> {
     <span class="prelude-val">Ok</span>(<span class="ident">val</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">val</span>,
-    <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Enum</span>::<span class="ident">Veriant</span>(<span class="ident">err</span>)),
+    <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Enum::Veriant</span>(<span class="ident">err</span>)),
 }</pre></div>
 </li>
 <li>
@@ -327,8 +327,8 @@ also supported.</p>
 (or the let binding of the closure).</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">auto_enums</span>::<span class="ident">auto_enum</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>::{<span class="ident">Debug</span>, <span class="ident">Display</span>};
+<span class="kw">use</span> <span class="ident">auto_enums::auto_enum</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>::{<span class="ident">Debug</span>, <span class="ident">Display</span>};
 
 <span class="comment">// `?` operator (in closures)</span>
 <span class="attribute">#[<span class="ident">auto_enum</span>]</span> <span class="comment">// Nightly does not need an empty attribute to the function.</span>
@@ -362,7 +362,7 @@ also supported.</p>
 </ul>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">auto_enums</span>::<span class="ident">auto_enum</span>;
+<span class="kw">use</span> <span class="ident">auto_enums::auto_enum</span>;
 
 <span class="comment">// block</span>
 <span class="attribute">#[<span class="ident">auto_enum</span>]</span> <span class="comment">// Nightly does not need an empty attribute to the function.</span>
@@ -412,20 +412,20 @@ interpreted that no value will be returned (variant assignment is skipped).</p>
 an anonymous enum generated by <code>#[auto_enum]</code>, not a value.</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">auto_enums</span>::<span class="ident">auto_enum</span>;
+<span class="kw">use</span> <span class="ident">auto_enums::auto_enum</span>;
 
 <span class="attribute">#[<span class="ident">auto_enum</span>(<span class="ident">Iterator</span>)]</span>
 <span class="kw">fn</span> <span class="ident">foo</span>(<span class="ident">x</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">i32</span><span class="op">&gt;</span> {
     <span class="kw">match</span> <span class="ident">x</span> {
         <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">1</span>..<span class="number">10</span>,
-        <span class="number">1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(), <span class="comment">// variant assignment is skipped</span>
-        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="number">5</span>, <span class="number">10</span>].<span class="ident">into_iter</span>(),
+        <span class="number">1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(), <span class="comment">// variant assignment is skipped</span>
+        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">vec!</span>[<span class="number">5</span>, <span class="number">10</span>].<span class="ident">into_iter</span>(),
     }
 }</pre></div>
 <p>You can also skip that branch explicitly by <code>#[never]</code> attribute.</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">auto_enums</span>::<span class="ident">auto_enum</span>;
+<span class="kw">use</span> <span class="ident">auto_enums::auto_enum</span>;
 
 <span class="attribute">#[<span class="ident">auto_enum</span>(<span class="ident">Iterator</span>)]</span>
 <span class="kw">fn</span> <span class="ident">foo</span>(<span class="ident">x</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">i32</span><span class="op">&gt;</span> {
@@ -433,9 +433,9 @@ an anonymous enum generated by <code>#[auto_enum]</code>, not a value.</p>
         <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">1</span>..<span class="number">10</span>,
         <span class="attribute">#[<span class="ident">never</span>]</span>
         <span class="number">1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">loop</span> {
-            <span class="macro">panic</span><span class="macro">!</span>()
+            <span class="macro">panic!</span>()
         },
-        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="number">5</span>, <span class="number">10</span>].<span class="ident">into_iter</span>(),
+        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">vec!</span>[<span class="number">5</span>, <span class="number">10</span>].<span class="ident">into_iter</span>(),
     }
 }</pre></div>
 <h2 id="expression-level-marker-marker-macro" class="section-header"><a href="#expression-level-marker-marker-macro">Expression level marker (<code>marker!</code> macro)</a></h2>
@@ -444,27 +444,27 @@ If values of two or more are specified by <code>marker!</code> macros, <code>#[a
 can be used for unsupported expressions and statements.</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">auto_enums</span>::<span class="ident">auto_enum</span>;
+<span class="kw">use</span> <span class="ident">auto_enums::auto_enum</span>;
 
 <span class="attribute">#[<span class="ident">auto_enum</span>(<span class="ident">Iterator</span>)]</span>
 <span class="kw">fn</span> <span class="ident">foo</span>(<span class="ident">x</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">i32</span><span class="op">&gt;</span> {
     <span class="kw">if</span> <span class="ident">x</span> <span class="op">&lt;</span> <span class="number">0</span> {
         <span class="kw">return</span> <span class="ident">x</span>..<span class="op">=</span><span class="number">0</span>;
     }
-    <span class="macro">marker</span><span class="macro">!</span>(<span class="number">1</span>..<span class="number">10</span>)
+    <span class="macro">marker!</span>(<span class="number">1</span>..<span class="number">10</span>)
 }</pre></div>
 <p>The default name of the macro is <code>&quot;marker&quot;</code>, but you can change it by
 <code>marker</code> option.</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">auto_enums</span>::<span class="ident">auto_enum</span>;
+<span class="kw">use</span> <span class="ident">auto_enums::auto_enum</span>;
 
 <span class="attribute">#[<span class="ident">auto_enum</span>(<span class="ident">marker</span> <span class="op">=</span> <span class="ident">bar</span>, <span class="ident">Iterator</span>)]</span>
 <span class="kw">fn</span> <span class="ident">foo</span>(<span class="ident">x</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">i32</span><span class="op">&gt;</span> {
     <span class="kw">if</span> <span class="ident">x</span> <span class="op">&lt;</span> <span class="number">0</span> {
         <span class="kw">return</span> <span class="ident">x</span>..<span class="op">=</span><span class="number">0</span>;
     }
-    <span class="macro">bar</span><span class="macro">!</span>(<span class="number">1</span>..<span class="number">10</span>)
+    <span class="macro">bar!</span>(<span class="number">1</span>..<span class="number">10</span>)
 }</pre></div>
 <h2 id="rust-nightly" class="section-header"><a href="#rust-nightly">Rust Nightly</a></h2>
 <p>When using <code>#[auto_enum]</code> for expressions and statements, <code>#[auto_enum]</code> for
@@ -475,13 +475,13 @@ function is unnecessary.</p>
 <span class="attribute">#![<span class="ident">feature</span>(<span class="ident">proc_macro_hygiene</span>, <span class="ident">stmt_expr_attributes</span>)]</span></pre></div>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">auto_enums</span>::<span class="ident">auto_enum</span>;
+<span class="kw">use</span> <span class="ident">auto_enums::auto_enum</span>;
 
 <span class="kw">fn</span> <span class="ident">foo</span>(<span class="ident">x</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
     <span class="attribute">#[<span class="ident">auto_enum</span>(<span class="ident">Iterator</span>)]</span>
     <span class="kw">let</span> <span class="ident">iter</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">x</span> {
         <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">1</span>..<span class="number">10</span>,
-        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="number">5</span>, <span class="number">10</span>].<span class="ident">into_iter</span>(),
+        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">vec!</span>[<span class="number">5</span>, <span class="number">10</span>].<span class="ident">into_iter</span>(),
     };
 
     <span class="ident">iter</span>.<span class="ident">fold</span>(<span class="number">0</span>, <span class="op">|</span><span class="ident">sum</span>, <span class="ident">x</span><span class="op">|</span> <span class="ident">sum</span> <span class="op">+</span> <span class="ident">x</span>)
@@ -493,7 +493,7 @@ function is unnecessary.</p>
 <span class="attribute">#![<span class="ident">feature</span>(<span class="ident">fn_traits</span>, <span class="ident">unboxed_closures</span>)]</span></pre></div>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">auto_enums</span>::<span class="ident">auto_enum</span>;
+<span class="kw">use</span> <span class="ident">auto_enums::auto_enum</span>;
 
 <span class="attribute">#[<span class="ident">auto_enum</span>(<span class="ident">Fn</span>)]</span>
 <span class="kw">fn</span> <span class="ident">foo</span>(<span class="ident">x</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
@@ -508,7 +508,7 @@ you can define derives macros yourself (<a href="https://github.com/taiki-e/deri
 <p>Basic usage of <code>#[enum_derive]</code></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">auto_enums</span>::<span class="ident">enum_derive</span>;
+<span class="kw">use</span> <span class="ident">auto_enums::enum_derive</span>;
 
 <span class="comment">// `#[enum_derive]` implements `Iterator`, and `#[derive]` implements `Clone`.</span>
 <span class="attribute">#[<span class="ident">enum_derive</span>(<span class="ident">Iterator</span>, <span class="ident">Clone</span>)]</span>
@@ -520,7 +520,7 @@ you can define derives macros yourself (<a href="https://github.com/taiki-e/deri
 specified.</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">auto_enums</span>::<span class="ident">enum_derive</span>;
+<span class="kw">use</span> <span class="ident">auto_enums::enum_derive</span>;
 
 <span class="comment">// `#[enum_derive]` implements `Iterator` and `ExactSizeIterator`.</span>
 <span class="attribute">#[<span class="ident">enum_derive</span>(<span class="ident">ExactSizeIterator</span>)]</span>
@@ -594,14 +594,14 @@ Note that some traits have aliases.</p>
 <p>To use support for external library traits, you need to use the path starting with the feature name. For example:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">auto_enums</span>::<span class="ident">auto_enum</span>;
-<span class="kw">use</span> <span class="ident">rayon</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">auto_enums::auto_enum</span>;
+<span class="kw">use</span> <span class="ident">rayon::prelude</span>::<span class="kw-2">*</span>;
 
-<span class="attribute">#[<span class="ident">auto_enum</span>(<span class="ident">rayon</span>::<span class="ident">ParallelIterator</span>)]</span> <span class="comment">// Note that this is not `#[auto_enum(ParallelIterator)]`</span>
+<span class="attribute">#[<span class="ident">auto_enum</span>(<span class="ident">rayon::ParallelIterator</span>)]</span> <span class="comment">// Note that this is not `#[auto_enum(ParallelIterator)]`</span>
 <span class="kw">fn</span> <span class="ident">func</span>(<span class="ident">x</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">ParallelIterator</span> {
     <span class="kw">match</span> <span class="ident">x</span> {
         <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> (<span class="number">1</span>..<span class="number">10</span>).<span class="ident">into_par_iter</span>(),
-        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="number">5</span>, <span class="number">10</span>].<span class="ident">into_par_iter</span>(),
+        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">vec!</span>[<span class="number">5</span>, <span class="number">10</span>].<span class="ident">into_par_iter</span>(),
     }
 }</pre></div>
 <h3 id="futures-v03-requires-futures03-or-futures-crate-feature" class="section-header"><a href="#futures-v03-requires-futures03-or-futures-crate-feature">futures v0.3 <em>(requires <code>&quot;futures03&quot;</code> or <code>&quot;futures&quot;</code> crate feature)</em></a></h3>
@@ -657,7 +657,7 @@ Note that some traits have aliases.</p>
 <li><a href="https://docs.rs/tokio/0.1/tokio/io/trait.AsyncWrite.html"><code>tokio01::AsyncWrite</code></a></li>
 </ul>
 <h2 id="inherent-methods" class="section-header"><a href="#inherent-methods">Inherent methods</a></h2>
-<p>These don't derive traits, but derive inherent methods instead.</p>
+<p>These don’t derive traits, but derive inherent methods instead.</p>
 <ul>
 <li>
 <p><code>Transpose</code> <em>(requires <code>&quot;transpose_methods&quot;</code> crate feature)</em> - this derives the following conversion methods.</p>
@@ -673,14 +673,14 @@ Note that some traits have aliases.</p>
 <p>Examples:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">auto_enums</span>::<span class="ident">auto_enum</span>;
-<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">fs</span>, <span class="ident">io</span>, <span class="ident">path</span>::<span class="ident">Path</span>};
+<span class="kw">use</span> <span class="ident">auto_enums::auto_enum</span>;
+<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">fs</span>, <span class="ident">io</span>, <span class="ident">path::Path</span>};
 
 <span class="attribute">#[<span class="ident">auto_enum</span>(<span class="ident">Transpose</span>, <span class="ident">Write</span>)]</span>
-<span class="kw">fn</span> <span class="ident">output_stream</span>(<span class="ident">file</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Path</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw">impl</span> <span class="ident">io</span>::<span class="ident">Write</span><span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">output_stream</span>(<span class="ident">file</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Path</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io::Result</span><span class="op">&lt;</span><span class="kw">impl</span> <span class="ident">io::Write</span><span class="op">&gt;</span> {
     <span class="kw">match</span> <span class="ident">file</span> {
-        <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">fs</span>::<span class="ident">File</span>::<span class="ident">create</span>(<span class="ident">f</span>),
-        <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">io</span>::<span class="ident">stdout</span>()),
+        <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">fs::File::create</span>(<span class="ident">f</span>),
+        <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">io::stdout</span>()),
     }.<span class="ident">transpose_ok</span>()
 }</pre></div>
 </li>
@@ -694,22 +694,22 @@ Note that some traits have aliases.</p>
 <ul>
 <li><strong><code>std</code></strong> <em>(enabled by default)</em>
 <ul>
-<li>Enable to use <code>std</code> library's traits.</li>
+<li>Enable to use <code>std</code> library’s traits.</li>
 </ul>
 </li>
 <li><strong><code>ops</code></strong>
 <ul>
-<li>Enable to use <code>[std|core]::ops</code>'s <code>Deref</code>, <code>DerefMut</code>, <code>Index</code>, <code>IndexMut</code>, and <code>RangeBounds</code> traits.</li>
+<li>Enable to use <code>[std|core]::ops</code>’s <code>Deref</code>, <code>DerefMut</code>, <code>Index</code>, <code>IndexMut</code>, and <code>RangeBounds</code> traits.</li>
 </ul>
 </li>
 <li><strong><code>convert</code></strong>
 <ul>
-<li>Enable to use <code>[std|core]::convert</code>'s <code>AsRef</code> and <code>AsMut</code> traits.</li>
+<li>Enable to use <code>[std|core]::convert</code>’s <code>AsRef</code> and <code>AsMut</code> traits.</li>
 </ul>
 </li>
 <li><strong><code>fmt</code></strong>
 <ul>
-<li>Enable to use <code>[std|core]::fmt</code>'s traits other than <code>Debug</code>, <code>Display</code> and <code>Write</code>.</li>
+<li>Enable to use <code>[std|core]::fmt</code>’s traits other than <code>Debug</code>, <code>Display</code> and <code>Write</code>.</li>
 </ul>
 </li>
 <li><strong><code>transpose_methods</code></strong>
@@ -765,7 +765,7 @@ Note that some traits have aliases.</p>
 </li>
 <li><strong><code>fn_traits</code></strong>
 <ul>
-<li>Enable to use <code>[std|core]::ops</code>'s <code>Fn</code>, <code>FnMut</code>, and <code>FnOnce</code> traits.</li>
+<li>Enable to use <code>[std|core]::ops</code>’s <code>Fn</code>, <code>FnMut</code>, and <code>FnOnce</code> traits.</li>
 <li>Note that this feature is unstable and may cause incompatible changes between patch versions.</li>
 </ul>
 </li>
@@ -782,13 +782,13 @@ Note that some traits have aliases.</p>
 <p>Examples:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">auto_enums</span>::<span class="ident">auto_enum</span>;
+<span class="kw">use</span> <span class="ident">auto_enums::auto_enum</span>;
 
 <span class="attribute">#[<span class="ident">auto_enum</span>]</span> <span class="comment">// there is no need to specify std library&#39;s traits</span>
 <span class="kw">fn</span> <span class="ident">func1</span>(<span class="ident">x</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">i32</span><span class="op">&gt;</span> {
     <span class="kw">match</span> <span class="ident">x</span> {
         <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">1</span>..<span class="number">10</span>,
-        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="number">5</span>, <span class="number">10</span>].<span class="ident">into_iter</span>(),
+        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">vec!</span>[<span class="number">5</span>, <span class="number">10</span>].<span class="ident">into_iter</span>(),
     }
 }
 
@@ -811,5 +811,5 @@ Note that some traits have aliases.</p>
 <table><tr class="module-item"><td><a class="attr" href="attr.auto_enum.html" title="auto_enums::auto_enum attr">auto_enum</a></td><td class="docblock-short"><p>An attribute macro for to allow multiple return types by automatically generated enum.</p>
 </td></tr><tr class="module-item"><td><a class="attr" href="attr.enum_derive.html" title="auto_enums::enum_derive attr">enum_derive</a></td><td class="docblock-short"><p>An attribute macro like a wrapper of <code>#[derive]</code>, implementing
 the supported traits and passing unsupported traits to <code>#[derive]</code>.</p>
-</td></tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../" data-current-crate="auto_enums"></div>
-    <script src="../main.js"></script><script defer src="../search-index.js"></script></body></html>
+</td></tr></table></section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../" data-current-crate="auto_enums" data-search-index-js="../search-index.js" data-search-js="../search.js"></div>
+    <script src="../main.js"></script></body></html>
