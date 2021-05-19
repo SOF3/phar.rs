@@ -9,8 +9,7 @@ pub(crate) fn start_read_file(
     file: web_sys::File,
     link: &ComponentLink<super::Main>,
 ) -> anyhow::Result<ReaderTask> {
-    let mut srv = ReaderService::new();
-    let handle = srv.read_file(
+    let handle = ReaderService::read_file(
         file,
         link.callback(|data: FileData| {
             match Phar::read(
