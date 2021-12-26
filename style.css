@@ -1,0 +1,9 @@
+@import "https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css";
+.x-file-list {
+  max-width: 20em;
+}
+
+.x-raw-code-view, .x-raw-code-view code {
+  white-space: pre-wrap;
+  word-break: break-word;
+}

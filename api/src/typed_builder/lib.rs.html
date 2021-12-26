@@ -1,7 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/typed-builder-0.9.0/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings"></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg">
-<link rel="alternate icon" type="image/png" href="../../favicon-16x16.png">
-<link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../typed_builder/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button">?</button>
-                <a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `&#x2F;home&#x2F;runner&#x2F;.cargo&#x2F;registry&#x2F;src&#x2F;github.com-1ecc6299db9ec823&#x2F;typed-builder-0.9.1&#x2F;src&#x2F;lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
+    <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a class="sidebar-logo" href="../../typed_builder/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.png" alt="logo"></div>
+        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../typed_builder/index.html"><img class="rust-logo" src="../../rust-logo.png" alt="logo"></a><nav class="sub"><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -263,7 +262,23 @@
 <span id="260">260</span>
 <span id="261">261</span>
 <span id="262">262</span>
-</pre><pre class="rust">
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+</pre><pre class="rust"><code><span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">proc_macro</span>; <span class="comment">// Needed even though it&#39;s the 2018 edition. See https://github.com/idanarye/rust-typed-builder/issues/57.</span>
+
 <span class="kw">use</span> <span class="ident">proc_macro2::TokenStream</span>;
 
 <span class="kw">use</span> <span class="ident">syn::parse::Error</span>;
@@ -335,7 +350,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// - `doc`: enable documentation of the builder type. By default, the builder type is given</span>
 <span class="doccomment">///   `#[doc(hidden)]`, so that the `builder()` method will show `FooBuilder` as its return type,</span>
-<span class="doccomment">///   but it won’t be a link. If you turn this on, the builder type and its `build` method will get</span>
+<span class="doccomment">///   but it won&#39;t be a link. If you turn this on, the builder type and its `build` method will get</span>
 <span class="doccomment">///   sane defaults. The field methods on the builder will be undocumented by default.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// - `builder_method_doc = &quot;…&quot;` replaces the default documentation that will be generated for the</span>
@@ -351,6 +366,7 @@
 <span class="doccomment">///   fields and sets default options for fields of the type. If specific field need to revert some</span>
 <span class="doccomment">///   options to the default defaults they can prepend `!` to the option they need to revert, and</span>
 <span class="doccomment">///   it would ignore the field defaults for that option in that field.</span>
+<span class="doccomment">///</span>
 <span class="doccomment">///    ```</span>
 <span class="doccomment">///    use typed_builder::TypedBuilder;</span>
 <span class="doccomment">///</span>
@@ -367,7 +383,14 @@
 <span class="doccomment">///        // Defaults to Some(13), option-stripping is performed:</span>
 <span class="doccomment">///        #[builder(default = Some(13))]</span>
 <span class="doccomment">///        z: Option&lt;i32&gt;,</span>
+<span class="doccomment">///</span>
+<span class="doccomment">///        // Accepts params `(x: f32, y: f32)`</span>
+<span class="doccomment">///        #[builder(setter(!strip_option, transform = |x: f32, y: f32| Point { x, y }))]</span>
+<span class="doccomment">///        w: Point,</span>
 <span class="doccomment">///    }</span>
+<span class="doccomment">///</span>
+<span class="doccomment">///    #[derive(Default)]</span>
+<span class="doccomment">///    struct Point { x: f32, y: f32 }</span>
 <span class="doccomment">///    ```</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// On each **field**, the following values are permitted:</span>
@@ -385,7 +408,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// - `setter(...)`: settings for the field setters. The following values are permitted inside:</span>
 <span class="doccomment">///</span>
-<span class="doccomment">///   - `doc = &quot;…&quot;`: sets the documentation for the field’s setter on the builder type. This will be</span>
+<span class="doccomment">///   - `doc = &quot;…&quot;`: sets the documentation for the field&#39;s setter on the builder type. This will be</span>
 <span class="doccomment">///     of no value unless you enable docs for the builder type with `#[builder(doc)]` or similar on</span>
 <span class="doccomment">///     the type.</span>
 <span class="doccomment">///</span>
@@ -400,19 +423,24 @@
 <span class="doccomment">///     `Some(...)`, relieving the caller from having to do this. Note that with this setting on</span>
 <span class="doccomment">///     one cannot set the field to `None` with the setter - so the only way to get it to be `None`</span>
 <span class="doccomment">///     is by using `#[builder(default)]` and not calling the field&#39;s setter.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">///   - `transform = |param1: Type1, param2: Type2 ...| expr`: this makes the setter accept</span>
+<span class="doccomment">///     `param1: Type1, param2: Type2 ...` instead of the field type itself. The parameters are</span>
+<span class="doccomment">///     transformed into the field type using the expression `expr`. The transormation is performed</span>
+<span class="doccomment">///     when the setter is called.</span>
 <span class="attribute">#[<span class="ident">proc_macro_derive</span>(<span class="ident">TypedBuilder</span>, <span class="ident">attributes</span>(<span class="ident">builder</span>))]</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">derive_typed_builder</span>(<span class="ident">input</span>: <span class="ident">proc_macro::TokenStream</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">proc_macro::TokenStream</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">derive_typed_builder</span>(<span class="ident">input</span>: <span class="ident">proc_macro::TokenStream</span>) -&gt; <span class="ident">proc_macro::TokenStream</span> {
     <span class="kw">let</span> <span class="ident">input</span> <span class="op">=</span> <span class="macro">parse_macro_input!</span>(<span class="ident">input</span> <span class="kw">as</span> <span class="ident">DeriveInput</span>);
     <span class="kw">match</span> <span class="ident">impl_my_derive</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>) {
-        <span class="prelude-val">Ok</span>(<span class="ident">output</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">output</span>.<span class="ident">into</span>(),
-        <span class="prelude-val">Err</span>(<span class="ident">error</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">error</span>.<span class="ident">to_compile_error</span>().<span class="ident">into</span>(),
+        <span class="prelude-val">Ok</span>(<span class="ident">output</span>) =&gt; <span class="ident">output</span>.<span class="ident">into</span>(),
+        <span class="prelude-val">Err</span>(<span class="ident">error</span>) =&gt; <span class="ident">error</span>.<span class="ident">to_compile_error</span>().<span class="ident">into</span>(),
     }
 }
 
-<span class="kw">fn</span> <span class="ident">impl_my_derive</span>(<span class="ident">ast</span>: <span class="kw-2">&amp;</span><span class="ident">syn::DeriveInput</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">TokenStream</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">impl_my_derive</span>(<span class="ident">ast</span>: <span class="kw-2">&amp;</span><span class="ident">syn::DeriveInput</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">TokenStream</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="ident">ast</span>.<span class="ident">data</span> {
-        <span class="ident">syn::Data::Struct</span>(<span class="ident">data</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="ident">data</span>.<span class="ident">fields</span> {
-            <span class="ident">syn::Fields::Named</span>(<span class="ident">fields</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">syn::Data::Struct</span>(<span class="ident">data</span>) =&gt; <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="ident">data</span>.<span class="ident">fields</span> {
+            <span class="ident">syn::Fields::Named</span>(<span class="ident">fields</span>) =&gt; {
                 <span class="kw">let</span> <span class="ident">struct_info</span> <span class="op">=</span> <span class="ident">struct_info::StructInfo::new</span>(<span class="kw-2">&amp;</span><span class="ident">ast</span>, <span class="ident">fields</span>.<span class="ident">named</span>.<span class="ident">iter</span>())<span class="question-mark">?</span>;
                 <span class="kw">let</span> <span class="ident">builder_creation</span> <span class="op">=</span> <span class="ident">struct_info</span>.<span class="ident">builder_creation_impl</span>()<span class="question-mark">?</span>;
                 <span class="kw">let</span> <span class="ident">conversion_helper</span> <span class="op">=</span> <span class="ident">struct_info</span>.<span class="ident">conversion_helper_impl</span>()<span class="question-mark">?</span>;
@@ -436,21 +464,21 @@
                     #<span class="ident">build_method</span>
                 }
             }
-            <span class="ident">syn::Fields::Unnamed</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error::new</span>(<span class="ident">ast</span>.<span class="ident">span</span>(), <span class="string">&quot;TypedBuilder is not supported for tuple structs&quot;</span>)),
-            <span class="ident">syn::Fields::Unit</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error::new</span>(<span class="ident">ast</span>.<span class="ident">span</span>(), <span class="string">&quot;TypedBuilder is not supported for unit structs&quot;</span>)),
+            <span class="ident">syn::Fields::Unnamed</span>(<span class="kw">_</span>) =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error::new</span>(<span class="ident">ast</span>.<span class="ident">span</span>(), <span class="string">&quot;TypedBuilder is not supported for tuple structs&quot;</span>)),
+            <span class="ident">syn::Fields::Unit</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error::new</span>(<span class="ident">ast</span>.<span class="ident">span</span>(), <span class="string">&quot;TypedBuilder is not supported for unit structs&quot;</span>)),
         },
-        <span class="ident">syn::Data::Enum</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error::new</span>(<span class="ident">ast</span>.<span class="ident">span</span>(), <span class="string">&quot;TypedBuilder is not supported for enums&quot;</span>)),
-        <span class="ident">syn::Data::Union</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error::new</span>(<span class="ident">ast</span>.<span class="ident">span</span>(), <span class="string">&quot;TypedBuilder is not supported for unions&quot;</span>)),
+        <span class="ident">syn::Data::Enum</span>(<span class="kw">_</span>) =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error::new</span>(<span class="ident">ast</span>.<span class="ident">span</span>(), <span class="string">&quot;TypedBuilder is not supported for enums&quot;</span>)),
+        <span class="ident">syn::Data::Union</span>(<span class="kw">_</span>) =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error::new</span>(<span class="ident">ast</span>.<span class="ident">span</span>(), <span class="string">&quot;TypedBuilder is not supported for unions&quot;</span>)),
     };
     <span class="prelude-val">Ok</span>(<span class="ident">data</span>)
 }
 
-<span class="comment">// It’d be nice for the compilation tests to live in tests/ with the rest, but short of pulling in</span>
+<span class="comment">// It&#39;d be nice for the compilation tests to live in tests/ with the rest, but short of pulling in</span>
 <span class="comment">// some other test runner for that purpose (e.g. compiletest_rs), rustdoc compile_fail in this</span>
 <span class="comment">// crate is all we can use.</span>
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="doccomment">/// When a property is skipped, you can’t set it:</span>
+<span class="doccomment">/// When a property is skipped, you can&#39;t set it:</span>
 <span class="doccomment">/// (“method `y` not found for this”)</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```compile_fail</span>
@@ -526,6 +554,6 @@
 <span class="doccomment">/// let _ = Foo::builder().x(Uncloneable).clone();</span>
 <span class="doccomment">/// ```</span>
 <span class="kw">fn</span> <span class="ident">_compile_fail_tests</span>() {}
-</pre></div>
-</section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="typed_builder" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
-    <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script></body></html>
+</code></pre></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="typed_builder" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.59.0-nightly (51e8031e1 2021-12-25)" ></div>
+</body></html>

@@ -1,7 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/read/reader.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>reader.rs - source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled ><script id="default-settings"></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
-<link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png">
-<link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../phar/index.html'><div class='logo-container rust-logo'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button">?</button>
-                <a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src&#x2F;read&#x2F;reader.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>reader.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><script defer src="../../../main.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script>
+    <noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a class="sidebar-logo" href="../../../phar/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.png" alt="logo"></div>
+        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../phar/index.html"><img class="rust-logo" src="../../../rust-logo.png" alt="logo"></a><nav class="sub"><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -216,18 +215,17 @@
 <span id="213">213</span>
 <span id="214">214</span>
 <span id="215">215</span>
-</pre><pre class="rust">
-<span class="kw">use</span> <span class="ident">std::io</span>::{<span class="ident">Error</span>, <span class="ident">ErrorKind</span>, <span class="ident">Read</span>, <span class="prelude-ty">Result</span>, <span class="ident">Seek</span>, <span class="ident">SeekFrom</span>};
+</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std::io</span>::{<span class="ident">Error</span>, <span class="ident">ErrorKind</span>, <span class="ident">Read</span>, <span class="prelude-ty">Result</span>, <span class="ident">Seek</span>, <span class="ident">SeekFrom</span>};
 
 <span class="kw">use</span> <span class="ident">byteorder</span>::{<span class="ident">LittleEndian</span>, <span class="ident">ReadBytesExt</span>};
 <span class="kw">use</span> <span class="ident">shallow_tees::ShallowTees</span>;
 <span class="kw">use</span> <span class="ident">takes::Ext</span>;
 <span class="kw">use</span> <span class="ident">typed_builder::TypedBuilder</span>;
 
-<span class="kw">use</span> <span class="kw">super</span><span class="ident">::util::read_find_bstr</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">super</span>::util::read_find_bstr</span>;
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">index</span>, <span class="ident">Entry</span>, <span class="ident">FileIndex</span>, <span class="ident">Section</span>};
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::signature</span>::{<span class="self">self</span>, <span class="ident">Signature</span>};
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::util</span>::{<span class="ident">tell</span>, <span class="ident">PHAR_TERMINATOR</span>, <span class="ident">STUB_TERMINATOR</span>};
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::signature</span>::{<span class="self">self</span>, <span class="ident">Signature</span>};
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::util</span>::{<span class="ident">tell</span>, <span class="ident">PHAR_TERMINATOR</span>, <span class="ident">STUB_TERMINATOR</span>};
 
 <span class="doccomment">/// The metadata of a phar file.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
@@ -249,14 +247,14 @@
     <span class="doccomment">/// This optionally validates the signature.</span>
     <span class="doccomment">/// Stub, metadata and file metadata are not fully validated,</span>
     <span class="doccomment">/// and may not be saved in memory depending on `options`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">read</span>(<span class="kw-2">mut</span> <span class="ident">read</span>: <span class="ident">R</span>, <span class="ident">options</span>: <span class="ident">Options</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">read</span>(<span class="kw-2">mut</span> <span class="ident">read</span>: <span class="ident">R</span>, <span class="ident">options</span>: <span class="ident">Options</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">expected_sig</span> <span class="op">=</span> <span class="prelude-val">None</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">sig_offset</span> <span class="op">=</span> <span class="prelude-val">None</span>;
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">sig</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">options</span>.<span class="ident">verify_signature</span> {
             <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">read</span>.<span class="ident">seek</span>(<span class="ident">SeekFrom::End</span>(<span class="op">-</span><span class="number">4</span>))<span class="question-mark">?</span>;
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">gbmb</span> <span class="op">=</span> [<span class="number">0u8</span>; <span class="number">4</span>];
-            <span class="ident">read</span>.<span class="ident">read_exact</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gbmb</span>[..])<span class="question-mark">?</span>;
+            <span class="ident">read</span>.<span class="ident">read_exact</span>(<span class="kw-2">&amp;mut</span> <span class="ident">gbmb</span>[..])<span class="question-mark">?</span>;
             <span class="kw">if</span> <span class="ident">gbmb</span> <span class="op">!</span><span class="op">=</span> <span class="ident">PHAR_TERMINATOR</span> {
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error::new</span>(<span class="ident">ErrorKind::Other</span>, <span class="string">&quot;corrupted file&quot;</span>));
             }
@@ -273,7 +271,7 @@
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">expect</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="number">0u8</span>; <span class="ident">sig</span>.<span class="ident">size</span>().<span class="ident">into</span>()];
             <span class="kw">let</span> <span class="ident">offset</span> <span class="op">=</span> <span class="ident">read</span>.<span class="ident">seek</span>(<span class="ident">SeekFrom::End</span>(<span class="op">-</span><span class="number">8i64</span> <span class="op">-</span> <span class="ident">i64::from</span>(<span class="ident">sig</span>.<span class="ident">size</span>())))<span class="question-mark">?</span>;
             <span class="ident">sig_offset</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">offset</span>);
-            <span class="ident">read</span>.<span class="ident">read_exact</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">expect</span>[..])<span class="question-mark">?</span>;
+            <span class="ident">read</span>.<span class="ident">read_exact</span>(<span class="kw-2">&amp;mut</span> <span class="ident">expect</span>[..])<span class="question-mark">?</span>;
             <span class="ident">expected_sig</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">expect</span>);
 
             <span class="ident">signature::MaybeDummy::Real</span>(<span class="ident">sig</span>)
@@ -283,46 +281,46 @@
 
         <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">read</span>.<span class="ident">seek</span>(<span class="ident">SeekFrom::Start</span>(<span class="number">0</span>))<span class="question-mark">?</span>;
 
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">tee</span> <span class="op">=</span> <span class="ident">ShallowTees::new</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">read</span>, <span class="ident">sig</span>.<span class="ident">write</span>());
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">tee</span> <span class="op">=</span> <span class="ident">ShallowTees::new</span>(<span class="kw-2">&amp;mut</span> <span class="ident">read</span>, <span class="ident">sig</span>.<span class="ident">write</span>());
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">stub</span> <span class="op">=</span> <span class="ident">Section::create</span>(<span class="ident">options</span>.<span class="ident">cache_stub</span>, <span class="number">0</span>);
-        <span class="ident">read_find_bstr</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">tee</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">stub</span>, <span class="ident">STUB_TERMINATOR</span>)<span class="question-mark">?</span>;
+        <span class="ident">read_find_bstr</span>(<span class="kw-2">&amp;mut</span> <span class="ident">tee</span>, <span class="kw-2">&amp;mut</span> <span class="ident">stub</span>, <span class="ident">STUB_TERMINATOR</span>)<span class="question-mark">?</span>;
 
         <span class="kw">let</span> <span class="ident">manifest_size</span> <span class="op">=</span> <span class="ident">tee</span>.<span class="ident">read_u32</span>::<span class="op">&lt;</span><span class="ident">LittleEndian</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">manifest</span> <span class="op">=</span> (<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">tee</span>).<span class="ident">takes</span>(<span class="ident">manifest_size</span>.<span class="ident">into</span>())<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">manifest</span> <span class="op">=</span> (<span class="kw-2">&amp;mut</span> <span class="ident">tee</span>).<span class="ident">takes</span>(<span class="ident">manifest_size</span>.<span class="ident">into</span>())<span class="question-mark">?</span>;
 
         <span class="kw">let</span> <span class="ident">num_files</span> <span class="op">=</span> <span class="ident">manifest</span>.<span class="ident">read_u32</span>::<span class="op">&lt;</span><span class="ident">LittleEndian</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
         <span class="kw">let</span> <span class="ident">api</span> <span class="op">=</span> <span class="ident">manifest</span>.<span class="ident">read_u16</span>::<span class="op">&lt;</span><span class="ident">LittleEndian</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
         <span class="kw">let</span> <span class="ident">flags</span> <span class="op">=</span> <span class="ident">manifest</span>.<span class="ident">read_u32</span>::<span class="op">&lt;</span><span class="ident">LittleEndian</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
 
         <span class="kw">let</span> <span class="ident">alias_len</span> <span class="op">=</span> <span class="ident">manifest</span>.<span class="ident">read_u32</span>::<span class="op">&lt;</span><span class="ident">LittleEndian</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">alias</span> <span class="op">=</span> <span class="ident">Section::create</span>(<span class="ident">options</span>.<span class="ident">cache_alias</span>, <span class="ident">tell</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">manifest</span>)<span class="question-mark">?</span>);
-        <span class="ident">alias</span>.<span class="ident">from_read</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">manifest</span>, <span class="ident">alias_len</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">alias</span> <span class="op">=</span> <span class="ident">Section::create</span>(<span class="ident">options</span>.<span class="ident">cache_alias</span>, <span class="ident">tell</span>(<span class="kw-2">&amp;mut</span> <span class="ident">manifest</span>)<span class="question-mark">?</span>);
+        <span class="ident">alias</span>.<span class="ident">from_read</span>(<span class="kw-2">&amp;mut</span> <span class="ident">manifest</span>, <span class="ident">alias_len</span>)<span class="question-mark">?</span>;
 
         <span class="kw">let</span> <span class="ident">metadata_len</span> <span class="op">=</span> <span class="ident">manifest</span>.<span class="ident">read_u32</span>::<span class="op">&lt;</span><span class="ident">LittleEndian</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">metadata</span> <span class="op">=</span> <span class="ident">Section::create</span>(<span class="ident">options</span>.<span class="ident">cache_metadata</span>, <span class="ident">tell</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">manifest</span>)<span class="question-mark">?</span>);
-        <span class="ident">metadata</span>.<span class="ident">from_read</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">manifest</span>, <span class="ident">metadata_len</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">metadata</span> <span class="op">=</span> <span class="ident">Section::create</span>(<span class="ident">options</span>.<span class="ident">cache_metadata</span>, <span class="ident">tell</span>(<span class="kw-2">&amp;mut</span> <span class="ident">manifest</span>)<span class="question-mark">?</span>);
+        <span class="ident">metadata</span>.<span class="ident">from_read</span>(<span class="kw-2">&amp;mut</span> <span class="ident">manifest</span>, <span class="ident">metadata_len</span>)<span class="question-mark">?</span>;
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">file_index</span> <span class="op">=</span> <span class="ident">FileIndexT::default</span>();
         <span class="kw">if</span> <span class="ident">FileIndexT::scan_files</span>() {
             <span class="kw">for</span> <span class="kw">_</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">num_files</span> {
-                <span class="kw">let</span> <span class="ident">start</span> <span class="op">=</span> <span class="ident">tell</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">manifest</span>)<span class="question-mark">?</span>;
+                <span class="kw">let</span> <span class="ident">start</span> <span class="op">=</span> <span class="ident">tell</span>(<span class="kw-2">&amp;mut</span> <span class="ident">manifest</span>)<span class="question-mark">?</span>;
                 <span class="kw">let</span> <span class="ident">entry</span> <span class="op">=</span> <span class="ident">Entry::parse</span>(
-                    <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">manifest</span>,
+                    <span class="kw-2">&amp;mut</span> <span class="ident">manifest</span>,
                     <span class="ident">FileIndexT::requires_name</span>(),
                     <span class="ident">FileIndexT::requires_metadata</span>(),
                 )<span class="question-mark">?</span>;
                 <span class="ident">file_index</span>.<span class="ident">feed_entry</span>(<span class="ident">start</span>, <span class="ident">entry</span>)<span class="question-mark">?</span>;
             }
         }
-        <span class="ident">file_index</span>.<span class="ident">end_of_header</span>(<span class="ident">tell</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">manifest</span>)<span class="question-mark">?</span>);
+        <span class="ident">file_index</span>.<span class="ident">end_of_header</span>(<span class="ident">tell</span>(<span class="kw-2">&amp;mut</span> <span class="ident">manifest</span>)<span class="question-mark">?</span>);
 
         <span class="kw">if</span> <span class="kw">let</span> (<span class="prelude-val">Some</span>(<span class="ident">expected_sig</span>), <span class="prelude-val">Some</span>(<span class="ident">sig_offset</span>)) <span class="op">=</span> (<span class="ident">expected_sig</span>, <span class="ident">sig_offset</span>) {
             <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">tee</span>.<span class="ident">seek</span>(<span class="ident">SeekFrom::Start</span>(<span class="ident">sig_offset</span>))<span class="question-mark">?</span>;
             <span class="ident">drop</span>(<span class="ident">tee</span>);
             <span class="kw">let</span> <span class="ident">sig</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">sig</span> {
-                <span class="ident">signature::MaybeDummy::Real</span>(<span class="ident">sig</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">sig</span>,
-                <span class="ident">signature::MaybeDummy::Dummy</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">signature::MaybeDummy::Real</span>(<span class="ident">sig</span>) =&gt; <span class="ident">sig</span>,
+                <span class="ident">signature::MaybeDummy::Dummy</span>(<span class="kw">_</span>) =&gt; {
                     <span class="macro">unreachable!</span>(<span class="string">&quot;expected_sig, sig_offset should be None&quot;</span>)
                 }
             };
@@ -350,13 +348,13 @@
     <span class="doccomment">/// If the stub was previously not stored in memory, it is stored in a new Vec.</span>
     <span class="doccomment">/// Consider using `stub_read()` instead if `cache_stub` is false</span>
     <span class="doccomment">/// and storing the stub in memory is not intended.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stub_bytes</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">stub</span>.<span class="ident">as_memory</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">stream</span>)
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stub_bytes</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
+        <span class="self">self</span>.<span class="ident">stub</span>.<span class="ident">as_memory</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">stream</span>)
     }
 
     <span class="doccomment">/// Returns the stub as an `io::Read`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stub_read</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw">impl</span> <span class="ident">Read</span> <span class="op">+</span> <span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">stub</span>.<span class="ident">as_read</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">stream</span>)
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stub_read</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw">impl</span> <span class="ident">Read</span> <span class="op">+</span> <span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
+        <span class="self">self</span>.<span class="ident">stub</span>.<span class="ident">as_read</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">stream</span>)
     }
 
     <span class="doccomment">/// Returns the metadata as a slice.</span>
@@ -364,33 +362,33 @@
     <span class="doccomment">/// If the metadata was previously not stored in memory, it is stored in a new Vec.</span>
     <span class="doccomment">/// Consider using `metadata_read()` instead if `cache_metadata` is false</span>
     <span class="doccomment">/// and storing the metadata in memory is not intended.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">metadata_bytes</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">metadata</span>.<span class="ident">as_memory</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">stream</span>)
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">metadata_bytes</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
+        <span class="self">self</span>.<span class="ident">metadata</span>.<span class="ident">as_memory</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">stream</span>)
     }
 
     <span class="doccomment">/// Returns the metadata as an `io::Read`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">metadata_read</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw">impl</span> <span class="ident">Read</span> <span class="op">+</span> <span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">metadata</span>.<span class="ident">as_read</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">stream</span>)
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">metadata_read</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw">impl</span> <span class="ident">Read</span> <span class="op">+</span> <span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
+        <span class="self">self</span>.<span class="ident">metadata</span>.<span class="ident">as_read</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">stream</span>)
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">Read</span> <span class="op">+</span> <span class="ident">Seek</span>, <span class="ident">FileIndexT</span>: <span class="ident">index::Iterable</span><span class="op">&gt;</span> <span class="ident">Reader</span><span class="op">&lt;</span><span class="ident">R</span>, <span class="ident">FileIndexT</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Iterates over the files in this archive.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">for_each_file</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">for_each_file</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>
     <span class="kw">where</span>
-        <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span>[<span class="ident">u8</span>], <span class="kw-2">&amp;</span><span class="kw-2">mut</span> (<span class="kw">dyn</span> <span class="ident">Read</span>)) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>,
+        <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span>[<span class="ident">u8</span>], <span class="kw-2">&amp;mut</span> (<span class="kw">dyn</span> <span class="ident">Read</span>)) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>,
     {
-        <span class="self">self</span>.<span class="ident">file_index</span>.<span class="ident">for_each_file</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">stream</span>, <span class="ident">f</span>)
+        <span class="self">self</span>.<span class="ident">file_index</span>.<span class="ident">for_each_file</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">stream</span>, <span class="ident">f</span>)
     }
 
     <span class="doccomment">/// Iterates over the files in this archive and fold return values.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">for_each_file_fold</span><span class="op">&lt;</span><span class="ident">F</span>, <span class="ident">G</span>, <span class="ident">T</span>, <span class="ident">U</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>, <span class="ident">fold</span>: <span class="ident">G</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">for_each_file_fold</span><span class="op">&lt;</span><span class="ident">F</span>, <span class="ident">G</span>, <span class="ident">T</span>, <span class="ident">U</span><span class="op">&gt;</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>, <span class="ident">fold</span>: <span class="ident">G</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>
     <span class="kw">where</span>
-        <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span>[<span class="ident">u8</span>], <span class="kw-2">&amp;</span><span class="kw-2">mut</span> (<span class="kw">dyn</span> <span class="ident">Read</span>)) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">U</span><span class="op">&gt;</span>,
-        <span class="ident">G</span>: <span class="ident">FnMut</span>(<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">U</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span>,
+        <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span>[<span class="ident">u8</span>], <span class="kw-2">&amp;mut</span> (<span class="kw">dyn</span> <span class="ident">Read</span>)) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">U</span><span class="op">&gt;</span>,
+        <span class="ident">G</span>: <span class="ident">FnMut</span>(<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">U</span>) -&gt; <span class="ident">T</span>,
     {
         <span class="self">self</span>.<span class="ident">file_index</span>
-            .<span class="ident">for_each_file_fold</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">stream</span>, <span class="ident">f</span>, <span class="ident">fold</span>)
+            .<span class="ident">for_each_file_fold</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">stream</span>, <span class="ident">f</span>, <span class="ident">fold</span>)
     }
 }
 
@@ -432,6 +430,6 @@
     <span class="attribute">#[<span class="ident">builder</span>(<span class="ident">default</span> <span class="op">=</span> <span class="bool-val">true</span>)]</span>
     <span class="ident">verify_signature</span>: <span class="ident">bool</span>,
 }
-</pre></div>
-</section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="phar" data-search-index-js="../../../search-index.js" data-search-js="../../../search.js"></div>
-    <script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script></body></html>
+</code></pre></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="phar" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.59.0-nightly (51e8031e1 2021-12-25)" ></div>
+</body></html>
