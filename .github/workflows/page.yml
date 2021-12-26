@@ -16,10 +16,8 @@ jobs:
         with:
           toolchain: nightly
           default: true
-      - run: cargo install wasm-pack
-      - run: npm install
-        working-directory: web
-      - run: npm run build
+      - run: cargo install trunk
+      - run: trunk build trunk-release.html
         working-directory: web
       - run: cargo doc --features docsrs
       - run: rm -r pages/*
