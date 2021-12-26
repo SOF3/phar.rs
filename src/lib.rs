@@ -6,7 +6,6 @@
     clippy::checked_conversions,
     clippy::needless_borrow,
     clippy::shadow_unrelated,
-    clippy::wrong_pub_self_convention
 )]
 #![deny(
     anonymous_parameters,
