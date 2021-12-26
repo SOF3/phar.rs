@@ -16,6 +16,7 @@ jobs:
         with:
           toolchain: nightly
           default: true
+          target: wasm32-unknown-unknown
       - run: cargo install trunk
       - run: trunk build trunk-release.html
         working-directory: web
