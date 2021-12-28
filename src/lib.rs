@@ -5,7 +5,7 @@
     variant_size_differences,
     clippy::checked_conversions,
     clippy::needless_borrow,
-    clippy::shadow_unrelated,
+    clippy::shadow_unrelated
 )]
 #![deny(
     anonymous_parameters,

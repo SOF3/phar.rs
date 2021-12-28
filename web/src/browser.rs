@@ -19,6 +19,29 @@ impl Component for Comp {
 
     fn update(&mut self, ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
+            Msg::OpenStub | Msg::OpenMetadata => {
+                let contents = {
+                    let mut reader = ctx.props().reader.borrow();
+
+                    match msg {
+                        Msg::OpenStub => reader.stub_bytes().unwrap().as_ref().to_vec(),
+                        Msg::OpenMetadata => reader.metadata_bytes().unwrap().as_ref().to_vec(),
+                        _ => unreachable!(),
+                    }
+                };
+
+                self.file_selected = Some(FileSelected {
+                    name: match msg {
+                        Msg::OpenStub => &b"Stub"[..],
+                        Msg::OpenMetadata => b"Metadata",
+                        _ => unreachable!(),
+                    }
+                    .to_vec(),
+                    contents,
+                });
+
+                true
+            }
             Msg::OpenFile(path) => {
                 let mut contents = None;
 
@@ -79,6 +102,8 @@ impl Component for Comp {
                     <aside class="menu x-file-list">
                         <file_list::Comp
                             reader={ctx.props().reader.clone()}
+                            open_stub={ctx.link().callback(|()| Msg::OpenStub)}
+                            open_metadata={ctx.link().callback(|()| Msg::OpenMetadata)}
                             open_file={ctx.link().callback(Msg::OpenFile)}
                             />
                     </aside>
@@ -90,6 +115,8 @@ impl Component for Comp {
 }
 
 pub enum Msg {
+    OpenStub,
+    OpenMetadata,
     OpenFile(Vec<u8>),
 }
 
