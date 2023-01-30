@@ -31,7 +31,7 @@ sha2 = {version = "0.10.2", optional = true}
 shallow-tees = "0.1.1"
 smallvec = "1.6.1"
 takes = "0.1.0"
-typed-builder = "0.11.0"
+typed-builder = "0.12.0"
 walkdir = "2.3.1"
 
 [features]
